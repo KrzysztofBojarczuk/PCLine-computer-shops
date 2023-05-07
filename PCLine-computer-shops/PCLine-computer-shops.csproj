@@ -19,13 +19,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="AutoMapper\" />
-    <Folder Include="Data\" />
-    <Folder Include="Models\" />
-    <Folder Include="InterfaceReposiotry\" />
-    <Folder Include="Dtos\" />
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>
