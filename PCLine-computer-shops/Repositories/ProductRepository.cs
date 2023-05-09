@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using PCLine_computer_shops.Data;
 using PCLine_computer_shops.InterfaceReposiotry;
 using PCLine_computer_shops.Models;
@@ -15,9 +16,18 @@ namespace PCLine_computer_shops.Repositories
         {
             _context = context;
         }
-        public async Task<ICollection<Product>> GetAllProducts()
+        public async Task<ICollection<Product>> GetAllProducts(string searchString)
         {
-            return await _context.Products.ToListAsync();
+
+            var query = await _context.Products.ToListAsync();
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                query = query.Where(x => x.Name.Contains(searchString)).ToList();
+            }
+
+            return query;
         }
         public async Task<Product> CreateProduct(Product product)
         {

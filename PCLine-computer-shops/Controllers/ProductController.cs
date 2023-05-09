@@ -22,9 +22,9 @@ namespace PCLine_computer_shops.Controllers
         }
 
         [HttpGet("Get")]
-        public async Task<IActionResult> GetAllProducts()
+        public async Task<IActionResult> GetAllProducts([FromQuery] string searchString = "")
         {
-            var products = await _productRepository.GetAllProducts();
+            var products = await _productRepository.GetAllProducts(searchString);
 
             var productstGet = _mapper.Map<List<ProductGetDto>>(products);
 
