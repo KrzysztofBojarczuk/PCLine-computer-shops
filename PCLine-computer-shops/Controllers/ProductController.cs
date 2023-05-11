@@ -46,10 +46,19 @@ namespace PCLine_computer_shops.Controllers
             var product = await _productRepository.GetProductById(id);
             if (product == null)
             {
-                return NotFound("gg");
+                return NotFound();
             }
             var productGet = _mapper.Map<ProductGetDto>(product);
             return Ok(productGet);
         }
+        [HttpPut("Put/id")]
+        public async Task<IActionResult> UpdateProduct([FromBody] ProductCreateDto productUpdate,int id)
+        {
+            var toUpdateProduct = _mapper.Map<Product>(productUpdate);
+            toUpdateProduct.Id = id;
+            await _productRepository.UpdateProduct(toUpdateProduct);
+            return NoContent();
+        }
+
     }
 }
