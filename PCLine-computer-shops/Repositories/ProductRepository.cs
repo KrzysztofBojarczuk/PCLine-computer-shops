@@ -44,5 +44,12 @@ namespace PCLine_computer_shops.Repositories
             }
             return product;
         }
+
+        public async Task<Product> UpdateProduct(Product updateProduct)
+        {
+            _context.Products.Update(updateProduct);
+            await _context.SaveChangesAsync();
+            return updateProduct;
+        }
     }
 }
