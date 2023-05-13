@@ -25,9 +25,8 @@ namespace PCLine_computer_shops.Controllers
         public async Task<IActionResult> GetAllProducts([FromQuery] string searchString = "")
         {
             var products = await _productRepository.GetAllProducts(searchString);
-
             var productstGet = _mapper.Map<List<ProductGetDto>>(products);
-
+          
             return Ok(productstGet);
         }
 
@@ -37,6 +36,7 @@ namespace PCLine_computer_shops.Controllers
             var productCreate = _mapper.Map<Product>(product);
             await _productRepository.CreateProduct(productCreate);
             var productGet = _mapper.Map<ProductGetDto>(productCreate);
+           
             return CreatedAtAction(nameof(ProductByIdGet), new { id = productCreate.Id }, productGet);
         }
 
@@ -49,6 +49,7 @@ namespace PCLine_computer_shops.Controllers
                 return NotFound();
             }
             var productGet = _mapper.Map<ProductGetDto>(product);
+           
             return Ok(productGet);
         }
         [HttpPut("Put/id")]
@@ -57,6 +58,19 @@ namespace PCLine_computer_shops.Controllers
             var toUpdateProduct = _mapper.Map<Product>(productUpdate);
             toUpdateProduct.Id = id;
             await _productRepository.UpdateProduct(toUpdateProduct);
+           
+            return NoContent();
+        }
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var deleteProduct = await _productRepository.DeleteProduct(id);
+
+            if (deleteProduct == null)
+            {
+                return NotFound();
+            }
+
             return NoContent();
         }
 
