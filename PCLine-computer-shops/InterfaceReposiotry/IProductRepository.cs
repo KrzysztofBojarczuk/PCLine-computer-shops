@@ -8,6 +8,6 @@ namespace PCLine_computer_shops.InterfaceReposiotry
         Task<Product> CreateProduct(Product product);
         Task<Product> GetProductById(int id);
         Task<Product> UpdateProduct(Product updateProduct);
-
+        Task<Product> DeleteProduct(int id);
     }
 }

@@ -18,9 +18,7 @@ namespace PCLine_computer_shops.Repositories
         }
         public async Task<ICollection<Product>> GetAllProducts(string searchString)
         {
-
             var query = await _context.Products.ToListAsync();
-
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -33,6 +31,7 @@ namespace PCLine_computer_shops.Repositories
         {
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
+           
             return product;
         }
         public async Task<Product> GetProductById(int id)
@@ -42,6 +41,7 @@ namespace PCLine_computer_shops.Repositories
             {
                 return null;
             }
+            
             return product;
         }
 
@@ -49,7 +49,23 @@ namespace PCLine_computer_shops.Repositories
         {
             _context.Products.Update(updateProduct);
             await _context.SaveChangesAsync();
+           
             return updateProduct;
+        }
+
+        public async Task<Product> DeleteProduct(int id)
+        {
+            var product = await _context.Products.FirstOrDefaultAsync(h => h.Id == id);
+            
+            if (product == null)
+            {
+                return null;
+            }
+
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+           
+            return product;
         }
     }
 }
