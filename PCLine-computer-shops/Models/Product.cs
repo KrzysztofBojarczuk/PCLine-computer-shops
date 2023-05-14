@@ -6,5 +6,7 @@
         public string? Name { get; set; }
         public decimal Price { get; set; }
         public int Amount { get; set; }
+        public required bool IsAvailable { get; set; }
+        public List<OrderProduct> OrderProducts { get; set; }
     }
 }
