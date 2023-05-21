@@ -1,4 +1,6 @@
-﻿namespace PCLine_computer_shops.Models
+﻿using PCLine_computer_shops.Enums;
+
+namespace PCLine_computer_shops.Models
 {
     public class Employee
     {
@@ -7,5 +9,6 @@
         public string LastName { get; set; } 
         public string Position { get; set; } 
         public decimal Salary { get; set; }
+        public EmployeePosition EmployeePosition { get; set; }
     }
 }
