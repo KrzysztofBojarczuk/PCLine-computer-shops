@@ -6,5 +6,6 @@
         public string Name { get; set; }
         public DateTime StarthDate { get; set; }
         public ICollection<Review> Reviews { get; set; }
+        public ICollection<Employee> Employees { get; set; }
     }
 }
