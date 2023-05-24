@@ -10,5 +10,7 @@ namespace PCLine_computer_shops.Models
         public string Position { get; set; } 
         public decimal Salary { get; set; }
         public EmployeePosition EmployeePosition { get; set; }
+        public int ShopId { get; set; }
+        public Shop Shop { get; set; }
     }
 }
