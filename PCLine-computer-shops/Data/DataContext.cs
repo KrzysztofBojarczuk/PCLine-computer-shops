@@ -9,5 +9,6 @@ namespace PCLine_computer_shops.Data
             {
             }
             public DbSet<Product> Products { get; set; }      
+            public DbSet<Shop> Shops { get; set; }
     }
 }
