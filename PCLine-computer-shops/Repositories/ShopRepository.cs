@@ -2,5 +2,8 @@
 {
     public class ShopRepository
     {
+        public ShopRepository()
+        {
+        }
     }
 }
