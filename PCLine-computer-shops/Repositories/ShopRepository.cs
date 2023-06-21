@@ -5,8 +5,10 @@ namespace PCLine_computer_shops.Repositories
     public class ShopRepository
     {
         private readonly DataContext _context;
-        public ShopRepository()
+
+        public ShopRepository(DataContext context)
         {
+            _context = context;
         }
     }
 }
