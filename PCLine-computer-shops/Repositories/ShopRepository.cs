@@ -13,9 +13,12 @@ namespace PCLine_computer_shops.Repositories
             _context = context;
         }
 
-        public Task<Shop> CreateShop(Shop shop)
+        public async Task<Shop> CreateShop(Shop shop)
         {
-            throw new NotImplementedException();
+            _context.Shops.Add(shop);
+            await _context.SaveChangesAsync();
+
+            return shop;
         }
 
         public Task<Shop> DeleteShop(int id)
