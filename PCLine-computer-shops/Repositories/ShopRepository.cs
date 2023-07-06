@@ -1,4 +1,5 @@
-﻿using PCLine_computer_shops.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PCLine_computer_shops.Data;
 using PCLine_computer_shops.InterfaceReposiotry;
 using PCLine_computer_shops.Models;
 
@@ -26,9 +27,16 @@ namespace PCLine_computer_shops.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<ICollection<Shop>> GetAllShops(string searchString)
+        public async Task<ICollection<Shop>> GetAllShops(string searchString)
         {
-            throw new NotImplementedException();
+            var query = await _context.Shops.ToListAsync();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                query = query.Where(x => x.Name.Contains(searchString)).ToList();
+            }
+
+            return query;
         }
 
         public Task<Shop> GetShopById(int id)
