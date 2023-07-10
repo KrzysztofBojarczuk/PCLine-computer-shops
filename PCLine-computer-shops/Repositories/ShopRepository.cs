@@ -39,9 +39,16 @@ namespace PCLine_computer_shops.Repositories
             return query;
         }
 
-        public Task<Shop> GetShopById(int id)
+        public async Task<Shop> GetShopById(int id)
         {
-            throw new NotImplementedException();
+            var shop = await _context.Shops.FirstOrDefaultAsync(h => h.Id == id);
+
+            if (shop == null)
+            {
+                return null;
+            }
+
+            return shop;
         }
 
         public Task<Shop> UpdateShop(Shop updateShop)
