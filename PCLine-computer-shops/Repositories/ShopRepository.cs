@@ -51,9 +51,12 @@ namespace PCLine_computer_shops.Repositories
             return shop;
         }
 
-        public Task<Shop> UpdateShop(Shop updateShop)
+        public async Task<Shop> UpdateShop(Shop updateShop)
         {
-            throw new NotImplementedException();
+            _context.Shops.Update(updateShop);
+            await _context.SaveChangesAsync();
+
+            return updateShop;
         }
     }
 }
