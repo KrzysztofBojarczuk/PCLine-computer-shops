@@ -22,9 +22,19 @@ namespace PCLine_computer_shops.Repositories
             return shop;
         }
 
-        public Task<Shop> DeleteShop(int id)
+        public async Task<Shop> DeleteShop(int id)
         {
-            throw new NotImplementedException();
+            var shop = await _context.Shops.FirstOrDefaultAsync(h => h.Id == id);
+
+            if (shop == null)
+            {
+                return null;
+            }
+
+            _context.Shops.Remove(shop);
+            await _context.SaveChangesAsync();
+
+            return shop;
         }
 
         public async Task<ICollection<Shop>> GetAllShops(string searchString)
