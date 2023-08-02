@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PCLine_computer_shops.InterfaceReposiotry;
 
 namespace PCLine_computer_shops.Controllers
 {
@@ -7,5 +8,6 @@ namespace PCLine_computer_shops.Controllers
     [ApiController]
     public class ShopsController : ControllerBase
     {
+        private readonly IShopRepository _shopRepository;
     }
 }
