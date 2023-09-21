@@ -14,6 +14,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigins",
+        builder =>
+        {
+            builder
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        });
+}
+);
+
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 
@@ -24,6 +37,7 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,9 +47,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
 app.UseHttpsRedirection();
-
+app.UseCors("AllowOrigins");
 app.UseAuthorization();
 
 app.MapControllers();
