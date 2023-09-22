@@ -1,6 +1,6 @@
 export interface ProductGetDto {
-    Id: number;
-    Name: string;
-    Price: number;
-    Amount: number;
+    id: number;
+    name: string;
+    price: number;
+    amount: number;
 }

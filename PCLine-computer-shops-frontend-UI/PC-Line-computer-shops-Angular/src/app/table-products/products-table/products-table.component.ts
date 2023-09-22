@@ -3,6 +3,7 @@ import { ProductGetDto } from 'src/app/models/product-dto';
 import { ProductService } from './product.service';
 import { Observable } from 'rxjs';
 
+
 @Component({
   selector: 'app-products-table',
   templateUrl: './products-table.component.html',
@@ -11,19 +12,14 @@ import { Observable } from 'rxjs';
 
 export class ProductsTableComponent implements OnInit {
 
-  products: Observable<ProductGetDto[]> | undefined;
-
+  products: Array<ProductGetDto> = [];
 
   constructor(private productService: ProductService) {
-
-
   }
 
   ngOnInit() {
-
-    this.products = this.productService.getProducts();
-    this.products.subscribe(productData => console.log(productData));
-
-
+    this.productService.getProducts().subscribe(res => {
+      this.products = res
+    });
   }
 }

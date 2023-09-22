@@ -1,9 +1,3 @@
-<table *ngIf="products | async as productData">
-  <tr *ngFor="let product of productData">
-    <td>{{ product.Id }}</td>
-    <td>{{ product.Name }}</td>
-    <td>{{ product.Price }}</td>
-    <td>{{ product.Amount }}</td>
-  </tr>
-</table>
-vvv
+<div *ngFor="let item of products">
+  <p style="color: brown">Name: {{ item.name }}</p>
+</div>
