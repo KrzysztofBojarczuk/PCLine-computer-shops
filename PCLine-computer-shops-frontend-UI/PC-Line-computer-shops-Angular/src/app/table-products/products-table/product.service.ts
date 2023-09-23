@@ -8,11 +8,16 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
 
-  private apiUrl = 'https://localhost:7068/api/Product/Get';
+  private apiUrl = 'https://localhost:7068/api/';
 
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<ProductGetDto[]> {
-    return this.http.get<ProductGetDto[]>(this.apiUrl);
+    return this.http.get<ProductGetDto[]>(this.apiUrl + 'Product/Get');
+  }
+
+  createProduct(product: any): Observable<any> {
+    console.log(product);
+    return this.http.post<any>(this.apiUrl + 'Product/Post', product);
   }
 }
