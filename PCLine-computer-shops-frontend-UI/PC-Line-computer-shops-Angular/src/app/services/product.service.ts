@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ProductGetDto } from 'src/app/models/product-dto';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+
+  productAdded = new EventEmitter<any>();
 
   private apiUrl = 'https://localhost:7068/api/';
 
@@ -17,7 +19,10 @@ export class ProductService {
   }
 
   createProduct(product: any): Observable<any> {
-    console.log(product);
-    return this.http.post<any>(this.apiUrl + 'Product/Post', product);
+    return this.http.post<any>(this.apiUrl + 'Product/Post', product).pipe(
+      tap(() => {
+        this.productAdded.emit();
+      })
+    );;
   }
 }

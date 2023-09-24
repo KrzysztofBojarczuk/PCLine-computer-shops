@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductGetDto } from 'src/app/models/product-dto';
-import { ProductService } from './product.service';
+import { ProductService } from '../../services/product.service';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductFormComponent } from '../product-form/product-form.component';
@@ -19,15 +19,26 @@ export class ProductsTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.productService.getProducts().subscribe(res => {
-      this.products = res
-    });
+    this.getProducts();
   }
 
-
+  getProducts() {
+    this.productService.getProducts().subscribe(
+      products => {
+        this.products = products;
+      },
+      error => {
+        console.error('Błąd podczas pobierania produktów:', error);
+      }
+    );
+  }
   createProduct() {
     const dialogRef = this.dialog.open(ProductFormComponent, {
-      width: '400px'
+      width: '500px',
+      height: '300px'
+    });
+    this.productService.productAdded.subscribe(() => {
+      this.getProducts();
     });
   }
 }
