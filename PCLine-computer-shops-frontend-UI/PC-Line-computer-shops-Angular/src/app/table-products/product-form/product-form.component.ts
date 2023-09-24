@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProductService } from '../products-table/product.service';
+import { ProductService } from '../../services/product.service';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -25,16 +25,7 @@ export class ProductFormComponent {
   }
 
   submit(product: any) {
-    this.productService.createProduct(product).subscribe(
-      response => {
-        console.log('Odpowiedź od serwera:', response);
-        // Dodaj tutaj dodatkową logikę lub powiadomienia w razie powodzenia
-      },
-      error => {
-        console.error('Błąd podczas wysyłania żądania:', error);
-        // Dodaj tutaj obsługę błędu lub powiadomienia w razie niepowodzenia
-      }
-    );
+    this.productService.createProduct(product).subscribe();
     this.dialogRef.close();
   }
 
