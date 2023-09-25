@@ -7,5 +7,6 @@ namespace PCLine_computer_shops.Dtos
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime StarthDate { get; set; }
+        public string Location { get; set; }
     }
 }

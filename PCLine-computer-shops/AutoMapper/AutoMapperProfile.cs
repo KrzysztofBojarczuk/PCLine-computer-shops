@@ -10,6 +10,9 @@ namespace PCLine_computer_shops.AutoMapper
         {
             CreateMap<ProductCreateDto, Product>();
             CreateMap<Product, ProductGetDto>();
+
+            CreateMap<ShopCreateDto, Shop>();
+            CreateMap<Shop, ShopGetDto>();
         }
     }
 }
