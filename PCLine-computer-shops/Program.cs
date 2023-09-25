@@ -31,6 +31,7 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IShopRepository, ShopRepository>();
 
 builder.Services.AddDbContext<DataContext>(options =>
 {

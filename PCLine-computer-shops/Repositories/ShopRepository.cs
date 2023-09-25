@@ -39,7 +39,7 @@ namespace PCLine_computer_shops.Repositories
 
         public async Task<ICollection<Shop>> GetAllShops(string searchString)
         {
-            var query = await _context.Shops.ToListAsync();
+            var query = await _context.Shops.Include(h => h.Products).ToListAsync();
 
             if (!String.IsNullOrEmpty(searchString))
             {

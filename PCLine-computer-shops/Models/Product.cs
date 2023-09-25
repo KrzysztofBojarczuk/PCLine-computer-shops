@@ -1,4 +1,6 @@
-﻿namespace PCLine_computer_shops.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace PCLine_computer_shops.Models
 {
     public class Product
     {
@@ -6,7 +8,8 @@
         public string? Name { get; set; }
         public decimal Price { get; set; }
         public int Amount { get; set; }
-        public required bool IsAvailable { get; set; }
-        //public List<OrderProduct> OrderProducts { get; set; }
+        [ForeignKey("ShopId")]
+        public int ShopId { get; set; }
+        public Shop Shop { get; set; }
     }
 }
