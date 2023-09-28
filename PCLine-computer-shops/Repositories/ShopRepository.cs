@@ -22,9 +22,9 @@ namespace PCLine_computer_shops.Repositories
             return shop;
         }
 
-        public async Task<Shop> DeleteShop(int id)
+        public async Task<Shop> DeleteShop(int shopdId)
         {
-            var shop = await _context.Shops.FirstOrDefaultAsync(h => h.Id == id);
+            var shop = await _context.Shops.FirstOrDefaultAsync(h => h.ShopId == shopdId);
 
             if (shop == null)
             {
@@ -49,9 +49,9 @@ namespace PCLine_computer_shops.Repositories
             return query;
         }
 
-        public async Task<Shop> GetShopById(int id)
+        public async Task<Shop> GetShopById(int shopId)
         {
-            var shop = await _context.Shops.FirstOrDefaultAsync(h => h.Id == id);
+            var shop = await _context.Shops.FirstOrDefaultAsync(h => h.ShopId == shopId);
 
             if (shop == null)
             {

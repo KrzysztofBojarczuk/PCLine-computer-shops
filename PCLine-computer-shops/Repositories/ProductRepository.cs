@@ -16,27 +16,43 @@ namespace PCLine_computer_shops.Repositories
         {
             _context = context;
         }
-        public async Task<ICollection<Product>> GetAllProducts(string searchString)
+
+        public async Task<ICollection<Product>> GetAllProductsForShopById(int shopId, string searchString)
         {
-            var query = await _context.Products.ToListAsync();
+            var query = await _context.Shops.Include(h => h.Products).FirstOrDefaultAsync(h => h.ShopId == shopId);
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                query = query.Where(x => x.Name.Contains(searchString)).ToList();
+                query.Products = query.Products.Where(p => p.Name.Contains(searchString)).ToList();
             }
 
-            return query;
+            if (query == null)
+            {
+                return null;
+            }
+
+            return query.Products;
         }
-        public async Task<Product> CreateProduct(Product product)
+
+        public async Task<Product> CreateProductForShop(int shopId, Product product)
         {
-            _context.Products.Add(product);
+            var shop = await _context.Shops.Include(h => h.Products).FirstOrDefaultAsync(h => h.ShopId == shopId);
+
+            if (shop == null)
+            {
+                return null; 
+            }
+
+            shop.Products.Add(product);
             await _context.SaveChangesAsync();
-           
+
             return product;
         }
-        public async Task<Product> GetProductById(int id)
+
+        public async Task<Product> GetProductById(int shopId, int productId)
         {
-            var product = await _context.Products.FirstOrDefaultAsync(h => h.Id == id);
+            var product = await _context.Products.FirstOrDefaultAsync(h => h.ProductId == productId && h.ShopId == shopId);
+
             if (product == null)
             {
                 return null;
@@ -53,9 +69,9 @@ namespace PCLine_computer_shops.Repositories
             return updateProduct;
         }
 
-        public async Task<Product> DeleteProduct(int id)
+        public async Task<Product> DeleteProduct(int productId)
         {
-            var product = await _context.Products.FirstOrDefaultAsync(h => h.Id == id);
+            var product = await _context.Products.FirstOrDefaultAsync(h => h.ShopId == productId);
             
             if (product == null)
             {

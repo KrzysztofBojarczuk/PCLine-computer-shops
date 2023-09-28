@@ -27,8 +27,7 @@ builder.Services.AddCors(options =>
 }
 );
 
-builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
-
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IShopRepository, ShopRepository>();
@@ -38,6 +37,8 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 

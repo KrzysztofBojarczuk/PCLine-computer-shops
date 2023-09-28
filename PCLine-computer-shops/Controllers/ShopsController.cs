@@ -35,13 +35,13 @@ namespace PCLine_computer_shops.Controllers
             var shopCreate = _mapper.Map<Shop>(shop);
             await _shopRepository.CreateShop(shopCreate);
             var shopGet = _mapper.Map<ShopGetDto>(shopCreate);
-            return CreatedAtAction(nameof(ShopByIdGet), new { id = shopCreate.Id }, shopGet);
+            return CreatedAtAction(nameof(ShopByIdGet), new { shopId = shopCreate.ShopId }, shopGet);
         }
 
-        [HttpGet("Get/{id}")]
-        public async Task<IActionResult> ShopByIdGet(int id)
+        [HttpGet("Get/{shopId}")]
+        public async Task<IActionResult> ShopByIdGet(int shopId)
         {
-            var shop = await _shopRepository.GetShopById(id);
+            var shop = await _shopRepository.GetShopById(shopId);
             if (shop == null)
             {
                 return NotFound();
@@ -50,19 +50,19 @@ namespace PCLine_computer_shops.Controllers
             return Ok(shopGet);
         }
 
-        [HttpPut("Put/{id}")]
-        public async Task<IActionResult> UpdateShop([FromBody] ShopCreateDto shopUpdate, int id)
+        [HttpPut("Put/{shopId}")]
+        public async Task<IActionResult> UpdateShop([FromBody] ShopCreateDto shopUpdate, int shopId)
         {
             var toUpdateShop = _mapper.Map<Shop>(shopUpdate);
-            toUpdateShop.Id = id;
+            toUpdateShop.ShopId = shopId;
             await _shopRepository.UpdateShop(toUpdateShop);
             return NoContent();
         }
 
-        [HttpDelete("Delete/{id}")]
-        public async Task<IActionResult> DeleteShop(int id)
+        [HttpDelete("Delete/{shopId}")]
+        public async Task<IActionResult> DeleteShop(int shopId)
         {
-            var deleteShop = await _shopRepository.DeleteShop(id);
+            var deleteShop = await _shopRepository.DeleteShop(shopId);
 
             if (deleteShop == null)
             {

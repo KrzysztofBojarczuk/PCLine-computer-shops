@@ -12,8 +12,8 @@ using PCLine_computer_shops.Data;
 namespace PCLine_computer_shops.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230924055451_AddProductShopRelationship")]
-    partial class AddProductShopRelationship
+    [Migration("20230928104121_fix")]
+    partial class fix
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,7 +28,10 @@ namespace PCLine_computer_shops.Migrations
             modelBuilder.Entity("PCLine_computer_shops.Models.Product", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Amount")
                         .HasColumnType("int");
@@ -43,6 +46,8 @@ namespace PCLine_computer_shops.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ShopId");
 
                     b.ToTable("Products");
                 });
@@ -75,7 +80,7 @@ namespace PCLine_computer_shops.Migrations
                 {
                     b.HasOne("PCLine_computer_shops.Models.Shop", "Shop")
                         .WithMany("Products")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
