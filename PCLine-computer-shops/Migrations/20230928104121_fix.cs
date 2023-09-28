@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PCLine_computer_shops.Migrations
 {
     /// <inheritdoc />
-    public partial class AddProductShopRelationship : Migration
+    public partial class fix : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,7 +30,8 @@ namespace PCLine_computer_shops.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Amount = table.Column<int>(type: "int", nullable: false),
@@ -40,12 +41,17 @@ namespace PCLine_computer_shops.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Shops_Id",
-                        column: x => x.Id,
+                        name: "FK_Products_Shops_ShopId",
+                        column: x => x.ShopId,
                         principalTable: "Shops",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ShopId",
+                table: "Products",
+                column: "ShopId");
         }
 
         /// <inheritdoc />

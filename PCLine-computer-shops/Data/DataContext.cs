@@ -14,9 +14,10 @@ namespace PCLine_computer_shops.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>()
-                .HasOne(p => p.Shop)
-                .WithMany(s => s.Products)
-                .HasForeignKey(p => p.Id);
+                 .HasOne(h => h.Shop)
+                 .WithMany(h => h.Products)
+                 .HasForeignKey(h => h.ShopId)
+                 .IsRequired();
         }
     }
 }

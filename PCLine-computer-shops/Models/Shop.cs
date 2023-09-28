@@ -2,11 +2,11 @@
 {
     public class Shop
     {
-        public int Id { get; set; }
+        public int ShopId { get; set; }
         public string Name { get; set; }
         public DateTime StarthDate { get; set; }
         public string Location { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; } = new List<Product>();
         //public ICollection<Review> Reviews { get; set; }
         //public ICollection<Employee> Employees { get; set; }
     }
