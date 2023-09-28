@@ -73,6 +73,7 @@ namespace PCLine_computer_shops.Controllers
            
             return NoContent();
         }
+
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
@@ -85,6 +86,5 @@ namespace PCLine_computer_shops.Controllers
 
             return NoContent();
         }
-
     }
 }
