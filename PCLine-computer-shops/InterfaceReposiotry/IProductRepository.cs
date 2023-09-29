@@ -7,7 +7,7 @@ namespace PCLine_computer_shops.InterfaceReposiotry
         Task<ICollection<Product>> GetAllProductsForShopById(int productId, string searchString);
         Task<Product> CreateProductForShop(int shopId, Product product);
         Task<Product> GetProductById(int shopId, int productId);
-        Task<Product> UpdateProduct(Product updateProduct);
-        Task<Product> DeleteProduct(int productId);
+        Task<Product> UpdateProduct(int shopId, Product updateProduct);
+        Task<Product> DeleteProduct(int shopId, int productId);
     }
 }

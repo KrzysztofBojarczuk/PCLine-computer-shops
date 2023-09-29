@@ -32,25 +32,11 @@ namespace PCLine_computer_shops.Controllers
             }
 
             var productsGet = _mapper.Map<List<ProductGetDto>>(products);
+
             return Ok(productsGet);
         }
 
-        [HttpPost("Post/{shopId}")]
-        public async Task<IActionResult> CreateProductForShop(int shopId, [FromBody] ProductCreateDto newProduct)
-        {
-            var productCreate = _mapper.Map<Product>(newProduct);
-            await _productRepository.CreateProductForShop(shopId, productCreate);
-
-            if (productCreate == null)
-            {
-                return NotFound(); 
-            }
-
-            var productGet = _mapper.Map<ProductGetDto>(productCreate);
-            return CreatedAtAction(nameof(ProductByIdGet), new { shopId = shopId, productId = productGet.ProductId }, productGet);
-        }
-
-        [HttpGet("Get{shopId}/GetProduct/{productId}")]
+        [HttpGet("Get/{shopId}/GetProduct/{productId}")]
         public async Task<IActionResult> ProductByIdGet(int shopId, int productId)
         {
             var product = await _productRepository.GetProductById(shopId, productId);
@@ -60,24 +46,46 @@ namespace PCLine_computer_shops.Controllers
                 return NotFound();
             }
 
-            var productGet = _mapper.Map<ProductGetDto>(product);           
+            var productGet = _mapper.Map<ProductGetDto>(product); 
+            
             return Ok(productGet);
         }
 
-        [HttpPut("Put/id")]
-        public async Task<IActionResult> UpdateProduct([FromBody] ProductCreateDto productUpdate,int id)
+        [HttpPost("Post/{shopId}")]
+        public async Task<IActionResult> CreateProductForShop(int shopId, [FromBody] ProductCreateDto newProduct)
+        {
+            var productCreate = _mapper.Map<Product>(newProduct);
+
+            await _productRepository.CreateProductForShop(shopId, productCreate);
+
+            if (productCreate == null)
+            {
+                return NotFound(); 
+            }
+
+            var productGet = _mapper.Map<ProductGetDto>(productCreate);
+
+            return CreatedAtAction(nameof(ProductByIdGet), new { shopId = shopId, productId = productGet.ProductId }, productGet);
+        }
+
+        [HttpPut("Put/{shopId}/{productId}")]
+        public async Task<IActionResult> UpdateProduct(int shopId, int productId, [FromBody] ProductCreateDto productUpdate)
         {
             var toUpdateProduct = _mapper.Map<Product>(productUpdate);
-            toUpdateProduct.ShopId = id;
-            await _productRepository.UpdateProduct(toUpdateProduct);
+
+            toUpdateProduct.ProductId = productId;
+
+            toUpdateProduct.ShopId = shopId;
+
+            await _productRepository.UpdateProduct(shopId, toUpdateProduct);
            
             return NoContent();
         }
 
-        [HttpDelete("Delete/{id}")]
-        public async Task<IActionResult> DeleteProduct(int id)
+        [HttpDelete("Delete/{shopId}/product/{productId}")]
+        public async Task<IActionResult> DeleteProduct(int shopId, int productId)
         {
-            var deleteProduct = await _productRepository.DeleteProduct(id);
+            var deleteProduct = await _productRepository.DeleteProduct(shopId, productId);
 
             if (deleteProduct == null)
             {
