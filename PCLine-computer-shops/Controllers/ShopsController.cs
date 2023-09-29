@@ -25,16 +25,20 @@ namespace PCLine_computer_shops.Controllers
         public async Task<IActionResult> GetAllShops([FromQuery] string searchString = "")
         {
             var shops = await _shopRepository.GetAllShops(searchString);
-            var shopsGet = _mapper.Map<List<ShopGetDto>>(shops);
-            return Ok(shopsGet);
+            //var shopsGet = _mapper.Map<List<ShopGetDto>>(shops);
+
+            return Ok(shops);
         }
 
         [HttpPost("Post")]
         public async Task<IActionResult> CreateShop([FromBody] ShopCreateDto shop)
         {
             var shopCreate = _mapper.Map<Shop>(shop);
+
             await _shopRepository.CreateShop(shopCreate);
+
             var shopGet = _mapper.Map<ShopGetDto>(shopCreate);
+
             return CreatedAtAction(nameof(ShopByIdGet), new { shopId = shopCreate.ShopId }, shopGet);
         }
 
@@ -42,11 +46,14 @@ namespace PCLine_computer_shops.Controllers
         public async Task<IActionResult> ShopByIdGet(int shopId)
         {
             var shop = await _shopRepository.GetShopById(shopId);
+
             if (shop == null)
             {
                 return NotFound();
             }
+
             var shopGet = _mapper.Map<ShopGetDto>(shop);
+
             return Ok(shopGet);
         }
 
@@ -54,8 +61,10 @@ namespace PCLine_computer_shops.Controllers
         public async Task<IActionResult> UpdateShop([FromBody] ShopCreateDto shopUpdate, int shopId)
         {
             var toUpdateShop = _mapper.Map<Shop>(shopUpdate);
+
             toUpdateShop.ShopId = shopId;
             await _shopRepository.UpdateShop(toUpdateShop);
+
             return NoContent();
         }
 
