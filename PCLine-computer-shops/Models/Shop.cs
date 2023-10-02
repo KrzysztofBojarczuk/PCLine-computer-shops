@@ -4,7 +4,7 @@
     {
         public int ShopId { get; set; }
         public string Name { get; set; }
-        public DateTime StarthDate { get; set; }
+        public DateTime StartDate { get; set; }
         public string Location { get; set; }
         public ICollection<Product> Products { get; set; } = new List<Product>();
         //public ICollection<Review> Reviews { get; set; }

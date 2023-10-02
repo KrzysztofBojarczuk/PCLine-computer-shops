@@ -20,14 +20,13 @@ namespace PCLine_computer_shops.Controllers
             _mapper = mapper;
         }
 
-
         [HttpGet("Get")]
         public async Task<IActionResult> GetAllShops([FromQuery] string searchString = "")
         {
             var shops = await _shopRepository.GetAllShops(searchString);
-            //var shopsGet = _mapper.Map<List<ShopGetDto>>(shops);
+            var shopsGet = _mapper.Map<List<ShopGetDto>>(shops);
 
-            return Ok(shops);
+            return Ok(shopsGet);
         }
 
         [HttpPost("Post")]

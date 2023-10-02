@@ -12,12 +12,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ShopTableComponent } from './table-shops/shop-table/shop-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductsTableComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ShopTableComponent
   ],
   imports: [
     HttpClientModule,
@@ -29,7 +32,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatFormFieldModule,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
