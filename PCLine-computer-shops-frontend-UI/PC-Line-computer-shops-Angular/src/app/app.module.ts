@@ -14,6 +14,9 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShopTableComponent } from './table-shops/shop-table/shop-table.component';
+import { NgFor, NgIf } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { ShopTableComponent } from './table-shops/shop-table/shop-table.componen
     MatFormFieldModule,
     FormsModule,
     MatButtonModule,
-    NgbModule
+    NgbModule,
+    MatTableModule,
+    NgFor,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
