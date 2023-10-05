@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Shop } from 'src/app/models/shop';
 import { ShopService } from 'src/app/services/shop.service';
+import { ShopFormComponent } from '../shop-form/shop-form.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-shop-table',
@@ -14,7 +16,7 @@ export class ShopTableComponent {
 
   displayedColumns: string[] = ['shopId', 'name', 'startDate', 'location'];
 
-  constructor(private shopService: ShopService) {
+  constructor(private shopService: ShopService, private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource<Shop>([]);
   }
 
@@ -33,5 +35,10 @@ export class ShopTableComponent {
       }
     );
   }
-
+  createProduct() {
+    const dialogRef = this.dialog.open(ShopFormComponent, {
+      width: '500px',
+      height: '300px'
+    });
+  }
 }

@@ -1,0 +1,22 @@
+<div class="shop-form">
+  <h2>Add New Shop</h2>
+
+  <form [formGroup]="shopForm" (ngSubmit)="submit(shopForm.value)">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" formControlName="name" required />
+    </div>
+
+    <div class="form-group">
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" formControlName="startDate" required />
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location:</label>
+      <input type="text" id="location" formControlName="location" required />
+    </div>
+
+    <button type="submit" [disabled]="shopForm.invalid">Submit</button>
+  </form>
+</div>

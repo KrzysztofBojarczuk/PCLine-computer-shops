@@ -1,4 +1,6 @@
-<p>shop-table works!</p>
+<div class="d-flex justify-content-end mb-3">
+  <button mat-raised-button (click)="createProduct()">Create shop</button>
+</div>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <!-- Define columns -->
   <ng-container matColumnDef="shopId">
