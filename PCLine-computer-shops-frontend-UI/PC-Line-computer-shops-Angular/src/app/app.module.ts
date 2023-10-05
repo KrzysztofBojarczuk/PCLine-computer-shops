@@ -17,13 +17,15 @@ import { ShopTableComponent } from './table-shops/shop-table/shop-table.componen
 import { NgFor, NgIf } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import { ShopFormComponent } from './table-shops/shop-form/shop-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductsTableComponent,
     ProductFormComponent,
-    ShopTableComponent
+    ShopTableComponent,
+    ShopFormComponent
   ],
   imports: [
     HttpClientModule,
