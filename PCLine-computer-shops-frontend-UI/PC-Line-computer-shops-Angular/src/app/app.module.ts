@@ -13,11 +13,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ShopTableComponent } from './table-shops/shop-table/shop-table.component';
 import { NgFor, NgIf } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { ShopFormComponent } from './table-shops/shop-form/shop-form.component';
+import { ShopTableComponent } from './shops/shop-table/shop-table.component';
+import { ShopFormComponent } from './shops/shop-form/shop-form.component';
+
 
 @NgModule({
   declarations: [

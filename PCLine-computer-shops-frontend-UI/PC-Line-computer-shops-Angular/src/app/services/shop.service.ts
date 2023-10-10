@@ -16,7 +16,11 @@ export class ShopService {
     return this.http.get<Shop[]>(this.apiUrl + 'Shops/Get');
   }
 
-  postShop(shop: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl + 'Shops/Post', shop)
+  postShop(shop: any): Observable<Shop> {
+    return this.http.post<Shop>(this.apiUrl + 'Shops/Post', shop);
+  }
+
+  deleteShop(shopId: number): Observable<number> {
+    return this.http.delete<number>(`${this.apiUrl}Shops/Delete/${shopId}`);
   }
 }
