@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Shop } from 'src/app/models/shop';
 import { ShopService } from 'src/app/services/shop.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class ShopFormComponent {
     })
   }
 
-  submit(shop: any) {
+  submit(shop: Shop) {
     this.shopService.postShop(shop).subscribe();
     this.dialogRef.close()
   }

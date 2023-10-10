@@ -14,7 +14,7 @@ export class ShopTableComponent {
 
   dataSource: MatTableDataSource<Shop>;
 
-  displayedColumns: string[] = ['shopId', 'name', 'startDate', 'location'];
+  displayedColumns: string[] = ['shopId', 'name', 'startDate', 'location', 'actions'];
 
   constructor(private shopService: ShopService, private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource<Shop>([]);
@@ -39,6 +39,12 @@ export class ShopTableComponent {
     const dialogRef = this.dialog.open(ShopFormComponent, {
       width: '500px',
       height: '300px'
+    });
+  }
+
+  deleteShop(shopId: number) {
+    return this.shopService.deleteShop(shopId).subscribe(result => {
+      this.getShops();
     });
   }
 }
