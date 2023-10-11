@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Country } from 'src/app/enums/country';
 import { Shop } from 'src/app/models/shop';
+import { ShopCreate } from 'src/app/models/shop-create';
 import { ShopService } from 'src/app/services/shop.service';
 
 @Component({
@@ -21,20 +23,20 @@ export class ShopFormComponent {
     { value: 3, name: 'France' }
   ];
 
+  title: string = "Add New Shop";
 
-  constructor(private formBuilder: FormBuilder, private shopService: ShopService, public dialogRef: MatDialogRef<ShopFormComponent>) {
+  constructor(private formBuilder: FormBuilder, private shopService: ShopService, public dialogRef: MatDialogRef<ShopFormComponent>, private snackBar: MatSnackBar) {
     this.shopForm = this.formBuilder.group({
       name: ['', Validators.required],
-      startDate: ['', Validators.required],
       country: ['', Validators.required],
+      startDate: ['', Validators.required],
     })
   }
 
-  submit(shop: Shop) {
-    console.log(shop);
-
-    this.shopService.postShop(shop).subscribe();
-    this.dialogRef.close()
+  submit(shop: ShopCreate) {
+    this.shopService.postShop(shop).subscribe();;
+    this.dialogRef.close();
   }
+
 }
 
