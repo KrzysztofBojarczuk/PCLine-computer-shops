@@ -14,7 +14,7 @@ export class ShopTableComponent {
 
   dataSource: MatTableDataSource<Shop>;
 
-  displayedColumns: string[] = ['shopId', 'name', 'startDate', 'location', 'actions'];
+  displayedColumns: string[] = ['shopId', 'name', 'startDate', 'country', 'actions'];
 
   constructor(private shopService: ShopService, private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource<Shop>([]);

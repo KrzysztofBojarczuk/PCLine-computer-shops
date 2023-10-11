@@ -1,4 +1,5 @@
-﻿using PCLine_computer_shops.Models;
+﻿using PCLine_computer_shops.Enums;
+using PCLine_computer_shops.Models;
 using System.Text.Json.Serialization;
 
 namespace PCLine_computer_shops.Dtos
@@ -8,6 +9,6 @@ namespace PCLine_computer_shops.Dtos
         public int ShopId { get; set; }
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
-        public string Location { get; set; }
+        public Country Country { get; set; }
     }
 }
