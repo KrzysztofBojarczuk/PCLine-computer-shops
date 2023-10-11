@@ -16,7 +16,8 @@ export class ShopService {
     return this.http.get<Shop[]>(this.apiUrl + 'Shops/Get');
   }
 
-  postShop(shop: any): Observable<Shop> {
+  postShop(shop: Shop): Observable<Shop> {
+    console.log(shop);
     return this.http.post<Shop>(this.apiUrl + 'Shops/Post', shop);
   }
 

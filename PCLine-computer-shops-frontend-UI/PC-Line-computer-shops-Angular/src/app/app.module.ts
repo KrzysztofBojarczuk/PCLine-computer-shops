@@ -18,7 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { ShopTableComponent } from './shops/shop-table/shop-table.component';
 import { ShopFormComponent } from './shops/shop-form/shop-form.component';
-
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,8 @@ import { ShopFormComponent } from './shops/shop-form/shop-form.component';
     NgbModule,
     MatTableModule,
     NgFor,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
