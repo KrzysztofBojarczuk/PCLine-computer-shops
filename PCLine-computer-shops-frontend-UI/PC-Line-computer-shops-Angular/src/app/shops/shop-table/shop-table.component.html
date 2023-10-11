@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-end mb-3">
-  <button mat-raised-button (click)="createProduct()">Create shop</button>
+  <button mat-raised-button (click)="createShop()">Create shop</button>
 </div>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <!-- Define columns -->
@@ -15,12 +15,16 @@
 
   <ng-container matColumnDef="startDate">
     <th mat-header-cell *matHeaderCellDef>Date</th>
-    <td mat-cell *matCellDef="let element">{{ element.startDate }}</td>
+    <td mat-cell *matCellDef="let element">
+      {{ element.startDate | date : "yyyy-MM-dd" }}
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="country">
     <th mat-header-cell *matHeaderCellDef>Country</th>
-    <td mat-cell *matCellDef="let element">{{ element.country }}</td>
+    <td mat-cell *matCellDef="let element">
+      {{ getCountryName(element.country) }}
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="actions">
@@ -28,6 +32,9 @@
     <td mat-cell *matCellDef="let element">
       <button mat-icon-button (click)="deleteShop(element.shopId)">
         <i class="bi bi-trash" style="font-size: 1.5rem"></i>
+      </button>
+      <button mat-icon-button (click)="updateShop(element)">
+        <i class="bi bi-envelope" style="font-size: 1.5rem"></i>
       </button>
     </td>
   </ng-container>

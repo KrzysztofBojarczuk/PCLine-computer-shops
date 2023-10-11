@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Shop } from '../models/shop';
 import { Observable } from 'rxjs';
+import { ShopCreate } from '../models/shop-create';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,20 @@ export class ShopService {
     return this.http.get<Shop[]>(this.apiUrl + 'Shops/Get');
   }
 
-  postShop(shop: Shop): Observable<Shop> {
+  postShop(shop: ShopCreate): Observable<ShopCreate> {
     console.log(shop);
-    return this.http.post<Shop>(this.apiUrl + 'Shops/Post', shop);
+    return this.http.post<ShopCreate>(this.apiUrl + 'Shops/Post', shop);
   }
 
   deleteShop(shopId: number): Observable<number> {
     return this.http.delete<number>(`${this.apiUrl}Shops/Delete/${shopId}`);
+  }
+
+  updateShop(shopId: number, updatedShop: ShopCreate): Observable<ShopCreate> {
+    const startDate = new Date(updatedShop.startDate);
+    const timezoneOffset = startDate.getTimezoneOffset();
+    startDate.setMinutes(startDate.getMinutes() - timezoneOffset);
+    const formattedStartDate = startDate.toISOString();
+    return this.http.put<ShopCreate>(`${this.apiUrl}Shops/Put/${shopId}`, { ...updatedShop, startDate: formattedStartDate });
   }
 }

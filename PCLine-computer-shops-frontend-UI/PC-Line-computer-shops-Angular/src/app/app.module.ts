@@ -19,6 +19,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { ShopTableComponent } from './shops/shop-table/shop-table.component';
 import { ShopFormComponent } from './shops/shop-form/shop-form.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar, MatSnackBarRef, MatSnackBarModule } from '@angular/material/snack-bar';
+import { ShopUpdateComponent } from './shops/shop-update/shop-update.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -26,9 +30,12 @@ import { MatSelectModule } from '@angular/material/select';
     ProductsTableComponent,
     ProductFormComponent,
     ShopTableComponent,
-    ShopFormComponent
+    ShopFormComponent,
+    ShopUpdateComponent
   ],
   imports: [
+    MatNativeDateModule,
+    MatDatepickerModule,
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
@@ -43,7 +50,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatTableModule,
     NgFor,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
