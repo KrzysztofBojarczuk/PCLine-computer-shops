@@ -7,6 +7,7 @@ import { ShopService } from 'src/app/services/shop.service';
 import { ProductFormComponent } from '../product-form/product-form.component';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product';
+import { ProductUpdateComponent } from '../product-update/product-update.component';
 
 @Component({
   selector: 'app-product-table',
@@ -28,6 +29,7 @@ export class ProductTableComponent {
   getAllPrducts() {
     this.productService.getProducts().subscribe(
       result => {
+        console.log(result);
         this.products = result
       }
     )
@@ -50,5 +52,24 @@ export class ProductTableComponent {
         console.error('Error fetching shops:', error);
       }
     );
+  }
+
+  updateProduct(product: Product) {
+    const dialogRef = this.dialog.open(ProductUpdateComponent, {
+      width: '400px',
+      height: '450px',
+      data: { product: product, shopId: product.shopId },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAllPrducts()
+    }
+    )
+  }
+
+  deleteProduct(product: Product) {
+    this.productService.deleteProduct(product.shopId, product.productId).subscribe(result => {
+      this.getAllPrducts();
+    })
   }
 }
