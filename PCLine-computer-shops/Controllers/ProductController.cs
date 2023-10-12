@@ -21,6 +21,21 @@ namespace PCLine_computer_shops.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("GetAllProducts")]
+        public async Task<IActionResult> GetAllProductsp([FromQuery] string searchString = "")
+        {
+            var products = await _productRepository.GetAllProducts(searchString);
+
+            if (products == null)
+            {
+                return NotFound();
+            }
+
+            var productsGet = _mapper.Map<List<ProductGetDto>>(products);
+
+            return Ok(productsGet);
+        }
+
         [HttpGet("GetAllProductsForShop/{shopId}")]
         public async Task<IActionResult> GetAllProductsForShop(int shopId, [FromQuery] string searchString = "")
         {

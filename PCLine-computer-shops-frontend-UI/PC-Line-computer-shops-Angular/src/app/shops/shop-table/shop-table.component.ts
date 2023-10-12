@@ -8,6 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Country } from 'src/app/enums/country';
 import { ShopCreate } from 'src/app/models/shop-create';
 import { ShopUpdateComponent } from '../shop-update/shop-update.component';
+import { ProductService } from 'src/app/services/product.service';
+import { ProductFormComponent } from 'src/app/products/product-form/product-form.component';
 
 @Component({
   selector: 'app-shop-table',
@@ -20,7 +22,7 @@ export class ShopTableComponent {
 
   displayedColumns: string[] = ['shopId', 'name', 'startDate', 'country', 'actions'];
 
-  constructor(private shopService: ShopService, private dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(private shopService: ShopService, private dialog: MatDialog, private snackBar: MatSnackBar, private productService: ProductService) {
     this.dataSource = new MatTableDataSource<Shop>([]);
   }
 
@@ -74,5 +76,18 @@ export class ShopTableComponent {
         duration: 3000,
       });
     });
+  }
+
+  createProduct(shopId: number) {
+    const dialogRef = this.dialog.open(ProductFormComponent, {
+      width: '400px',
+      height: '450px',
+      data: shopId,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getShops();
+    }
+    )
+
   }
 }
