@@ -15,6 +15,7 @@ namespace PCLine_computer_shops.Controllers
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
+
         public ProductController(IProductRepository productRepository, IMapper mapper)
         {
             _productRepository = productRepository;

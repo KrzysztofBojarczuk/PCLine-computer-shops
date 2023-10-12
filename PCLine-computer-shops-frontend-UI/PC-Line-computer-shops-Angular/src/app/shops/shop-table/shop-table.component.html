@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-end mb-3">
+<div class="d-flex justify-content-end mb-3 mt-5">
   <button mat-raised-button (click)="createShop()">Create shop</button>
 </div>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -30,6 +30,9 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let element">
+      <button mat-icon-button (click)="informationsAboutShop(element.shopId)">
+        <i class="bi bi-info-circle" style="font-size: 1.5rem"></i>
+      </button>
       <button mat-icon-button (click)="deleteShop(element.shopId)">
         <i class="bi bi-trash" style="font-size: 1.5rem"></i>
       </button>
@@ -38,6 +41,9 @@
       </button>
       <button mat-icon-button (click)="createProduct(element.shopId)">
         <i class="bi bi-cart2" style="font-size: 1.5rem"></i>
+      </button>
+      <button mat-icon-button (click)="createAddress(element.shopId)">
+        <i class="bi bi-house" style="font-size: 1.5rem"></i>
       </button>
     </td>
   </ng-container>

@@ -12,8 +12,8 @@ using PCLine_computer_shops.Data;
 namespace PCLine_computer_shops.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231010163929_enumshopfix")]
-    partial class enumshopfix
+    [Migration("20231012081932_Initial2")]
+    partial class Initial2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,32 @@ namespace PCLine_computer_shops.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("PCLine_computer_shops.Models.Address", b =>
+                {
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AddressId");
+
+                    b.ToTable("Address");
+                });
 
             modelBuilder.Entity("PCLine_computer_shops.Models.Product", b =>
                 {
@@ -75,6 +101,17 @@ namespace PCLine_computer_shops.Migrations
                     b.ToTable("Shops");
                 });
 
+            modelBuilder.Entity("PCLine_computer_shops.Models.Address", b =>
+                {
+                    b.HasOne("PCLine_computer_shops.Models.Shop", "Shop")
+                        .WithOne("Address")
+                        .HasForeignKey("PCLine_computer_shops.Models.Address", "AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Shop");
+                });
+
             modelBuilder.Entity("PCLine_computer_shops.Models.Product", b =>
                 {
                     b.HasOne("PCLine_computer_shops.Models.Shop", "Shop")
@@ -88,6 +125,8 @@ namespace PCLine_computer_shops.Migrations
 
             modelBuilder.Entity("PCLine_computer_shops.Models.Shop", b =>
                 {
+                    b.Navigation("Address");
+
                     b.Navigation("Products");
                 });
 #pragma warning restore 612, 618

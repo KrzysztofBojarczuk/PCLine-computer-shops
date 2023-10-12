@@ -13,6 +13,9 @@ namespace PCLine_computer_shops.AutoMapper
 
             CreateMap<ShopCreateDto, Shop>();
             CreateMap<Shop, ShopGetDto>();
+
+            CreateMap<AddressCreateDto, Address>();
+            CreateMap<Address, AddressGetDto>();
         }
     }
 }

@@ -27,6 +27,12 @@ import { ProductUpdateComponent } from './products/product-update/product-update
 import { MatCardModule } from '@angular/material/card';
 import { ProductCardComponent } from './products/product-card/product-card.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { AdditionalInformationsComponent } from './shops/additional-informations/additional-informations.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { NavBarComponent } from './nav-bar/nav-bar.component';;
+import { AdressFormComponent } from './shops/adress-form/adress-form.component';
 
 @NgModule({
   declarations: [
@@ -37,9 +43,15 @@ import { MatGridListModule } from '@angular/material/grid-list';
     ProductTableComponent,
     ProductFormComponent,
     ProductUpdateComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    AdditionalInformationsComponent,
+    NavBarComponent,
+    AdressFormComponent,
   ],
   imports: [
+    MatListModule,
+    MatSidenavModule,
+    MatExpansionModule,
     MatGridListModule,
     MatCardModule,
     MatNativeDateModule,
