@@ -23,4 +23,12 @@ export class ProductService {
   postProductForShop(shopId: number, product: ProductCreate): Observable<ProductCreate> {
     return this.http.post<ProductCreate>(`${this.apiUrl}Product/Post/${shopId}`, product);
   }
+
+  updateProduct(shopId: number, productId: number, updatedProduct: ProductCreate): Observable<ProductCreate> {
+    return this.http.put<ProductCreate>(`${this.apiUrl}Product/Put/${shopId}/${productId}`, updatedProduct);
+  }
+
+  deleteProduct(shopId: number, productId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}Product/Delete/${shopId}/product/${productId}`);
+  }
 }
