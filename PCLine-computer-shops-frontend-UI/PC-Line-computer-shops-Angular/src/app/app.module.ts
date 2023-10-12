@@ -4,9 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ProductsTableComponent } from './table-products/products-table/products-table.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ProductFormComponent } from './table-products/product-form/product-form.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,17 +21,27 @@ import { MatSnackBar, MatSnackBarRef, MatSnackBarModule } from '@angular/materia
 import { ShopUpdateComponent } from './shops/shop-update/shop-update.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ProductTableComponent } from './products/product-table/product-table.component';
+import { ProductFormComponent } from './products/product-form/product-form.component';
+import { ProductUpdateComponent } from './products/product-update/product-update.component';
+import { MatCardModule } from '@angular/material/card';
+import { ProductCardComponent } from './products/product-card/product-card.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductsTableComponent,
-    ProductFormComponent,
     ShopTableComponent,
     ShopFormComponent,
-    ShopUpdateComponent
+    ShopUpdateComponent,
+    ProductTableComponent,
+    ProductFormComponent,
+    ProductUpdateComponent,
+    ProductCardComponent
   ],
   imports: [
+    MatGridListModule,
+    MatCardModule,
     MatNativeDateModule,
     MatDatepickerModule,
     HttpClientModule,

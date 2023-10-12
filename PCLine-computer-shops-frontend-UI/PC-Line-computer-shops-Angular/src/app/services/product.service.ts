@@ -1,7 +1,9 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ProductGetDto } from 'src/app/models/product-dto';
+import { Product } from 'src/app/models/product';
 import { Observable, tap } from 'rxjs';
+import { Shop } from '../models/shop';
+import { ProductCreate } from '../models/product-create';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +16,11 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getProducts(): Observable<ProductGetDto[]> {
-    return this.http.get<ProductGetDto[]>(this.apiUrl + 'Product/Get');
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiUrl + 'Product/GetAllProducts');
   }
 
-  createProduct(product: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl + 'Product/Post', product).pipe(
-      tap(() => {
-        this.productAdded.emit();
-      })
-    );;
+  postProductForShop(shopId: number, product: ProductCreate): Observable<ProductCreate> {
+    return this.http.post<ProductCreate>(`${this.apiUrl}Product/Post/${shopId}`, product);
   }
 }

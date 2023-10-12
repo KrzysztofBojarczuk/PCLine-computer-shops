@@ -16,6 +16,22 @@ namespace PCLine_computer_shops.Repositories
         {
             _context = context;
         }
+        public async Task<ICollection<Product>> GetAllProducts(string searchString)
+        {
+            var query = await _context.Products.ToListAsync();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                query = query.Where(h => h.Equals(searchString)).ToList();
+            }
+
+            if (query == null)
+            {
+                return null;
+            }
+
+            return query;
+        }
 
         public async Task<ICollection<Product>> GetAllProductsForShopById(int shopId, string searchString)
         {

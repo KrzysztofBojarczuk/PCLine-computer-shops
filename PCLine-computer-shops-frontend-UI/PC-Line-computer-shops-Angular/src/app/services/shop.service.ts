@@ -18,7 +18,6 @@ export class ShopService {
   }
 
   postShop(shop: ShopCreate): Observable<ShopCreate> {
-    console.log(shop);
     return this.http.post<ShopCreate>(this.apiUrl + 'Shops/Post', shop);
   }
 
