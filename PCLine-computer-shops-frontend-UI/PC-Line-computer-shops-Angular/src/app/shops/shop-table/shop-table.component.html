@@ -1,5 +1,23 @@
-<div class="d-flex justify-content-end mb-3 mt-5">
-  <button mat-raised-button (click)="createShop()">Create shop</button>
+<div class="row mt-5">
+  <div class="col-md-6">
+    <mat-form-field class="example-form-field">
+      <input matInput type="text" placeholder="Search" [(ngModel)]="value" />
+    </mat-form-field>
+
+    <button
+      style="margin-left: 10px"
+      mat-raised-button
+      (click)="getShops(value)"
+    >
+      Search
+    </button>
+    <button style="margin-left: 10px" mat-raised-button (click)="clearSearch()">
+      Clear
+    </button>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end">
+    <button mat-raised-button (click)="createShop()">Create shop</button>
+  </div>
 </div>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <!-- Define columns -->

@@ -13,8 +13,11 @@ export class ShopService {
 
   constructor(private http: HttpClient) { }
 
-  getShops(): Observable<Shop[]> {
-    return this.http.get<Shop[]>(this.apiUrl + 'Shops/Get');
+  getShops(searchTerm?: string): Observable<Shop[]> {
+    console.log("AAAA");
+    //searchTerm = "22";
+    console.log(searchTerm);
+    return this.http.get<Shop[]>(`${this.apiUrl}Shops/Get?searchTerm=${searchTerm}`);
   }
 
   postShop(shop: ShopCreate): Observable<ShopCreate> {

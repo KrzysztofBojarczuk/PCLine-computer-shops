@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCLine-computer-shops", "PCLine-computer-shops\PCLine-computer-shops.csproj", "{E829F8E8-1E2D-4646-B461-A1BFA0890EAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCLine-computer-shops.API", "PCLine-computer-shops\PCLine-computer-shops.API.csproj", "{E829F8E8-1E2D-4646-B461-A1BFA0890EAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

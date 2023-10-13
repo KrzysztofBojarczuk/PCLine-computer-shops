@@ -21,6 +21,7 @@ import { AdressFormComponent } from '../adress-form/adress-form.component';
 export class ShopTableComponent {
 
   dataSource: MatTableDataSource<Shop>;
+  value: string = '';
 
   displayedColumns: string[] = ['shopId', 'name', 'startDate', 'country', 'actions'];
 
@@ -29,18 +30,22 @@ export class ShopTableComponent {
   }
 
   ngOnInit() {
-    this.getShops();
+    this.getShops('');
   }
 
   getCountryName(countryValue: number): string {
     return Country[countryValue];
   }
 
-  getShops() {
-    this.shopService.getShops().subscribe(
+  clearSearch() {
+    this.value = '';
+    this.getShops('');
+  }
+
+  getShops(searchTerm?: string) {
+    this.shopService.getShops(searchTerm).subscribe(
       result => {
         this.dataSource = new MatTableDataSource(result);
-        // console.log('Pobrane sklepy:', this.shops);
       },
       error => {
         console.error('Błąd podczas pobierania produktów:', error);
@@ -54,7 +59,7 @@ export class ShopTableComponent {
       height: '450px'
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getShops();
+      this.getShops('');
     }
     )
   }
@@ -66,14 +71,14 @@ export class ShopTableComponent {
       data: shop,
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getShops();
+      this.getShops('');
     }
     )
   }
 
   deleteShop(shopId: number) {
     return this.shopService.deleteShop(shopId).subscribe(result => {
-      this.getShops();
+      this.getShops('');
       this.snackBar.open('Product deleted successfully', 'Close', {
         duration: 3000,
       });
@@ -99,12 +104,16 @@ export class ShopTableComponent {
   createAddress(shopId: number) {
     const dialogRef = this.dialog.open(AdressFormComponent, {
       width: '400px',
-      height: '450px',
+      height: '550px',
       data: shopId,
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getShops();
     }
     )
+  }
+
+  searchShop() {
+
   }
 }
