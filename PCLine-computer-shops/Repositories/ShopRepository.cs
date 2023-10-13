@@ -13,6 +13,7 @@ namespace PCLine_computer_shops.Repositories
         {
             _context = context;
         }
+
         public async Task<ICollection<Shop>> GetAllShops(string searchTerm)
         {
             var query = await _context.Shops.Include(h => h.Products).ToListAsync();
@@ -24,6 +25,7 @@ namespace PCLine_computer_shops.Repositories
 
             return query;
         }
+
         public async Task<Shop> GetShopById(int shopId)
         {
             var shop = await _context.Shops.FirstOrDefaultAsync(h => h.ShopId == shopId);
