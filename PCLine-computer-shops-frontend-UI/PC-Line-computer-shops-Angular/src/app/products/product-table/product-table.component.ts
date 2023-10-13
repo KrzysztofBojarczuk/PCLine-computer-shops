@@ -26,6 +26,14 @@ export class ProductTableComponent {
     this.getAllPrducts();
   }
 
+  getTotaNomuberOfPrducts(): number {
+    return this.products.reduce((total, product) => total + product.amount, 0);
+  }
+
+  getTotalValue(): number {
+    return this.products.reduce((total, product) => total + (product.price * product.amount), 0);
+  }
+
   getAllPrducts() {
     this.productService.getProducts().subscribe(
       result => {
@@ -44,7 +52,7 @@ export class ProductTableComponent {
   }
 
   getShops() {
-    this.shopService.getShops().subscribe(
+    this.shopService.getShops('').subscribe(
       result => {
         this.shops = result;
       },

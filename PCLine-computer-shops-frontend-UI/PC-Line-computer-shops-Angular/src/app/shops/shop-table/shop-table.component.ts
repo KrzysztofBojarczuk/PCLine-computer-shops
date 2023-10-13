@@ -92,7 +92,7 @@ export class ShopTableComponent {
       data: shopId,
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getShops();
+      this.getShops('');
     }
     )
   }

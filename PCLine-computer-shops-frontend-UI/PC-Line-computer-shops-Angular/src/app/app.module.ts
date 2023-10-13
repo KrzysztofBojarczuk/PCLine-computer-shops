@@ -33,6 +33,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { NavBarComponent } from './nav-bar/nav-bar.component';;
 import { AdressFormComponent } from './shops/adress-form/adress-form.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { AdressFormComponent } from './shops/adress-form/adress-form.component';
     AdressFormComponent,
   ],
   imports: [
+    MatBadgeModule,
     NgIf,
     MatIconModule,
     MatListModule,
