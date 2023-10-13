@@ -15,7 +15,11 @@
         routerLinkActive="active"
         ariaCurrentWhenActive="page"
       >
-        Product List
+        Product List. Number of all products:
+        <mat-icon
+          style="margin-bottom: -19px; margin-left: -15px; margin-right: 11px"
+          matBadge="{{ numberOfProducts }}"
+        ></mat-icon>
       </mat-list-item>
     </mat-list>
   </mat-drawer>

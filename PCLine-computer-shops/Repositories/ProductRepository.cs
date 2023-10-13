@@ -16,6 +16,16 @@ namespace PCLine_computer_shops.Repositories
         {
             _context = context;
         }
+
+        public async Task<int> CountAllproducts()
+        {
+            IQueryable<Product> query = _context.Products;
+
+            int totalAmount = await query.SumAsync(product => product.Amount);
+
+            return totalAmount;
+        }
+
         public async Task<ICollection<Product>> GetAllProducts(string searchString)
         {
             var query = await _context.Products.ToListAsync();

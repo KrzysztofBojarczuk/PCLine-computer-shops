@@ -22,6 +22,19 @@ namespace PCLine_computer_shops.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("GetNumberOfProducts")]
+        public async Task<int> GetNomuberOfProducts()        
+        {
+            var numuberofProducts = await _productRepository.CountAllproducts();
+
+            //if (numuberofProducts == null)
+            //{
+            //    return NotFound();
+            //}
+
+            return numuberofProducts;
+        }
+
         [HttpGet("GetAllProducts")]
         public async Task<IActionResult> GetAllProductsp([FromQuery] string searchString = "")
         {
