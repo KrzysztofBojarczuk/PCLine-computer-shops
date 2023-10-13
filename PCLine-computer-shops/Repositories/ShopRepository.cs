@@ -13,13 +13,13 @@ namespace PCLine_computer_shops.Repositories
         {
             _context = context;
         }
-        public async Task<ICollection<Shop>> GetAllShops(string searchString)
+        public async Task<ICollection<Shop>> GetAllShops(string searchTerm)
         {
             var query = await _context.Shops.Include(h => h.Products).ToListAsync();
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchTerm))
             {
-                query = query.Where(x => x.Name.Contains(searchString)).ToList();
+                query = query.Where(x => x.Name.Contains(searchTerm)).ToList();
             }
 
             return query;

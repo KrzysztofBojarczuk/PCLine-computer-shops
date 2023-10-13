@@ -49,6 +49,8 @@ import { AdressFormComponent } from './shops/adress-form/adress-form.component';
     AdressFormComponent,
   ],
   imports: [
+    NgIf,
+    MatIconModule,
     MatListModule,
     MatSidenavModule,
     MatExpansionModule,
@@ -71,7 +73,7 @@ import { AdressFormComponent } from './shops/adress-form/adress-form.component';
     NgFor,
     MatIconModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

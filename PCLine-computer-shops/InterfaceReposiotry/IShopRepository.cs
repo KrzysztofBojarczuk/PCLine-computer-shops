@@ -4,7 +4,7 @@ namespace PCLine_computer_shops.InterfaceReposiotry
 {
     public interface IShopRepository
     {
-        Task<ICollection<Shop>> GetAllShops(string searchString);
+        Task<ICollection<Shop>> GetAllShops(string searchTerm);
         Task<Shop> CreateShop(Shop shop);
         Task<Shop> GetShopById(int shopId);
         Task<Shop> UpdateShop(Shop updateShop);

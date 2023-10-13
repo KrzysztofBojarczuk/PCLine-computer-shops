@@ -21,9 +21,9 @@ namespace PCLine_computer_shops.Controllers
         }
 
         [HttpGet("Get")]
-        public async Task<IActionResult> GetAllShops([FromQuery] string searchString = "")
+        public async Task<IActionResult> GetAllShops([FromQuery] string searchTerm = "")
         {
-            var shops = await _shopRepository.GetAllShops(searchString);
+            var shops = await _shopRepository.GetAllShops(searchTerm);
             var shopsGet = _mapper.Map<List<ShopGetDto>>(shops);
 
             return Ok(shopsGet);
