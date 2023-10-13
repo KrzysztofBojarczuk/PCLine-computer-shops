@@ -4,6 +4,7 @@ import { Product } from 'src/app/models/product';
 import { Observable, tap } from 'rxjs';
 import { Shop } from '../models/shop';
 import { ProductCreate } from '../models/product-create';
+import { HttpHeaders } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getNumberOfProducts(): Observable<number> {
-    return this.http.get<number>(this.apiUrl + 'Product/GetNumberOfProducts');
+    const headers = new HttpHeaders().set("Authorization", "Bearer " + "bd1a1ccf8095037f361a4d351e7c0de65f0776bfc2f478ea8d312c763bb6caca");
+    return this.http.get<number>(this.apiUrl + 'Product/GetNumberOfProducts', { headers });
   }
 
   getProducts(): Observable<Product[]> {

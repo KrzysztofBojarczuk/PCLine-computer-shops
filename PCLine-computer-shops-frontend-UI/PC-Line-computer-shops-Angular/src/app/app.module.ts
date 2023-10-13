@@ -34,6 +34,7 @@ import { MatListModule } from '@angular/material/list';
 import { NavBarComponent } from './nav-bar/nav-bar.component';;
 import { AdressFormComponent } from './shops/adress-form/adress-form.component';
 import { MatBadgeModule } from '@angular/material/badge';
+import { JwtModule } from "@auth0/angular-jwt";
 
 @NgModule({
   declarations: [
@@ -50,6 +51,13 @@ import { MatBadgeModule } from '@angular/material/badge';
     AdressFormComponent,
   ],
   imports: [
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["example.com"], // Tu dodaj domeny, które mają dostęp
+        disallowedRoutes: ["example.com/api/auth/login"], // Tu dodaj ścieżki, które nie wymagają tokena
+      },
+    }),
     MatBadgeModule,
     NgIf,
     MatIconModule,
@@ -81,3 +89,6 @@ import { MatBadgeModule } from '@angular/material/badge';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+export function tokenGetter() {
+  return localStorage.getItem("access_token");
+}
