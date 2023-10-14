@@ -8,8 +8,9 @@ namespace PCLine_computer_shops.Data
             public DataContext(DbContextOptions options) : base(options)
             {
             }
-            public DbSet<Product> Products { get; set; }      
             public DbSet<Shop> Shops { get; set; }
+            public DbSet<Product> Products { get; set; }
+            public DbSet<Employee> Employees { get; set; }  
             public DbSet<Address> Address { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -19,6 +20,12 @@ namespace PCLine_computer_shops.Data
                  .WithMany(h => h.Products)
                  .HasForeignKey(h => h.ShopId)
                  .IsRequired();
+
+            modelBuilder.Entity<Employee>()
+                .HasOne(h => h.Shop)
+                .WithMany(h => h.Employees)
+                .HasForeignKey(h => h.ShopId)
+                .IsRequired();
 
             modelBuilder.Entity<Shop>()
                 .HasOne(h => h.Address)

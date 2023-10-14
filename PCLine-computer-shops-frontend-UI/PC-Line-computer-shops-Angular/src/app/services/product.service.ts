@@ -23,7 +23,7 @@ export class ProductService {
   }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl + 'Product/GetAllProducts');
+    return this.http.get<Product[]>(this.apiUrl + 'Product/Get');
   }
 
   postProductForShop(shopId: number, product: ProductCreate): Observable<ProductCreate> {
