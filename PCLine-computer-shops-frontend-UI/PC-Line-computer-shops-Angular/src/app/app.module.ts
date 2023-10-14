@@ -35,6 +35,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';;
 import { AdressFormComponent } from './shops/adress-form/adress-form.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { JwtModule } from "@auth0/angular-jwt";
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { JwtModule } from "@auth0/angular-jwt";
     MatIconModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatButtonToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

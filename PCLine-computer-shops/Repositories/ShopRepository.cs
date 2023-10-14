@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PCLine_computer_shops.Data;
+using PCLine_computer_shops.Enums;
 using PCLine_computer_shops.InterfaceReposiotry;
 using PCLine_computer_shops.Models;
 
@@ -14,13 +15,23 @@ namespace PCLine_computer_shops.Repositories
             _context = context;
         }
 
-        public async Task<ICollection<Shop>> GetAllShops(string searchTerm)
+        public async Task<ICollection<Shop>> GetAllShops(string searchTerm, List<Country> enumCountry)
         {
             var query = await _context.Shops.Include(h => h.Products).ToListAsync();
 
             if (!String.IsNullOrEmpty(searchTerm))
             {
-                query = query.Where(x => x.ShopId.ToString().Contains(searchTerm) || x.Name.ToLower().Contains(searchTerm)).ToList();
+                query = query.Where(h => h.ShopId.ToString().Contains(searchTerm) || h.Name.ToLower().Contains(searchTerm)).ToList();
+            }
+
+            if (enumCountry == null)
+            {
+                enumCountry = new List<Country>();
+            }
+
+            if (enumCountry.Any())
+            {
+                query = query.Where(h => enumCountry.Contains(h.Country)).ToList();
             }
 
             return query;

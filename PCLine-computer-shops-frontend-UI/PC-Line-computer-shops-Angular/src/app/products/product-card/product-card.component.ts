@@ -25,10 +25,4 @@ export class ProductCardComponent {
       data: product,
     });
   }
-
-  // dialogRef.afterClosed().subscribe(result => {
-  //   this.getShops();
-  // }
-  // )
-  //}
 }
