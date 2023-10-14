@@ -33,7 +33,7 @@ namespace PCLine_computer_shops.Repositories
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                query = query.Where(h => h.Equals(searchString)).ToList();
+                query = query.Where(h => h.Name.ToLower().Contains(searchString)).ToList();
             }
 
             if (query == null)
@@ -78,7 +78,7 @@ namespace PCLine_computer_shops.Repositories
 
         public async Task<Product> GetProductById(int shopId, int productId)
         {
-            var product = await _context.Products.FirstOrDefaultAsync(h => h.ProductId == productId && h.ShopId == shopId);
+            var product = await _context.Products.FirstOrDefaultAsync(h => h.ShopId == shopId && h.ProductId == productId);
 
             if (product == null)
             {
