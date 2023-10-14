@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PCLine_computer_shops.Dtos;
+using PCLine_computer_shops.Enums;
 using PCLine_computer_shops.InterfaceReposiotry;
 using PCLine_computer_shops.Models;
 
@@ -21,9 +22,14 @@ namespace PCLine_computer_shops.Controllers
         }
 
         [HttpGet("Get")]
-        public async Task<IActionResult> GetAllShops([FromQuery] string searchTerm = "")
+        public async Task<IActionResult> GetAllShops([FromQuery] List<Country> enumCountry = null, string searchTerm = "")
         {
-            var shops = await _shopRepository.GetAllShops(searchTerm);
+            //if (enumCountry == null || enumCountry.Count == 0)
+            //{
+            //    enumCountry = new List<Country>(); 
+            //}
+
+            var shops = await _shopRepository.GetAllShops(searchTerm, enumCountry);
             var shopsGet = _mapper.Map<List<ShopGetDto>>(shops);
 
             return Ok(shopsGet);

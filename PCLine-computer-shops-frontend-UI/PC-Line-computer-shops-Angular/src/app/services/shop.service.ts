@@ -13,15 +13,12 @@ export class ShopService {
 
   constructor(private http: HttpClient) { }
 
-  getShops(searchTerm?: string): Observable<Shop[]> {
-    console.log("AAAA");
-    //searchTerm = "22";
-    console.log(searchTerm);
-    return this.http.get<Shop[]>(`${this.apiUrl}Shops/Get?searchTerm=${searchTerm}`);
+  getShopsService(searchTerm?: string, selectedCountries?: string[]): Observable<Shop[]> {
+    return this.http.get<Shop[]>(`${this.apiUrl}Shops/Get?searchTerm=${searchTerm}${selectedCountries && selectedCountries.length > 0 ? `&enumCountry=${selectedCountries.join(',')}` : ''}`);
+
   }
 
   postShop(shop: ShopCreate): Observable<ShopCreate> {
-    console.log(shop);
     return this.http.post<ShopCreate>(this.apiUrl + 'Shops/Post', shop);
   }
 

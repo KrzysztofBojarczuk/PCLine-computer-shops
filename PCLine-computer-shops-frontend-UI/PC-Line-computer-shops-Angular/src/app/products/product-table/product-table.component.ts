@@ -22,7 +22,6 @@ export class ProductTableComponent {
   constructor(private shopService: ShopService, private productService: ProductService, private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.getShops();
     this.getAllPrducts();
   }
 
@@ -37,7 +36,6 @@ export class ProductTableComponent {
   getAllPrducts() {
     this.productService.getProducts().subscribe(
       result => {
-        console.log(result);
         this.products = result
       }
     )
@@ -49,17 +47,6 @@ export class ProductTableComponent {
       height: '550px'
     });
     dialogRef.afterClosed();
-  }
-
-  getShops() {
-    this.shopService.getShops('').subscribe(
-      result => {
-        this.shops = result;
-      },
-      error => {
-        console.error('Error fetching shops:', error);
-      }
-    );
   }
 
   updateProduct(product: Product) {

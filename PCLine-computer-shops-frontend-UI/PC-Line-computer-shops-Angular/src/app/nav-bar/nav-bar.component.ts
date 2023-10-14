@@ -21,8 +21,6 @@ export class NavBarComponent {
     this.productService.getNumberOfProducts().subscribe(
       (count) => {
         this.numberOfProducts = count;
-        console.log(this.numberOfProducts);
-
       },
       (error) => {
         console.error('Error fetching number of products:', error);

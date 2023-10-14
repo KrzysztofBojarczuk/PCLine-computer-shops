@@ -25,12 +25,24 @@ export class ShopTableComponent {
 
   displayedColumns: string[] = ['shopId', 'name', 'startDate', 'country', 'actions'];
 
+  countryValues = [
+    { number: "1", name: "Poland" },
+    { number: "2", name: "Germany" },
+    { number: "3", name: "France" }
+  ]
+
+  selectedValues: string[] = [];
+
   constructor(private shopService: ShopService, private dialog: MatDialog, private snackBar: MatSnackBar, private productService: ProductService, private router: Router) {
     this.dataSource = new MatTableDataSource<Shop>([]);
   }
 
   ngOnInit() {
     this.getShops('');
+  }
+
+  onSelectedValuesChange() {
+    this.getShops('', this.selectedValues);
   }
 
   getCountryName(countryValue: number): string {
@@ -42,9 +54,9 @@ export class ShopTableComponent {
     this.getShops('');
   }
 
-  getShops(searchTerm?: string) {
-    this.shopService.getShops(searchTerm).subscribe(
-      result => {
+  getShops(searchTerm?: string, selectedValues?: string[]) {
+    this.shopService.getShopsService(searchTerm, selectedValues).subscribe(
+      (result: Shop[]) => {
         this.dataSource = new MatTableDataSource(result);
       },
       error => {
@@ -108,12 +120,9 @@ export class ShopTableComponent {
       data: shopId,
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getShops();
+      this.getShops('');
     }
     )
   }
 
-  searchShop() {
-
-  }
 }

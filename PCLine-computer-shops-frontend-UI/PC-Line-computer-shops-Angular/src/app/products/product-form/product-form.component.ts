@@ -27,18 +27,6 @@ export class ProductFormComponent {
   }
 
   ngOnInit() {
-    this.getShops();
-  }
-
-  getShops() {
-    this.shopService.getShops().subscribe(
-      result => {
-        this.shops = result;
-      },
-      error => {
-        console.error('Error fetching shops:', error);
-      }
-    );
   }
 
   submit(product: ProductCreate) {
