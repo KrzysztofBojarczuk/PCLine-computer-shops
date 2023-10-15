@@ -13,10 +13,10 @@ export class ShopService {
 
   constructor(private http: HttpClient) { }
 
-  getShopsService(searchTerm?: string, selectedCountries?: string[]): Observable<Shop[]> {
-    return this.http.get<Shop[]>(`${this.apiUrl}Shops/Get?searchTerm=${searchTerm}${selectedCountries && selectedCountries.length > 0 ? `&enumCountry=${selectedCountries.join(',')}` : ''}`);
-
+  getShopsService(searchTerm?: string, selectedCountries?: number[]): Observable<Shop[]> {
+    return this.http.get<Shop[]>(`${this.apiUrl}Shops/Get?searchTerm=${searchTerm}&${selectedCountries?.map(country => `enumCountry=${country}`).join('&')}`);
   }
+
 
   postShop(shop: ShopCreate): Observable<ShopCreate> {
     return this.http.post<ShopCreate>(this.apiUrl + 'Shops/Post', shop);
