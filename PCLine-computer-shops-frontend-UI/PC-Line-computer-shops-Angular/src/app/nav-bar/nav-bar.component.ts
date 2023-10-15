@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductService } from '../services/product.service';
+import { EmployeeService } from '../services/employee.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,18 +10,31 @@ import { ProductService } from '../services/product.service';
 export class NavBarComponent {
 
   numberOfProducts: number = 0;
+  numberOEmployee: number = 0;
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private employeeService: EmployeeService) {
   }
 
   ngOnInit() {
     this.getNumberOfProducts();
+    this.getNumberOfEmployee();
+  }
+
+  getNumberOfEmployee() {
+    this.employeeService.getNumberOfEmployee().subscribe(
+      (result) => {
+        this.numberOEmployee = result
+      },
+      (error) => {
+        console.error('Error fetching number of products:', error);
+      }
+    )
   }
 
   getNumberOfProducts() {
     this.productService.getNumberOfProducts().subscribe(
-      (count) => {
-        this.numberOfProducts = count;
+      (result) => {
+        this.numberOfProducts = result;
       },
       (error) => {
         console.error('Error fetching number of products:', error);

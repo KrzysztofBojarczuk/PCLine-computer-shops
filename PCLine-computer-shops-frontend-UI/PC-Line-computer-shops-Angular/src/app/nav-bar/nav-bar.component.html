@@ -21,6 +21,18 @@
           matBadge="{{ numberOfProducts }}"
         ></mat-icon>
       </mat-list-item>
+      <mat-list-item
+        role="listitem"
+        routerLink="/employees"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+      >
+        Employee List. Number of all employees:
+        <mat-icon
+          style="margin-bottom: -19px; margin-left: -15px; margin-right: 11px"
+          matBadge="{{ numberOEmployee }}"
+        ></mat-icon>
+      </mat-list-item>
     </mat-list>
   </mat-drawer>
   <mat-drawer-content><router-outlet></router-outlet></mat-drawer-content>

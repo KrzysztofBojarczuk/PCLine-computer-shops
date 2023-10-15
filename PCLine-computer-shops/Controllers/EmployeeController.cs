@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PCLine_computer_shops.Dtos;
+using PCLine_computer_shops.Enums;
 using PCLine_computer_shops.InterfaceReposiotry;
 using PCLine_computer_shops.Models;
 
@@ -20,10 +21,18 @@ namespace PCLine_computer_shops.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("Get")]
-        public async Task<IActionResult> GetAllEmployees([FromQuery] string searchString = "")
+        [HttpGet("GetNumberOfEmployees")]
+        public async Task<int> GetNumberOfEmployees()
         {
-            var employees = await _employeeRepository.GetAllEmployees(searchString);
+            var numberOfEmployees = await _employeeRepository.CountAllEmployees();
+            
+            return numberOfEmployees;
+        }
+
+        [HttpGet("Get")]
+        public async Task<IActionResult> GetAllEmployees([FromQuery] List<EmployeePosition> enumEmployeePosition, string searchString = "")
+        {
+            var employees = await _employeeRepository.GetAllEmployees(searchString, enumEmployeePosition);
 
             if (employees == null)
             {
