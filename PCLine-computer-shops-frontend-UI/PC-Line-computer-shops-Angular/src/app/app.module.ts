@@ -36,6 +36,11 @@ import { AdressFormComponent } from './shops/adress-form/adress-form.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { JwtModule } from "@auth0/angular-jwt";
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { EmployeeFormComponent } from './employee/employee-form/employee-form.component';
+import { EmployeeListComponent } from './employee/employee-table/employee-list.component';
+import { EmployeeUpdateComponent } from './employee/employee-update/employee-update.component';
+import { EmployeeShopComponent } from './employee/employee-shop/employee-shop.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -50,13 +55,17 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     AdditionalInformationsComponent,
     NavBarComponent,
     AdressFormComponent,
+    EmployeeFormComponent,
+    EmployeeListComponent,
+    EmployeeUpdateComponent,
+    EmployeeShopComponent,
   ],
   imports: [
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ["example.com"], // Tu dodaj domeny, które mają dostęp
-        disallowedRoutes: ["example.com/api/auth/login"], // Tu dodaj ścieżki, które nie wymagają tokena
+        allowedDomains: ["example.com"],
+        disallowedRoutes: ["example.com/api/auth/login"],
       },
     }),
     MatBadgeModule,
@@ -85,7 +94,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatIconModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

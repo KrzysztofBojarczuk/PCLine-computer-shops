@@ -18,9 +18,9 @@ export class ShopFormComponent {
   shopForm: FormGroup;
 
   countries: { value: number; name: string }[] = [
-    { value: 1, name: 'Poland' },
-    { value: 2, name: 'Germany' },
-    { value: 3, name: 'France' }
+    { value: Country.Poland, name: 'Poland' },
+    { value: Country.Germany, name: 'Germany' },
+    { value: Country.France, name: 'France' }
   ];
 
   title: string = "Add New Shop";

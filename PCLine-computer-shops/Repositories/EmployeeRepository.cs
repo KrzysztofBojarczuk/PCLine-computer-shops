@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PCLine_computer_shops.Data;
+using PCLine_computer_shops.Enums;
 using PCLine_computer_shops.InterfaceReposiotry;
 using PCLine_computer_shops.Models;
 
@@ -14,7 +15,16 @@ namespace PCLine_computer_shops.Repositories
             _context = context;
         }
 
-        public async Task<ICollection<Employee>> GetAllEmployees(string searchString)
+        public async Task<int> CountAllEmployees()
+        {
+            IQueryable<Employee> query = _context.Employees;
+
+            int totalAmount = await query.CountAsync();
+
+            return totalAmount;
+        }
+
+        public async Task<ICollection<Employee>> GetAllEmployees(string searchString, List<EmployeePosition> enumEmployeePosition)
         {
             var query = await _context.Employees.ToListAsync();
 
@@ -26,6 +36,16 @@ namespace PCLine_computer_shops.Repositories
             if (query == null)
             {
                 return null;
+            }
+
+            if(enumEmployeePosition == null)
+            {
+                enumEmployeePosition = new List<EmployeePosition>();
+            }
+
+            if(enumEmployeePosition.Any())
+            {
+                query = query.Where(h => enumEmployeePosition.Contains(h.EmployeePosition)).ToList();
             }
 
             return query;

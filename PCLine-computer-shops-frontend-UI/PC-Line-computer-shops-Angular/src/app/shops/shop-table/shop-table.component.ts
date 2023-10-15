@@ -12,6 +12,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { ProductFormComponent } from 'src/app/products/product-form/product-form.component';
 import { Router } from '@angular/router';
 import { AdressFormComponent } from '../adress-form/adress-form.component';
+import { EmployeeFormComponent } from 'src/app/employee/employee-form/employee-form.component';
 
 @Component({
   selector: 'app-shop-table',
@@ -26,9 +27,9 @@ export class ShopTableComponent {
   displayedColumns: string[] = ['shopId', 'name', 'startDate', 'country', 'actions'];
 
   countryValues = [
-    { number: "1", name: "Poland" },
-    { number: "2", name: "Germany" },
-    { number: "3", name: "France" },
+    { number: Country.Poland, name: "Poland" },
+    { number: Country.Germany, name: "Germany" },
+    { number: Country.France, name: "France" },
   ]
 
   selectedValues: number[] = [];
@@ -119,10 +120,15 @@ export class ShopTableComponent {
       height: '550px',
       data: shopId,
     });
-    dialogRef.afterClosed().subscribe(result => {
-      this.getShops('');
-    }
-    )
+
+  }
+
+  createEmployee(shopId: number) {
+    const dialogRef = this.dialog.open(EmployeeFormComponent, {
+      width: '400px',
+      height: '650px',
+      data: shopId,
+    });
   }
 
 }
