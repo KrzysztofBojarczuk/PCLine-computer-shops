@@ -21,10 +21,7 @@ export class ShopUpdateComponent {
     { value: 3, name: 'France' }
   ];
 
-  constructor(private formBuilder: FormBuilder,
-    private shopService: ShopService,
-    public dialogRef: MatDialogRef<ShopUpdateComponent>,
-    @Inject(MAT_DIALOG_DATA) public shop: Shop) {
+  constructor(private formBuilder: FormBuilder, private shopService: ShopService, public dialogRef: MatDialogRef<ShopUpdateComponent>, @Inject(MAT_DIALOG_DATA) public shop: Shop) {
     this.shopForm = this.formBuilder.group({
       name: [shop.name, Validators.required],
       country: [shop.country, Validators.required],

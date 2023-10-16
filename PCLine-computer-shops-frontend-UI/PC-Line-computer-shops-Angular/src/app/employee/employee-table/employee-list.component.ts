@@ -33,7 +33,6 @@ export class EmployeeListComponent {
 
   constructor(private employeeService: EmployeeService, private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource<Employee>([])
-    console.log(this.selection.selected);
   }
 
   ngOnInit() {

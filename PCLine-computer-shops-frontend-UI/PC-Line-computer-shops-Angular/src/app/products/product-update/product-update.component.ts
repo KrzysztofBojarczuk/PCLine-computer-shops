@@ -16,10 +16,8 @@ export class ProductUpdateComponent {
   productForm: FormGroup;
 
   title = "Update Product"
-  constructor(private fb: FormBuilder,
-    private productService: ProductService,
-    private dialogRef: MatDialogRef<ProductFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Product) {
+
+  constructor(private fb: FormBuilder, private productService: ProductService, private dialogRef: MatDialogRef<ProductFormComponent>, @Inject(MAT_DIALOG_DATA) public data: Product) {
 
     this.productForm = this.fb.group({
       name: [data.name, Validators.required],
