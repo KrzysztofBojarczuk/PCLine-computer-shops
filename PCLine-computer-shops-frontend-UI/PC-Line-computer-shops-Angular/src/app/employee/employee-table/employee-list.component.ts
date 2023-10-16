@@ -4,6 +4,8 @@ import { Employee } from 'src/app/models/employee';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { EmployeePosition } from 'src/app/enums/employeePosition ';
+import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-employee-list',
@@ -27,7 +29,7 @@ export class EmployeeListComponent {
     { number: EmployeePosition.OfficeWorker, name: "Office worker" },
     { number: EmployeePosition.Driver, name: "Driver" }
   ]
-  constructor(private employeeService: EmployeeService) {
+  constructor(private employeeService: EmployeeService, private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource<Employee>([])
     console.log(this.selection.selected);
   }
@@ -64,18 +66,27 @@ export class EmployeeListComponent {
     const selectedEmployees = this.selection.selected;
 
     if (selectedEmployees.length > 0) {
-      for (const employee of selectedEmployees) {
-        this.deleteEmployee(employee);
-      }
+      const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+        width: '400px',
+        height: '200px',
+        data: {
+          titleText: "Delete Employee",
+          confirmationText: "Do you really want delete selected Employees?"
+        }
+      });
 
-      this.selection.clear();
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          for (const employee of selectedEmployees) {
+            this.employeeService.deleteEmployees(employee.shopId, employee.employeeId).subscribe(result => {
+              this.getEmployee('');
+            });
+          }
+
+          this.selection.clear();
+        }
+      });
     }
-  }
-
-  deleteEmployee(employe: Employee) {
-    this.employeeService.deleteEmployees(employe.shopId, employe.employeeId).subscribe(result => {
-      this.getEmployee('');
-    })
   }
 
   isDeleteButtonDisabled(): boolean {

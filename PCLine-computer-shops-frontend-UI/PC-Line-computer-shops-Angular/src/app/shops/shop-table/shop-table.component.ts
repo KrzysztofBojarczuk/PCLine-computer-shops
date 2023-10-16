@@ -13,6 +13,7 @@ import { ProductFormComponent } from 'src/app/products/product-form/product-form
 import { Router } from '@angular/router';
 import { AdressFormComponent } from '../adress-form/adress-form.component';
 import { EmployeeFormComponent } from 'src/app/employee/employee-form/employee-form.component';
+import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-shop-table',
@@ -90,11 +91,26 @@ export class ShopTableComponent {
   }
 
   deleteShop(shopId: number) {
-    return this.shopService.deleteShop(shopId).subscribe(result => {
-      this.getShops('');
-      this.snackBar.open('Product deleted successfully', 'Close', {
-        duration: 3000,
-      });
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+      width: '400px',
+      height: '200px',
+      data: {
+        titleText: "Delete Shop",
+        confirmationText: "Do you really want delete Shop?"
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.shopService.deleteShop(shopId).subscribe(result => {
+          this.getShops('');
+          this.snackBar.open('Shop deleted successfully', 'Close', {
+            duration: 3000,
+          });
+        });
+      } else {
+        this.getShops('');
+      }
     });
   }
 

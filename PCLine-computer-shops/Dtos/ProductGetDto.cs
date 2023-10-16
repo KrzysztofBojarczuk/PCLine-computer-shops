@@ -10,6 +10,6 @@ namespace PCLine_computer_shops.Dtos
         public decimal Price { get; set; }
         public int Amount { get; set; }
         public int ShopId { get; set; }
-        public Shop Shop { get; set; }
+        //public Shop Shop { get; set; }
     }
 }

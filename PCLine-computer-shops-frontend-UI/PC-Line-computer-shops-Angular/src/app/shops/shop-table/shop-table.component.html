@@ -63,19 +63,39 @@
       <button mat-icon-button (click)="informationsAboutShop(element.shopId)">
         <i class="bi bi-info-circle" style="font-size: 1.5rem"></i>
       </button>
-      <button mat-icon-button (click)="deleteShop(element.shopId)">
+      <button
+        mat-icon-button
+        (click)="deleteShop(element.shopId)"
+        matTooltip="Delete Shop"
+      >
         <i class="bi bi-trash" style="font-size: 1.5rem"></i>
       </button>
-      <button mat-icon-button (click)="updateShop(element)">
+      <button
+        mat-icon-button
+        (click)="updateShop(element)"
+        matTooltip="Update Shop"
+      >
         <i class="bi bi-envelope" style="font-size: 1.5rem"></i>
       </button>
-      <button mat-icon-button (click)="createProduct(element.shopId)">
+      <button
+        mat-icon-button
+        (click)="createProduct(element.shopId)"
+        matTooltip="Create Product"
+      >
         <i class="bi bi-cart2" style="font-size: 1.5rem"></i>
       </button>
-      <button mat-icon-button (click)="createAddress(element.shopId)">
+      <button
+        mat-icon-button
+        (click)="createAddress(element.shopId)"
+        matTooltip="Add Address"
+      >
         <i class="bi bi-house" style="font-size: 1.5rem"></i>
       </button>
-      <button mat-icon-button (click)="createEmployee(element.shopId)">
+      <button
+        mat-icon-button
+        (click)="createEmployee(element.shopId)"
+        matTooltip="Add Employee"
+      >
         <i class="bi bi-person-fill-add" style="font-size: 1.5rem"></i>
       </button>
     </td>
