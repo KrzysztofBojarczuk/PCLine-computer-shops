@@ -8,6 +8,7 @@ import { ProductFormComponent } from '../product-form/product-form.component';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product';
 import { ProductUpdateComponent } from '../product-update/product-update.component';
+import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-product-table',
@@ -63,8 +64,21 @@ export class ProductTableComponent {
   }
 
   deleteProduct(product: Product) {
-    this.productService.deleteProduct(product.shopId, product.productId).subscribe(result => {
-      this.getAllPrducts();
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+      width: '400px',
+      height: '200px',
+      data: {
+        titleText: "Delete Product",
+        confirmationText: "Do you really want delete Product?"
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.productService.deleteProduct(product.shopId, product.productId).subscribe(result => {
+          this.getAllPrducts();
+        })
+      }
     })
   }
 }

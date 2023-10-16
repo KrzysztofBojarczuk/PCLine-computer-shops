@@ -41,6 +41,8 @@ import { EmployeeListComponent } from './employee/employee-table/employee-list.c
 import { EmployeeUpdateComponent } from './employee/employee-update/employee-update.component';
 import { EmployeeShopComponent } from './employee/employee-shop/employee-shop.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { TooltipPosition, MatTooltipModule } from '@angular/material/tooltip';
+import { ConfirmationModalComponent } from './shared/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     EmployeeListComponent,
     EmployeeUpdateComponent,
     EmployeeShopComponent,
+    ConfirmationModalComponent,
   ],
   imports: [
     JwtModule.forRoot({
@@ -68,6 +71,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         disallowedRoutes: ["example.com/api/auth/login"],
       },
     }),
+    MatTooltipModule,
     MatBadgeModule,
     NgIf,
     MatIconModule,
