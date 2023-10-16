@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { EmployeePosition } from 'src/app/enums/employeePosition ';
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
+import { EmployeeUpdateComponent } from '../employee-update/employee-update.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -15,7 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class EmployeeListComponent {
 
   dataSource: MatTableDataSource<Employee>;
-  displayedColumns: string[] = ['select', 'employeeId', 'lastName', 'email', 'employeePosition', 'shopId'];
+  displayedColumns: string[] = ['select', 'employeeId', 'lastName', 'email', 'salary', 'employeePosition', 'shopId', 'action'];
   selection = new SelectionModel<Employee>(true, []);
 
   selectedValues: number[] = [];
@@ -88,6 +89,25 @@ export class EmployeeListComponent {
         }
       });
     }
+  }
+
+  deleteEmployee(employe: Employee) {
+    this.employeeService.deleteEmployees(employe.shopId, employe.employeeId).subscribe(result => {
+      this.getEmployee('');
+    })
+  }
+
+  updateEmployee(employee: Employee) {
+    const dialogRef = this.dialog.open(EmployeeUpdateComponent, {
+      width: '400px',
+      height: '650px',
+      data: employee,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getEmployee('');
+    }
+    )
   }
 
   isDeleteButtonDisabled(): boolean {
