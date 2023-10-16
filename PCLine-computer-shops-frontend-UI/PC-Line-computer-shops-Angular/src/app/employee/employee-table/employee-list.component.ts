@@ -29,6 +29,7 @@ export class EmployeeListComponent {
     { number: EmployeePosition.OfficeWorker, name: "Office worker" },
     { number: EmployeePosition.Driver, name: "Driver" }
   ]
+
   constructor(private employeeService: EmployeeService, private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource<Employee>([])
     console.log(this.selection.selected);
