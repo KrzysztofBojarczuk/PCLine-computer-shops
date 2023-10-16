@@ -33,7 +33,6 @@ export class EmployeeFormComponent {
       email: ['', [Validators.required, Validators.email]],
       employeePosition: ['', Validators.required],
     });
-
   }
 
   submit(employee: EmployeeCreate) {

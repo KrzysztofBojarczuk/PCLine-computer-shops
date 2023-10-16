@@ -53,7 +53,7 @@ export class ProductTableComponent {
     const dialogRef = this.dialog.open(ProductUpdateComponent, {
       width: '400px',
       height: '450px',
-      data: { product: product, shopId: product.shopId },
+      data: product,
     });
 
     dialogRef.afterClosed().subscribe(result => {
