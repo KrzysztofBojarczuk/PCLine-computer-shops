@@ -19,17 +19,17 @@ export class ProductUpdateComponent {
   constructor(private fb: FormBuilder,
     private productService: ProductService,
     private dialogRef: MatDialogRef<ProductFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { product: Product, shopId: number }) {
+    @Inject(MAT_DIALOG_DATA) public data: Product) {
 
     this.productForm = this.fb.group({
-      name: [data.product.name, Validators.required],
-      price: [data.product.price, Validators.required],
-      amount: [data.product.amount, Validators.required],
+      name: [data.name, Validators.required],
+      price: [data.price, Validators.required],
+      amount: [data.amount, Validators.required],
     });
   }
 
   updateProduct(product: Product) {
-    this.productService.updateProduct(this.data.shopId, this.data.product.productId, product).subscribe();
+    this.productService.updateProduct(this.data.shopId, this.data.productId, product).subscribe();
     this.dialogRef.close();
   }
 

@@ -38,6 +38,5 @@ export class ProductFormComponent {
         console.error('Error:', error);
       }
     );
-
   }
 }

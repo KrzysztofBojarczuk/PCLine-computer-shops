@@ -4,6 +4,8 @@ import { Employee } from 'src/app/models/employee';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { EmployeePosition } from 'src/app/enums/employeePosition ';
+import { EmployeeUpdateComponent } from '../employee-update/employee-update.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-employee-list',
@@ -13,7 +15,7 @@ import { EmployeePosition } from 'src/app/enums/employeePosition ';
 export class EmployeeListComponent {
 
   dataSource: MatTableDataSource<Employee>;
-  displayedColumns: string[] = ['select', 'employeeId', 'lastName', 'email', 'employeePosition', 'shopId'];
+  displayedColumns: string[] = ['select', 'employeeId', 'lastName', 'email', 'salary', 'employeePosition', 'shopId', 'action'];
   selection = new SelectionModel<Employee>(true, []);
 
   selectedValues: number[] = [];
@@ -27,7 +29,8 @@ export class EmployeeListComponent {
     { number: EmployeePosition.OfficeWorker, name: "Office worker" },
     { number: EmployeePosition.Driver, name: "Driver" }
   ]
-  constructor(private employeeService: EmployeeService) {
+
+  constructor(private employeeService: EmployeeService, private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource<Employee>([])
     console.log(this.selection.selected);
   }
@@ -76,6 +79,19 @@ export class EmployeeListComponent {
     this.employeeService.deleteEmployees(employe.shopId, employe.employeeId).subscribe(result => {
       this.getEmployee('');
     })
+  }
+
+  updateEmployee(employee: Employee) {
+    const dialogRef = this.dialog.open(EmployeeUpdateComponent, {
+      width: '400px',
+      height: '650px',
+      data: employee,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getEmployee('');
+    }
+    )
   }
 
   isDeleteButtonDisabled(): boolean {
