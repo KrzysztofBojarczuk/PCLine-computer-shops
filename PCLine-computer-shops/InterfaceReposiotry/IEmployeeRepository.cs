@@ -5,6 +5,7 @@ namespace PCLine_computer_shops.InterfaceReposiotry
 {
     public interface IEmployeeRepository
     {
+        Task<decimal> CountAllEmployeesSalaries();
         Task<int> CountAllEmployees();
         Task<ICollection<Employee>> GetAllEmployees(string searchString, List<EmployeePosition> enumEmployeePosition);
         Task<ICollection<Employee>> GetAllEmployeesForShopById(int shopId);

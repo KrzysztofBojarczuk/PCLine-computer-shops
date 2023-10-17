@@ -20,9 +20,9 @@ namespace PCLine_computer_shops.Repositories
 
         public async Task<int> CountAllproducts()
         {
-            IQueryable<Product> query = _context.Products;
+            IEnumerable<Product> query = _context.Products;
 
-            int totalAmount = await query.SumAsync(product => product.Amount);
+            int totalAmount = query.Sum(product => product.Amount);
 
             return totalAmount;
         }

@@ -15,13 +15,20 @@ namespace PCLine_computer_shops.Repositories
             _context = context;
         }
 
+        public async Task<decimal> CountAllEmployeesSalaries()
+        {
+            IEnumerable<Employee> query = _context.Employees;
+
+            decimal totalSalaries = query.Sum(employee => employee.Salary);
+
+            return totalSalaries;
+        }
+
         public async Task<int> CountAllEmployees()
         {
-            IQueryable<Employee> query = _context.Employees;
+            IEnumerable<Employee> query = _context.Employees;
 
-            int totalAmount = await query.CountAsync();
-
-            return totalAmount;
+            return query.Count();
         }
 
         public async Task<ICollection<Employee>> GetAllEmployees(string searchString, List<EmployeePosition> enumEmployeePosition)
