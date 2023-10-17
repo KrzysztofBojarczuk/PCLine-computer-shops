@@ -19,11 +19,18 @@ export class ProductTableComponent {
 
   shops: Shop[] = [];
   products: Product[] = []
+  productVat: number = 0
 
   constructor(private shopService: ShopService, private productService: ProductService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.getAllPrducts();
+  }
+
+  calculateProductVat(productWithVat: number): number {
+    const vatRate = 0.23;
+    const productWithoutVat = productWithVat / (1 + vatRate);
+    return parseFloat(productWithoutVat.toFixed(2));
   }
 
   getTotaNomuberOfPrducts(): number {
