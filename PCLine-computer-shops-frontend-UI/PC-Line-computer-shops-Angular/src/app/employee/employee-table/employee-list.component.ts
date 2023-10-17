@@ -23,6 +23,8 @@ export class EmployeeListComponent {
 
   value: string = '';
 
+  employees: Employee[] = [];
+
   employeePosition = [
     { number: EmployeePosition.Menager, name: "Menager" },
     { number: EmployeePosition.Seller, name: "Seller " },
@@ -39,10 +41,19 @@ export class EmployeeListComponent {
     this.getEmployee('');
   }
 
+  getTotalSalary(): number {
+    return this.employees.reduce((total, employee) => total + employee.salary, 0);
+  }
+
+  getTotalNumberOfEmployees(): number {
+    return this.employees.length;
+  }
+
   getEmployee(searchTerm?: string, selectedValues?: number[]) {
     this.employeeService.getEmployees(searchTerm, selectedValues).subscribe(
       (result: Employee[]) => {
         this.dataSource = new MatTableDataSource(result);
+        this.employees = result;
       },
       error => {
         console.error('Error:', error);

@@ -3,13 +3,31 @@
     <app-product-card [product]="product"></app-product-card>
   </mat-grid-tile>
 </mat-grid-list> -->
-<div class="m-5">
+<div class="m-5" *ngIf="products.length !== 0">
   <h1>
     Nomuber of products: <b> {{ getTotaNomuberOfPrducts() }} </b>
   </h1>
   <h1>
     Value of all products: <b> {{ getTotalValue() }} USD </b>
   </h1>
+</div>
+<div class="m-5">
+  <p>Product with VAT:</p>
+  <input
+    class="mb-1"
+    matInput
+    type="number"
+    style="margin-right: 10px"
+    [(ngModel)]="productVat"
+  />
+
+  <p>Product without VAT</p>
+  <input
+    matInput
+    type="number"
+    disabled="true"
+    [value]="calculateProductVat(productVat)"
+  />
 </div>
 <mat-grid-list cols="8" rowHeight="200px" gutterSize="20px" class="mx-3">
   <mat-grid-tile *ngFor="let product of products">

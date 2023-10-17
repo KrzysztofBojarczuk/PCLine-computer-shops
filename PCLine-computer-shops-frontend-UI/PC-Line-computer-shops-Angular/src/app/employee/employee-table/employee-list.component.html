@@ -111,3 +111,14 @@
     (click)="selection.toggle(row)"
   ></tr>
 </table>
+
+<div *ngIf="employees.length !== 0">
+  <div class="m-5">
+    <h1>
+      Total salary of all employees: <b>{{ getTotalSalary() }} USD</b>
+    </h1>
+    <h1>
+      Number of employees: <b>{{ getTotalNumberOfEmployees() }}</b>
+    </h1>
+  </div>
+</div>
