@@ -7,6 +7,7 @@ import { EmployeePosition } from 'src/app/enums/employeePosition ';
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 import { EmployeeUpdateComponent } from '../employee-update/employee-update.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AddEmployeeToShopComponent } from '../add-employee-to-shop/add-employee-to-shop.component';
 
 @Component({
   selector: 'app-employee-list',
@@ -24,6 +25,8 @@ export class EmployeeListComponent {
   value: string = '';
 
   employees: Employee[] = [];
+
+  inputDisabled: boolean = false;
 
   employeePosition = [
     { number: EmployeePosition.Menager, name: "Menager" },
@@ -65,12 +68,24 @@ export class EmployeeListComponent {
     return EmployeePosition[enumEmployeePosition]
   }
 
+  addEmployeeToShop() {
+    const dialogRef = this.dialog.open(AddEmployeeToShopComponent, {
+      width: '900px',
+      height: '700px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getEmployee('');
+    }
+    )
+  }
+
   clearSearch() {
     this.value = '';
     this.getEmployee('');
   }
 
   onSelectedValuesChange() {
+    this.inputDisabled = this.selectedValues.length > 0;
     this.getEmployee('', this.selectedValues)
   }
 

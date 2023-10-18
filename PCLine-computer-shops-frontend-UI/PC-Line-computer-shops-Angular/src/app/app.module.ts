@@ -43,6 +43,8 @@ import { EmployeeShopComponent } from './employee/employee-shop/employee-shop.co
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TooltipPosition, MatTooltipModule } from '@angular/material/tooltip';
 import { ConfirmationModalComponent } from './shared/confirmation-modal/confirmation-modal.component';
+import { AddEmployeeToShopComponent } from './employee/add-employee-to-shop/add-employee-to-shop.component';
+
 
 @NgModule({
   declarations: [
@@ -62,6 +64,7 @@ import { ConfirmationModalComponent } from './shared/confirmation-modal/confirma
     EmployeeUpdateComponent,
     EmployeeShopComponent,
     ConfirmationModalComponent,
+    AddEmployeeToShopComponent,
   ],
   imports: [
     JwtModule.forRoot({

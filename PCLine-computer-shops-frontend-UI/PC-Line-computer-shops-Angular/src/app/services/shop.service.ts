@@ -17,7 +17,6 @@ export class ShopService {
     return this.http.get<Shop[]>(`${this.apiUrl}Shops/Get?searchTerm=${searchTerm}&${selectedCountries?.map(country => `enumCountry=${country}`).join('&')}`);
   }
 
-
   postShop(shop: ShopCreate): Observable<ShopCreate> {
     return this.http.post<ShopCreate>(this.apiUrl + 'Shops/Post', shop);
   }
