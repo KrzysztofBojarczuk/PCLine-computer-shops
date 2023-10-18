@@ -27,6 +27,8 @@ export class ShopTableComponent {
 
   displayedColumns: string[] = ['shopId', 'name', 'startDate', 'country', 'actions'];
 
+  inputDisabled: boolean = false;
+
   countryValues = [
     { number: Country.Poland, name: "Poland" },
     { number: Country.Germany, name: "Germany" },
@@ -44,6 +46,7 @@ export class ShopTableComponent {
   }
 
   onSelectedValuesChange() {
+    this.inputDisabled = this.selectedValues.length > 0;
     this.getShops('', this.selectedValues);
   }
 

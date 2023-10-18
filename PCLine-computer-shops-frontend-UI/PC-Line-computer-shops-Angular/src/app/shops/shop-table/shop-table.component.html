@@ -1,7 +1,13 @@
 <div class="row mt-5">
   <div class="col-md-6">
     <mat-form-field class="example-form-field">
-      <input matInput type="text" placeholder="Search" [(ngModel)]="value" />
+      <input
+        matInput
+        type="text"
+        placeholder="Search"
+        [(ngModel)]="value"
+        [disabled]="inputDisabled"
+      />
     </mat-form-field>
 
     <button

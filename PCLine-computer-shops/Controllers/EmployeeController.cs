@@ -53,7 +53,7 @@ namespace PCLine_computer_shops.Controllers
         }
 
         [HttpGet("Get/{shopId}")]
-        public async Task<IActionResult> GetAllEmployeeForShp(int shopId)
+        public async Task<IActionResult> GetAllEmployeeForShpById(int shopId)
         {
             var shop = await _employeeRepository.GetAllEmployeesForShopById(shopId);
 

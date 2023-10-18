@@ -10,7 +10,13 @@
 
 <div class="col-md-6">
   <mat-form-field class="example-form-field">
-    <input matInput type="text" placeholder="Search" [(ngModel)]="value" />
+    <input
+      matInput
+      type="text"
+      placeholder="Search"
+      [(ngModel)]="value"
+      [disabled]="inputDisabled"
+    />
   </mat-form-field>
 
   <button
@@ -22,6 +28,13 @@
   </button>
   <button style="margin-left: 10px" mat-raised-button (click)="clearSearch()">
     Clear
+  </button>
+  <button
+    style="margin-left: 10px"
+    mat-raised-button
+    (click)="addEmployeeToShop()"
+  >
+    Add Employee To Shop
   </button>
   <mat-button-toggle-group
     multiple
