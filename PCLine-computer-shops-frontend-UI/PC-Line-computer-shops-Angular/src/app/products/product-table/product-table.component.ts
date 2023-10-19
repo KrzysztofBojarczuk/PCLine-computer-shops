@@ -9,6 +9,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product';
 import { ProductUpdateComponent } from '../product-update/product-update.component';
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
+import { AddProductToShopComponent } from '../add-product-to-shop/add-product-to-shop.component';
 
 @Component({
   selector: 'app-product-table',
@@ -25,6 +26,17 @@ export class ProductTableComponent {
 
   ngOnInit() {
     this.getAllPrducts();
+  }
+
+  addProductToShop() {
+    const dialogRef = this.dialog.open(AddProductToShopComponent, {
+      width: '900px',
+      height: '520px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAllPrducts();
+    }
+    )
   }
 
   calculateProductVat(productWithVat: number): number {

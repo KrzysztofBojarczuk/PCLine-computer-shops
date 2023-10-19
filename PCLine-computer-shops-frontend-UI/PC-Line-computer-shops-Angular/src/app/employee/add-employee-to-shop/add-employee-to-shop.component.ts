@@ -28,8 +28,7 @@ export class AddEmployeeToShopComponent {
     { value: EmployeePosition.Driver, nameOfposition: 'Driver' }
   ];
 
-  constructor(private fb: FormBuilder,
-    private shopService: ShopService, private employeeService: EmployeeService, private dialogRef: MatDialogRef<void>) {
+  constructor(private fb: FormBuilder, private shopService: ShopService, private employeeService: EmployeeService, private dialogRef: MatDialogRef<void>) {
     this.shopForm = this.fb.group({
       shopId: ['', Validators.required],
       name: [{ value: '', disabled: true }, Validators.required],
@@ -54,8 +53,6 @@ export class AddEmployeeToShopComponent {
     this.shopService.getShopsService('').subscribe(
       (result: Shop[]) => {
         this.shops = result;
-
-        console.log(result);
       },
       error => {
         console.error('Błąd podczas pobierania produktów:', error);
