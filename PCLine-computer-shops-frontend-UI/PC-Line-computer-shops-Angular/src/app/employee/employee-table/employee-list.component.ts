@@ -53,7 +53,7 @@ export class EmployeeListComponent {
   }
 
   getEmployee(searchTerm?: string, selectedValues?: number[]) {
-    this.employeeService.getEmployees(searchTerm, selectedValues).subscribe(
+    this.employeeService.getEmployeesService(searchTerm, selectedValues).subscribe(
       (result: Employee[]) => {
         this.dataSource = new MatTableDataSource(result);
         this.employees = result;
@@ -105,7 +105,7 @@ export class EmployeeListComponent {
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           for (const employee of selectedEmployees) {
-            this.employeeService.deleteEmployees(employee.shopId, employee.employeeId).subscribe(result => {
+            this.employeeService.deleteEmployeesService(employee.shopId, employee.employeeId).subscribe(result => {
               this.getEmployee('');
             });
           }
@@ -117,7 +117,7 @@ export class EmployeeListComponent {
   }
 
   deleteEmployee(employe: Employee) {
-    this.employeeService.deleteEmployees(employe.shopId, employe.employeeId).subscribe(result => {
+    this.employeeService.deleteEmployeesService(employe.shopId, employe.employeeId).subscribe(result => {
       this.getEmployee('');
     })
   }

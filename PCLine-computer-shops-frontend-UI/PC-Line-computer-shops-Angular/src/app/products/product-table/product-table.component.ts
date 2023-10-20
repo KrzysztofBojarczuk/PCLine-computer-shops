@@ -21,11 +21,12 @@ export class ProductTableComponent {
   shops: Shop[] = [];
   products: Product[] = []
   productVat: number = 0
+  value: string = '';
 
   constructor(private shopService: ShopService, private productService: ProductService, private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.getAllPrducts();
+    this.getAllProducts('');
   }
 
   addProductToShop() {
@@ -34,7 +35,7 @@ export class ProductTableComponent {
       height: '520px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getAllPrducts();
+      this.getAllProducts('');
     }
     )
   }
@@ -53,12 +54,20 @@ export class ProductTableComponent {
     return this.products.reduce((total, product) => total + (product.price * product.amount), 0);
   }
 
-  getAllPrducts() {
-    this.productService.getProducts().subscribe(
-      result => {
-        this.products = result
+  getAllProducts(searchTerm?: string) {
+    this.productService.getProductsService(searchTerm).subscribe(
+      (result: Product[]) => {
+        this.products = result;
+      },
+      error => {
+        console.error('Error fetching products:', error);
       }
-    )
+    );
+  }
+
+  clearSearch() {
+    this.value = '';
+    this.getAllProducts('');
   }
 
   createProduct() {
@@ -77,7 +86,7 @@ export class ProductTableComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.getAllPrducts()
+      this.getAllProducts('')
     }
     )
   }
@@ -94,8 +103,8 @@ export class ProductTableComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.productService.deleteProduct(product.shopId, product.productId).subscribe(result => {
-          this.getAllPrducts();
+        this.productService.deleteProductService(product.shopId, product.productId).subscribe(result => {
+          this.getAllProducts('');
         })
       }
     })

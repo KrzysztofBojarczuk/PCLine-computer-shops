@@ -13,23 +13,23 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) { }
 
-  getNumberOfEmployee(): Observable<number> {
+  getNumberOfEmployeeService(): Observable<number> {
     return this.http.get<number>(this.apiUrl + 'Employee/GetNumberOfEmployees');
   }
 
-  getEmployees(searchTerm?: string, selectedEmployees?: number[]): Observable<Employee[]> {
+  getEmployeesService(searchTerm?: string, selectedEmployees?: number[]): Observable<Employee[]> {
     return this.http.get<Employee[]>(`${this.apiUrl}Employee/Get?searchString=${searchTerm}&${selectedEmployees?.map(employee => `enumEmployeePosition=${employee}`).join('&')}`);
   }
 
-  deleteEmployees(shopId: number, employeeId: number): Observable<void> {
+  deleteEmployeesService(shopId: number, employeeId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}Employee/Delete/${shopId}/employee/${employeeId}`);
   }
 
-  postEmployeeForShop(shopId: number, employee: EmployeeCreate): Observable<Employee> {
+  postEmployeeForShopService(shopId: number, employee: EmployeeCreate): Observable<Employee> {
     return this.http.post<Employee>(`${this.apiUrl}Employee/Post/${shopId}`, employee);
   }
 
-  updateEmployee(shopId: number, employeeId: number, updatedEmployee: EmployeeCreate): Observable<EmployeeCreate> {
+  updateEmployeeService(shopId: number, employeeId: number, updatedEmployee: EmployeeCreate): Observable<EmployeeCreate> {
     return this.http.put<EmployeeCreate>(`${this.apiUrl}Employee/Put/${shopId}/${employeeId}`, updatedEmployee);
   }
 }

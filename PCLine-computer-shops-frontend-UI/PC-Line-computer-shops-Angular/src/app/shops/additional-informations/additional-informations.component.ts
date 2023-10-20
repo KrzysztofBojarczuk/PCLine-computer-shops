@@ -16,13 +16,11 @@ export class AdditionalInformationsComponent {
 
   constructor(private route: ActivatedRoute, private addressService: AddressService) {
     this.route.params.subscribe(params => {
-      const shopId = +params['shopId']; // Pobranie shopId z parametrów routingu
+      const shopId = +params['shopId'];
       console.log("Shop ID:", shopId);
 
-      // Teraz możesz wywołać odpowiednią metodę z addressService i przekazać shopId
-      this.addressService.getAdrresForShop(shopId).subscribe(result => {
-        this.address = result; // Przypisanie danych do zmiennej 'address'
-        console.log("Address Data:", this.address.addressId);
+      this.addressService.getAdrresForShopService(shopId).subscribe(result => {
+        this.address = result;
       });
     });
   }

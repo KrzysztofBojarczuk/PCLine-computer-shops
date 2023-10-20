@@ -64,7 +64,7 @@ export class AddProductToShopComponent {
   }
 
   submit(shopId: number, product: ProductCreate) {
-    this.productService.postProductForShop(shopId, product).subscribe(res => {
+    this.productService.postProductForShopService(shopId, product).subscribe(res => {
       this.dialogRef.close();
     }
     );

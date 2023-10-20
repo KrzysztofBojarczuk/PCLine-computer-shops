@@ -34,7 +34,7 @@ export class ShopFormComponent {
   }
 
   submit(shop: ShopCreate) {
-    this.shopService.postShop(shop).subscribe();;
+    this.shopService.postShopService(shop).subscribe();;
     this.dialogRef.close();
   }
 

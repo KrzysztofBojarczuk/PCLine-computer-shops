@@ -36,7 +36,7 @@ export class EmployeeFormComponent {
   }
 
   submit(employee: EmployeeCreate) {
-    this.employeeService.postEmployeeForShop(this.shopId, employee).subscribe(
+    this.employeeService.postEmployeeForShopService(this.shopId, employee).subscribe(
       () => {
         this.dialogRef.close();
       },

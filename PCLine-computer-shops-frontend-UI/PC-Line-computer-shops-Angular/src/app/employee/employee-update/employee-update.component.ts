@@ -39,7 +39,7 @@ export class EmployeeUpdateComponent {
   }
 
   updateEmployee(employee: Employee) {
-    this.employeeService.updateEmployee(this.data.shopId, this.data.employeeId, employee).subscribe(
+    this.employeeService.updateEmployeeService(this.data.shopId, this.data.employeeId, employee).subscribe(
       () => {
         this.dialogRef.close();
       },

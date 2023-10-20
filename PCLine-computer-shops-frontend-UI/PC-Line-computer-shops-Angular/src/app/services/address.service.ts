@@ -13,11 +13,11 @@ export class AddressService {
 
   constructor(private http: HttpClient) { }
 
-  getAdrresForShop(shopId: number): Observable<Address> {
+  getAdrresForShopService(shopId: number): Observable<Address> {
     return this.http.get<Address>(`${this.apiUrl}Address/Get/${shopId}`)
   }
 
-  postAddressForShop(shopId: number, address: AddressCreate): Observable<AddressCreate> {
+  postAddressForShopService(shopId: number, address: AddressCreate): Observable<AddressCreate> {
     return this.http.post<AddressCreate>(`${this.apiUrl}Address/Post/${shopId}`, address)
   }
 }

@@ -27,13 +27,13 @@ namespace PCLine_computer_shops.Repositories
             return totalAmount;
         }
 
-        public async Task<ICollection<Product>> GetAllProducts(string searchString)
+        public async Task<ICollection<Product>> GetAllProducts(string searchTerm)
         {
             var query = await _context.Products.ToListAsync();
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!searchTerm.IsNullOrEmpty())
             {
-                query = query.Where(h => h.Name.ToLower().Contains(searchString)).ToList();
+                query = query.Where(h => h.ProductId.ToString().Contains(searchTerm) || h.Name.ToLower().Contains(searchTerm)).ToList();
             }
 
             if (query == null)
@@ -44,13 +44,13 @@ namespace PCLine_computer_shops.Repositories
             return query;
         }
 
-        public async Task<ICollection<Product>> GetAllProductsForShopById(int shopId, string searchString)
+        public async Task<ICollection<Product>> GetAllProductsForShopById(int shopId, string searchTerm)
         {
             var query = await _context.Products.Where(h => h.ShopId == shopId).ToListAsync();
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!searchTerm.IsNullOrEmpty())
             {
-                query = query.Where(h => h.Equals(searchString)).ToList();
+                query = query.Where(h => h.Equals(searchTerm)).ToList();
             }
 
             if (query == null)

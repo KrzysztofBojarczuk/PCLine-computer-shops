@@ -38,9 +38,9 @@ namespace PCLine_computer_shops.Controllers
         }
 
         [HttpGet("Get")]
-        public async Task<IActionResult> GetAllProductsp([FromQuery] string searchString = "")
+        public async Task<IActionResult> GetAllProducts([FromQuery] string searchTerm = "")
         {
-            var products = await _productRepository.GetAllProducts(searchString);
+            var products = await _productRepository.GetAllProducts(searchTerm);
 
             if (products == null)
             {

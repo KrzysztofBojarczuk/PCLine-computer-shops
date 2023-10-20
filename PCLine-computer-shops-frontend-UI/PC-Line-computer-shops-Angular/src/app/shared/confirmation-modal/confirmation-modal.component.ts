@@ -16,12 +16,11 @@ export class ConfirmationModalComponent {
 
   }
   onConfirm(): void {
-    // Tutaj można dodać kod, który ma być wykonany po potwierdzeniu
-    this.dialogRef.close(true); // Zamknij modal i przekaż wartość true
+    this.dialogRef.close(true);
   }
 
   onCancel(): void {
-    this.dialogRef.close(false); // Zamknij modal i przekaż wartość false
+    this.dialogRef.close(false);
   }
 }
 

@@ -27,7 +27,7 @@ export class ProductUpdateComponent {
   }
 
   updateProduct(product: Product) {
-    this.productService.updateProduct(this.data.shopId, this.data.productId, product).subscribe();
+    this.productService.updateProductService(this.data.shopId, this.data.productId, product).subscribe();
     this.dialogRef.close();
   }
 
