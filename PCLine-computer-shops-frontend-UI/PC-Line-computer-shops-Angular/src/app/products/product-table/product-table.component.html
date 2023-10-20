@@ -10,37 +10,56 @@
         </h1>
       </div>
     </div>
+
     <div class="col">
-      <button
-        class="m-5"
-        style="margin-left: 10px"
-        mat-raised-button
-        (click)="addProductToShop()"
-      >
-        Add Product To Shop
-      </button>
+      <p>Product with VAT:</p>
+      <input
+        class="mb-1"
+        matInput
+        type="number"
+        style="margin-right: 10px"
+        [(ngModel)]="productVat"
+      />
+
+      <p>Product without VAT</p>
+      <input
+        matInput
+        type="number"
+        disabled="true"
+        [value]="calculateProductVat(productVat)"
+      />
     </div>
   </div>
 </div>
 <hr />
-<div class="m-5">
-  <p>Product with VAT:</p>
-  <input
-    class="mb-1"
-    matInput
-    type="number"
-    style="margin-right: 10px"
-    [(ngModel)]="productVat"
-  />
 
-  <p>Product without VAT</p>
-  <input
-    matInput
-    type="number"
-    disabled="true"
-    [value]="calculateProductVat(productVat)"
-  />
+<div class="row mt-5">
+  <div class="col-md-6">
+    <mat-form-field class="example-form-field">
+      <input matInput type="text" placeholder="Search" [(ngModel)]="value" />
+    </mat-form-field>
+
+    <button
+      style="margin-left: 10px"
+      mat-raised-button
+      (click)="getAllProducts(value)"
+    >
+      Search
+    </button>
+    <button style="margin-left: 10px" mat-raised-button (click)="clearSearch()">
+      Clear
+    </button>
+
+    <button
+      style="margin-left: 10px"
+      mat-raised-button
+      (click)="addProductToShop()"
+    >
+      Add Product To Shop
+    </button>
+  </div>
 </div>
+
 <mat-grid-list cols="8" rowHeight="200px" gutterSize="20px" class="mx-3">
   <mat-grid-tile *ngFor="let product of products">
     <mat-card>

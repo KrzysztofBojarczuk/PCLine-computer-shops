@@ -30,7 +30,7 @@ export class ProductFormComponent {
   }
 
   submit(product: ProductCreate) {
-    this.productService.postProductForShop(this.shopId, product).subscribe(
+    this.productService.postProductForShopService(this.shopId, product).subscribe(
       () => {
         this.dialogRef.close();
       },

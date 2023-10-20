@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using PCLine_computer_shops.Data;
 using PCLine_computer_shops.Enums;
 using PCLine_computer_shops.InterfaceReposiotry;
@@ -19,7 +20,7 @@ namespace PCLine_computer_shops.Repositories
         {
             var query = await _context.Shops.Include(h => h.Products).ToListAsync();
 
-            if (!String.IsNullOrEmpty(searchTerm))
+            if (!searchTerm.IsNullOrEmpty())
             {
                 query = query.Where(h => h.ShopId.ToString().Contains(searchTerm) || h.Name.ToLower().Contains(searchTerm)).ToList();
             }

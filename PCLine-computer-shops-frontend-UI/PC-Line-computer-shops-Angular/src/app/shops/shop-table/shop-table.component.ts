@@ -105,7 +105,7 @@ export class ShopTableComponent {
 
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
-        this.shopService.deleteShop(shopId).subscribe(result => {
+        this.shopService.deleteShopService(shopId).subscribe(result => {
           this.getShops('');
           this.snackBar.open('Shop deleted successfully', 'Close', {
             duration: 3000,

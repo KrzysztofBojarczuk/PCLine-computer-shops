@@ -21,7 +21,7 @@ export class NavBarComponent {
   }
 
   getNumberOfEmployee() {
-    this.employeeService.getNumberOfEmployee().subscribe(
+    this.employeeService.getNumberOfEmployeeService().subscribe(
       (result) => {
         this.numberOEmployee = result
       },
@@ -32,7 +32,7 @@ export class NavBarComponent {
   }
 
   getNumberOfProducts() {
-    this.productService.getNumberOfProducts().subscribe(
+    this.productService.getNumberOfProductsService().subscribe(
       (result) => {
         this.numberOfProducts = result;
       },

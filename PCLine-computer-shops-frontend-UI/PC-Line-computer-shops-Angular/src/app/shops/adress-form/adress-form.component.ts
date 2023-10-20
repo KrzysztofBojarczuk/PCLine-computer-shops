@@ -27,7 +27,7 @@ export class AdressFormComponent {
   }
 
   submit(address: AddressCreate) {
-    this.addressService.postAddressForShop(this.shopId, address).subscribe(
+    this.addressService.postAddressForShopService(this.shopId, address).subscribe(
       () => {
         this.dialogRef.close();
       },

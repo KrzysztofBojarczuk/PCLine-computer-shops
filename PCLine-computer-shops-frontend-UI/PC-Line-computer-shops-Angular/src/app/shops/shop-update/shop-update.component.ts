@@ -30,7 +30,7 @@ export class ShopUpdateComponent {
   }
 
   update(shop: Shop) {
-    this.shopService.updateShop(this.shop.shopId, shop).subscribe();
+    this.shopService.updateShopService(this.shop.shopId, shop).subscribe();
     this.dialogRef.close();
   }
 }

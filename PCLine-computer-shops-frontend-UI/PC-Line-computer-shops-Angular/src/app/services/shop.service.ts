@@ -17,15 +17,15 @@ export class ShopService {
     return this.http.get<Shop[]>(`${this.apiUrl}Shops/Get?searchTerm=${searchTerm}&${selectedCountries?.map(country => `enumCountry=${country}`).join('&')}`);
   }
 
-  postShop(shop: ShopCreate): Observable<ShopCreate> {
+  postShopService(shop: ShopCreate): Observable<ShopCreate> {
     return this.http.post<ShopCreate>(this.apiUrl + 'Shops/Post', shop);
   }
 
-  deleteShop(shopId: number): Observable<number> {
+  deleteShopService(shopId: number): Observable<number> {
     return this.http.delete<number>(`${this.apiUrl}Shops/Delete/${shopId}`);
   }
 
-  updateShop(shopId: number, updatedShop: ShopCreate): Observable<ShopCreate> {
+  updateShopService(shopId: number, updatedShop: ShopCreate): Observable<ShopCreate> {
     const startDate = new Date(updatedShop.startDate);
     const timezoneOffset = startDate.getTimezoneOffset();
     startDate.setMinutes(startDate.getMinutes() - timezoneOffset);
