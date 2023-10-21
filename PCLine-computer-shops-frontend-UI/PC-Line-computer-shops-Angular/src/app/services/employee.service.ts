@@ -18,7 +18,7 @@ export class EmployeeService {
   }
 
   getEmployeesService(searchTerm?: string, selectedEmployees?: number[]): Observable<Employee[]> {
-    return this.http.get<Employee[]>(`${this.apiUrl}Employee/Get?searchString=${searchTerm}&${selectedEmployees?.map(employee => `enumEmployeePosition=${employee}`).join('&')}`);
+    return this.http.get<Employee[]>(`${this.apiUrl}Employee/Get?searchTerm=${searchTerm}&${selectedEmployees?.map(employee => `enumEmployeePosition=${employee}`).join('&')}`);
   }
 
   deleteEmployeesService(shopId: number, employeeId: number): Observable<void> {
