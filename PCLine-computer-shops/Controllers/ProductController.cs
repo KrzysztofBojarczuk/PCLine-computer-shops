@@ -53,9 +53,9 @@ namespace PCLine_computer_shops.Controllers
         }
 
         [HttpGet("Get/{shopId}")]
-        public async Task<IActionResult> GetAllProductsForShop(int shopId, [FromQuery] string searchString = "")
+        public async Task<IActionResult> GetAllProductsForShop(int shopId, [FromQuery] string searchTerm = "")
         {
-            var products = await _productRepository.GetAllProductsForShopById(shopId, searchString);
+            var products = await _productRepository.GetAllProductsForShopById(shopId, searchTerm);
 
             if (products == null)
             {
