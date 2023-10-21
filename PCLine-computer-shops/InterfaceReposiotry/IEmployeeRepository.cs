@@ -7,7 +7,7 @@ namespace PCLine_computer_shops.InterfaceReposiotry
     {
         Task<decimal> CountAllEmployeesSalaries();
         Task<int> CountAllEmployees();
-        Task<ICollection<Employee>> GetAllEmployees(string searchString, List<EmployeePosition> enumEmployeePosition);
+        Task<ICollection<Employee>> GetAllEmployees(string searchTerm, List<EmployeePosition> enumEmployeePosition);
         Task<ICollection<Employee>> GetAllEmployeesForShopById(int shopId);
         Task<Employee> CreateEmployeeForShop(int shopId, Employee employee);
         Task<Employee> GetEmployeeById(int shopId, int employeeId);

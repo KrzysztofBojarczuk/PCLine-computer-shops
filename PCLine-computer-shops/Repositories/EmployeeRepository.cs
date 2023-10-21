@@ -32,13 +32,13 @@ namespace PCLine_computer_shops.Repositories
             return query.Count();
         }
 
-        public async Task<ICollection<Employee>> GetAllEmployees(string searchString, List<EmployeePosition> enumEmployeePosition)
+        public async Task<ICollection<Employee>> GetAllEmployees(string searchTerm, List<EmployeePosition> enumEmployeePosition)
         {
             var query = await _context.Employees.ToListAsync();
 
-            if (!searchString.IsNullOrEmpty())
+            if (!searchTerm.IsNullOrEmpty())
             {
-                query = query.Where(h => h.FirstName.ToLower().Contains(searchString) || h.LastName.ToLower().Contains(searchString)).ToList();
+                query = query.Where(h => h.FirstName.ToLower().Contains(searchTerm) || h.LastName.ToLower().Contains(searchTerm)).ToList();
             }
 
             if (query == null)

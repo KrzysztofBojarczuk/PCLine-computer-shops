@@ -38,9 +38,9 @@ namespace PCLine_computer_shops.Controllers
         }
 
         [HttpGet("Get")]
-        public async Task<IActionResult> GetAllEmployees([FromQuery] List<EmployeePosition> enumEmployeePosition, string searchString = "")
+        public async Task<IActionResult> GetAllEmployees([FromQuery] List<EmployeePosition> enumEmployeePosition, string searchTerm = "")
         {
-            var employees = await _employeeRepository.GetAllEmployees(searchString, enumEmployeePosition);
+            var employees = await _employeeRepository.GetAllEmployees(searchTerm, enumEmployeePosition);
 
             if (employees == null)
             {
