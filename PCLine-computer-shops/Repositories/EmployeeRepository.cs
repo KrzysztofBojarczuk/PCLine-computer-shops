@@ -38,7 +38,7 @@ namespace PCLine_computer_shops.Repositories
 
             if (!searchTerm.IsNullOrEmpty())
             {
-                query = query.Where(h => h.FirstName.ToLower().Contains(searchTerm) || h.LastName.ToLower().Contains(searchTerm)).ToList();
+                query = query.Where(h => h.EmployeeId.ToString().Contains(searchTerm) || h.FirstName.ToLower().Contains(searchTerm) || h.LastName.ToLower().Contains(searchTerm)).ToList();
             }
 
             if (query == null)
