@@ -17,7 +17,6 @@ import { AddProductToShopComponent } from '../add-product-to-shop/add-product-to
   styleUrls: ['./product-table.component.scss']
 })
 export class ProductTableComponent {
-
   shops: Shop[] = [];
   products: Product[] = []
   productVat: number = 0
@@ -109,4 +108,5 @@ export class ProductTableComponent {
       }
     })
   }
+
 }

@@ -12,17 +12,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./product-card.component.scss']
 })
 export class ProductCardComponent {
-  @Input() product: Product = {} as Product;
+  @Input() products: Product[] = [];
 
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private productService: ProductService) {
-  }
-
-  updateProduct(product: Product) {
-    console.log("dd:", product);
-    const dialogRef = this.dialog.open(ProductUpdateComponent, {
-      width: '400px',
-      height: '450px',
-      data: product,
-    });
   }
 }

@@ -1,0 +1,34 @@
+<form [formGroup]="shopForm">
+  <p>Choose Shop</p>
+  <div class="mb-3">
+    <mat-form-field>
+      <mat-label>Select Shop</mat-label>
+      <mat-select
+        formControlName="shopId"
+        (selectionChange)="onShopIdChange($event)"
+      >
+        <mat-option *ngFor="let shop of shops" [value]="shop.shopId">{{
+          shop.shopId
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="mb-3">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+  </div>
+</form>
+<button
+  style="margin-left: 10px"
+  mat-raised-button
+  (click)="getProductsForShopById()"
+>
+  Get Product
+</button>
+<button style="margin-left: 10px" mat-raised-button (click)="clear()">
+  Clear
+</button>
+
+<app-product-card [products]="productsById"></app-product-card>
