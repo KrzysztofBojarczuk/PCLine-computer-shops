@@ -26,6 +26,10 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.apiUrl}Product/Get?searchTerm=${searchTerm}`);
   }
 
+  getProductsByIdService(shopId: number, searchTerm?: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.apiUrl}Product/Get/${shopId}?searchTerm=${searchTerm}`);
+  }
+
   postProductForShopService(shopId: number, product: ProductCreate): Observable<ProductCreate> {
     return this.http.post<ProductCreate>(`${this.apiUrl}Product/Post/${shopId}`, product);
   }

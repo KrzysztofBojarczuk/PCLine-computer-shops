@@ -149,5 +149,4 @@ export class ShopTableComponent {
       data: shopId,
     });
   }
-
 }

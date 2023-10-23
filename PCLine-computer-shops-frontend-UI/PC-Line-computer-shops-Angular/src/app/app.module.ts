@@ -45,6 +45,7 @@ import { TooltipPosition, MatTooltipModule } from '@angular/material/tooltip';
 import { ConfirmationModalComponent } from './shared/confirmation-modal/confirmation-modal.component';
 import { AddEmployeeToShopComponent } from './employee/add-employee-to-shop/add-employee-to-shop.component';
 import { AddProductToShopComponent } from './products/add-product-to-shop/add-product-to-shop.component';
+import { ProductByIdComponent } from './products/product-by-id/product-by-id.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { AddProductToShopComponent } from './products/add-product-to-shop/add-pr
     ConfirmationModalComponent,
     AddEmployeeToShopComponent,
     AddProductToShopComponent,
+    ProductByIdComponent,
   ],
   imports: [
     JwtModule.forRoot({
