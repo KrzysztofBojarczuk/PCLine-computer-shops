@@ -24,17 +24,57 @@ namespace PCLine_computer_shops.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("GetValueOfProducts")]
+        public async Task<decimal> GetValueOfProducts()
+        {
+            var numuberofProducts = await _productRepository.CountAllProductsValue();
+
+            if (numuberofProducts == null)
+            {
+                return 0;
+            }
+
+            return numuberofProducts;
+        }
+
+
         [HttpGet("GetNumberOfProducts")]
         public async Task<int> GetNomuberOfProducts()        
         {
             var numuberofProducts = await _productRepository.CountAllproducts();
 
-            //if (numuberofProducts == null)
-            //{
-            //    return NotFound();
-            //}
+            if (numuberofProducts == null)
+            {
+                return 0;
+            }
 
             return numuberofProducts;
+        }
+
+        [HttpGet("GetNumberOfProductsForShop/{shopId}")]
+        public async Task<int> GetNomuberOfProductsForShop(int shopId)
+        {
+            var numuberofProductsForShop = await _productRepository.CountAllProductsForShopById(shopId);
+
+            if (numuberofProductsForShop == null)
+            {
+                return 0;
+            }
+
+            return numuberofProductsForShop;
+        }
+
+        [HttpGet("GetValueProductsForShop/{shopId}")]
+        public async Task<decimal> GetValueOfProductsForShop(int shopId)
+        {
+            var valueofProductsForShop = await _productRepository.CountAllProductsValueForShopById(shopId);
+
+            if (valueofProductsForShop == null)
+            {
+                return 0;
+            }
+
+            return valueofProductsForShop;
         }
 
         [HttpGet("Get")]
