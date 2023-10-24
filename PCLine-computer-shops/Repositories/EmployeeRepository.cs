@@ -18,7 +18,7 @@ namespace PCLine_computer_shops.Repositories
 
         public async Task<decimal> CountAllEmployeesSalaries()
         {
-            IEnumerable<Employee> query = _context.Employees;
+            var query = await _context.Employees.ToListAsync();
 
             decimal totalSalaries = query.Sum(employee => employee.Salary);
 
@@ -27,7 +27,7 @@ namespace PCLine_computer_shops.Repositories
 
         public async Task<int> CountAllEmployees()
         {
-            IEnumerable<Employee> query = _context.Employees;
+            var query = await _context.Employees.ToListAsync();
 
             return query.Count();
         }

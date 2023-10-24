@@ -18,13 +18,40 @@ namespace PCLine_computer_shops.Repositories
             _context = context;
         }
 
+        public async Task<decimal> CountAllProductsValue()
+        {
+            var query = await _context.Products.ToListAsync();
+
+            decimal totalValueOfProducts = query.Sum(product => product.Amount * product.Price);
+
+            return totalValueOfProducts;
+        }
+
         public async Task<int> CountAllproducts()
         {
-            IEnumerable<Product> query = _context.Products;
+            var query = await _context.Products.ToListAsync();
 
             int totalAmount = query.Sum(product => product.Amount);
 
             return totalAmount;
+        }
+
+        public async Task<int> CountAllProductsForShopById(int shopId)
+        {
+            int totalAmount = await _context.Products
+                                        .Where(product => product.ShopId == shopId)
+                                        .SumAsync(product => product.Amount);
+
+            return totalAmount;
+        }
+
+        public async Task<decimal> CountAllProductsValueForShopById(int shopId)
+        {
+            var query = await _context.Products.Where(product => product.ShopId == shopId).ToListAsync();
+
+            decimal totalValueOfProducts = query.Sum(product => product.Amount * product.Price);
+
+            return totalValueOfProducts;
         }
 
         public async Task<ICollection<Product>> GetAllProducts(string searchTerm)

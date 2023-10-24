@@ -4,7 +4,10 @@ namespace PCLine_computer_shops.InterfaceReposiotry
 {
     public interface IProductRepository
     {
+        Task<decimal> CountAllProductsValue();
         Task<int> CountAllproducts();
+        Task<int> CountAllProductsForShopById(int shopId);
+        Task<decimal> CountAllProductsValueForShopById(int shopId);
         Task<ICollection<Product>> GetAllProducts(string searchTerm);
         Task<ICollection<Product>> GetAllProductsForShopById(int productId, string searchTerm);
         Task<Product> CreateProductForShop(int shopId, Product product);
