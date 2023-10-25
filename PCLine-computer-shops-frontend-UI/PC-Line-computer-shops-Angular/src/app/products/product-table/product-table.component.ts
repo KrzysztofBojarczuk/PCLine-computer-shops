@@ -21,11 +21,24 @@ export class ProductTableComponent {
   products: Product[] = []
   productVat: number = 0
   value: string = '';
+  step = 0;
 
   constructor(private shopService: ShopService, private productService: ProductService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.getAllProducts('');
+  }
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
   }
 
   addProductToShop() {

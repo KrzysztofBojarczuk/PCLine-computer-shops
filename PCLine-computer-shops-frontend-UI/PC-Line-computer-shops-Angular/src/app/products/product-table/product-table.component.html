@@ -1,109 +1,116 @@
-<mat-expansion-panel [expanded]="true">
-  <mat-expansion-panel-header>
-    <mat-panel-title> All Products </mat-panel-title>
-  </mat-expansion-panel-header>
-  <div style="margin-left: 10px" class="container px-4">
-    <div class="row gx-5">
-      <div class="col">
-        <div class="m-5" *ngIf="products.length !== 0">
-          <h1>
-            Nomuber of products: <b> {{ getTotaNomuberOfPrducts() }} </b>
-          </h1>
-          <h1>
-            Value of all products: <b> {{ getTotalValue() }} USD </b>
-          </h1>
+<mat-accordion class="example-headers-align">
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> All Products </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div style="margin-left: 10px" class="container px-4">
+      <div class="row gx-5">
+        <div class="col">
+          <div class="m-5" *ngIf="products.length !== 0">
+            <h1>
+              Nomuber of products: <b> {{ getTotaNomuberOfPrducts() }} </b>
+            </h1>
+            <h1>
+              Value of all products: <b> {{ getTotalValue() }} USD </b>
+            </h1>
+          </div>
+        </div>
+
+        <div class="col">
+          <p>Product with VAT:</p>
+          <input
+            class="mb-1"
+            matInput
+            type="number"
+            style="margin-right: 10px"
+            [(ngModel)]="productVat"
+          />
+
+          <p>Product without VAT</p>
+          <input
+            matInput
+            type="number"
+            disabled="true"
+            [value]="calculateProductVat(productVat)"
+          />
         </div>
       </div>
+    </div>
+    <hr />
 
-      <div class="col">
-        <p>Product with VAT:</p>
-        <input
-          class="mb-1"
-          matInput
-          type="number"
-          style="margin-right: 10px"
-          [(ngModel)]="productVat"
-        />
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <mat-form-field class="example-form-field">
+          <input
+            matInput
+            type="text"
+            placeholder="Search"
+            [(ngModel)]="value"
+          />
+        </mat-form-field>
 
-        <p>Product without VAT</p>
-        <input
-          matInput
-          type="number"
-          disabled="true"
-          [value]="calculateProductVat(productVat)"
-        />
+        <button
+          style="margin-left: 10px"
+          mat-raised-button
+          (click)="getAllProducts(value)"
+        >
+          Search
+        </button>
+        <button
+          style="margin-left: 10px"
+          mat-raised-button
+          (click)="clearSearch()"
+        >
+          Clear
+        </button>
+
+        <button
+          style="margin-left: 10px"
+          mat-raised-button
+          (click)="addProductToShop()"
+        >
+          Add Product To Shop
+        </button>
       </div>
     </div>
-  </div>
-  <hr />
 
-  <div class="row mt-5">
-    <div class="col-md-6">
-      <mat-form-field class="example-form-field">
-        <input matInput type="text" placeholder="Search" [(ngModel)]="value" />
-      </mat-form-field>
+    <mat-grid-list cols="8" rowHeight="200px" gutterSize="20px" class="mx-3">
+      <mat-grid-tile *ngFor="let product of products">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ product.name }}</mat-card-title>
+            <mat-card-subtitle
+              ><b> Price: {{ product.price }} USD </b>
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Available amount: {{ product.amount }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button
+              mat-button
+              (click)="updateProduct(product)"
+              matTooltip="Update Product"
+            >
+              Update
+            </button>
+            <button
+              mat-button
+              (click)="deleteProduct(product)"
+              matTooltip="Delete Product"
+            >
+              Delete
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-expansion-panel>
+  <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Products By Id </mat-panel-title>
+    </mat-expansion-panel-header>
 
-      <button
-        style="margin-left: 10px"
-        mat-raised-button
-        (click)="getAllProducts(value)"
-      >
-        Search
-      </button>
-      <button
-        style="margin-left: 10px"
-        mat-raised-button
-        (click)="clearSearch()"
-      >
-        Clear
-      </button>
-
-      <button
-        style="margin-left: 10px"
-        mat-raised-button
-        (click)="addProductToShop()"
-      >
-        Add Product To Shop
-      </button>
-    </div>
-  </div>
-
-  <mat-grid-list cols="8" rowHeight="200px" gutterSize="20px" class="mx-3">
-    <mat-grid-tile *ngFor="let product of products">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>{{ product.name }}</mat-card-title>
-          <mat-card-subtitle
-            ><b> Price: {{ product.price }} USD </b>
-          </mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Available amount: {{ product.amount }}</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button
-            mat-button
-            (click)="updateProduct(product)"
-            matTooltip="Update Product"
-          >
-            Update
-          </button>
-          <button
-            mat-button
-            (click)="deleteProduct(product)"
-            matTooltip="Delete Product"
-          >
-            Delete
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-</mat-expansion-panel>
-<mat-expansion-panel [expanded]="false">
-  <mat-expansion-panel-header>
-    <mat-panel-title> Products By Id </mat-panel-title>
-  </mat-expansion-panel-header>
-
-  <app-product-by-id></app-product-by-id>
-</mat-expansion-panel>
+    <app-product-by-id></app-product-by-id>
+  </mat-expansion-panel>
+</mat-accordion>
