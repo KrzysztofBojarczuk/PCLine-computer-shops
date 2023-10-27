@@ -1,3 +1,14 @@
-<div style="background-color: rgb(197, 214, 214)">
+<div
+  style="
+    background-color: rgb(197, 214, 214);
+    display: flex;
+    justify-content: space-between;
+  "
+>
   <h1 class="p-4">Welcome to PC-Line Shops Menagment System</h1>
+  <div style="margin: 20px">
+    <button mat-icon-button (click)="loginOut()" matTooltip="Log Out">
+      <i class="bi bi-person" style="font-size: 2.5rem"></i>
+    </button>
+  </div>
 </div>
