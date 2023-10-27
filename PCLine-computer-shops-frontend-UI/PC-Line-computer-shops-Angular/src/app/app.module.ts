@@ -47,6 +47,8 @@ import { AddEmployeeToShopComponent } from './employee/add-employee-to-shop/add-
 import { AddProductToShopComponent } from './products/add-product-to-shop/add-product-to-shop.component';
 import { ProductByIdComponent } from './products/product-by-id/product-by-id.component';
 import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './loginSystem/login/login.component';
+import { AppRoutingLoginModule } from './loginSystem/app-routingLogin.module';
 
 
 @NgModule({
@@ -71,6 +73,7 @@ import { HeaderComponent } from './header/header.component';
     AddProductToShopComponent,
     ProductByIdComponent,
     HeaderComponent,
+    LoginComponent,
   ],
   imports: [
     JwtModule.forRoot({
@@ -94,6 +97,7 @@ import { HeaderComponent } from './header/header.component';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
+    AppRoutingLoginModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatDialogModule,
