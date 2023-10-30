@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using PCLine_computer_shops.Data;
 using PCLine_computer_shops.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -13,47 +15,52 @@ namespace PCLine_computer_shops.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly DataContext _context;
         private readonly IConfiguration _configuration;
 
-        public AuthController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IConfiguration configuration)
+        public AuthController(DataContext context, IConfiguration configuration)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            _context = context;
             _configuration = configuration;
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] User model)
+        public async Task<IActionResult> Login(LoginModel loginModel)
         {
-            var user = await _userManager.FindByNameAsync(model.UserName);
-
-            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+            if(!ModelState.IsValid)
             {
-                var token = GenerateJwtToken(user);
-                return Ok(new { token });
+                return BadRequest();
             }
 
-            return Unauthorized();
-        }
+            var user = _context.Users.FirstOrDefault(u => u.Username == loginModel.Username && u.Password == loginModel.Password);
 
-        private string GenerateJwtToken(IdentityUser user)
-        {
-            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("super-tajne-haslo-do-generowania-tokenow"));
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenDescriptor = new SecurityTokenDescriptor
+            if(user == null)
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                new Claim(ClaimTypes.Name, user.UserName)
-                }),
-                Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
-        }
+                return Unauthorized();
+            }
 
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub , user.Username),
+                new Claim(JwtRegisteredClaimNames.Jti , Guid.NewGuid().ToString())
+            };
+
+            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+
+            var signingCredentials = new SigningCredentials(signingKey , SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: _configuration["Jwt:Issuer"],
+                audience: _configuration["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddDays(7),
+                signingCredentials: signingCredentials
+                );
+
+            return Ok(new
+            {
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
+            });
+        }
     }
 }

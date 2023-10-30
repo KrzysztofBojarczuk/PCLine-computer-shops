@@ -12,9 +12,14 @@ namespace PCLine_computer_shops.Data
             public DbSet<Product> Products { get; set; }
             public DbSet<Employee> Employees { get; set; }  
             public DbSet<Address> Address { get; set; }
+            public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>().HasData(
+                new User { Id = 1, Username = "admin", Password = "admin" }
+                );
+
             modelBuilder.Entity<Product>()
                  .HasOne(h => h.Shop)
                  .WithMany(h => h.Products)
