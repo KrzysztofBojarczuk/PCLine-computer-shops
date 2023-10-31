@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -34,7 +34,6 @@ import { MatListModule } from '@angular/material/list';
 import { NavBarComponent } from './nav-bar/nav-bar.component';;
 import { AdressFormComponent } from './shops/adress-form/adress-form.component';
 import { MatBadgeModule } from '@angular/material/badge';
-import { JwtModule } from "@auth0/angular-jwt";
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { EmployeeFormComponent } from './employee/employee-form/employee-form.component';
 import { EmployeeListComponent } from './employee/employee-table/employee-list.component';
@@ -49,7 +48,7 @@ import { ProductByIdComponent } from './products/product-by-id/product-by-id.com
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './loginSystem/login/login.component';
 import { AppRoutingLoginModule } from './loginSystem/app-routingLogin.module';
-
+import { AuthInterceptor } from './services/AuthInterceptor';
 
 @NgModule({
   declarations: [
@@ -76,13 +75,6 @@ import { AppRoutingLoginModule } from './loginSystem/app-routingLogin.module';
     LoginComponent,
   ],
   imports: [
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        allowedDomains: ["example.com"],
-        disallowedRoutes: ["example.com/api/auth/login"],
-      },
-    }),
     MatTooltipModule,
     MatBadgeModule,
     NgIf,
@@ -114,10 +106,7 @@ import { AppRoutingLoginModule } from './loginSystem/app-routingLogin.module';
     MatButtonToggleModule,
     MatCheckboxModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-export function tokenGetter() {
-  return localStorage.getItem("access_token");
-}

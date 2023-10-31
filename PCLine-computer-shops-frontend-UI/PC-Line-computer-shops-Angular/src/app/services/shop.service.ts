@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Shop } from '../models/shop';
 import { Observable } from 'rxjs';
@@ -8,7 +8,6 @@ import { ShopCreate } from '../models/shop-create';
   providedIn: 'root'
 })
 export class ShopService {
-
   private apiUrl = 'https://localhost:7068/api/';
 
   constructor(private http: HttpClient) { }
