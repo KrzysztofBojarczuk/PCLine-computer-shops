@@ -109,10 +109,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Add configuration from appsettings.json
-builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddEnvironmentVariables();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
