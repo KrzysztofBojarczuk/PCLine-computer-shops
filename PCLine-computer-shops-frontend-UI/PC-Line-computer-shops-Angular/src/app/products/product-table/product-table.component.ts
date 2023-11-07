@@ -23,7 +23,7 @@ export class ProductTableComponent {
   value: string = '';
   step = 0;
 
-  constructor(private shopService: ShopService, private productService: ProductService, private dialog: MatDialog) { }
+  constructor(private shopService: ShopService, private productService: ProductService, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getAllProducts('');
@@ -115,11 +115,20 @@ export class ProductTableComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.productService.deleteProductService(product.shopId, product.productId).subscribe(result => {
-          this.getAllProducts('');
-        })
+        this.productService.deleteProductService(product.shopId, product.productId).subscribe(
+          result => {
+            this.getAllProducts('');
+            this.snackBar.open('Product deleted successfully', 'Close', {
+              duration: 3000,
+            });
+          },
+          error => {
+            this.snackBar.open('Error deleting product', 'Close', {
+              duration: 3000,
+            });
+          }
+        );
       }
-    })
+    });
   }
-
 }

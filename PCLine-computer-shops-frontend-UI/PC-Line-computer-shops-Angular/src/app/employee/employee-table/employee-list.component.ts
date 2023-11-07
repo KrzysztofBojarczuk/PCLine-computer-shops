@@ -8,6 +8,7 @@ import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/co
 import { EmployeeUpdateComponent } from '../employee-update/employee-update.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEmployeeToShopComponent } from '../add-employee-to-shop/add-employee-to-shop.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-employee-list',
@@ -36,7 +37,7 @@ export class EmployeeListComponent {
     { number: EmployeePosition.Driver, name: "Driver" }
   ]
 
-  constructor(private employeeService: EmployeeService, private dialog: MatDialog) {
+  constructor(private employeeService: EmployeeService, private dialog: MatDialog, private snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource<Employee>([])
   }
 
@@ -105,21 +106,30 @@ export class EmployeeListComponent {
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           for (const employee of selectedEmployees) {
-            this.employeeService.deleteEmployeesService(employee.shopId, employee.employeeId).subscribe(result => {
-              this.getEmployee('');
-            });
-          }
+            this.employeeService.deleteEmployeesService(employee.shopId, employee.employeeId).subscribe(
+              result => {
+                this.snackBar.open('All selected employees deleted successfully', 'Close', {
+                  duration: 3000,
+                });
+                this.getEmployee('');
 
+              },
+              error => {
+                this.snackBar.open('Error deleting employee', 'Close', {
+                  duration: 3000,
+                  panelClass: ['error-snackbar']
+                });
+              }
+            );
+          }
           this.selection.clear();
         }
       });
     }
   }
 
-  deleteEmployee(employe: Employee) {
-    this.employeeService.deleteEmployeesService(employe.shopId, employe.employeeId).subscribe(result => {
-      this.getEmployee('');
-    })
+  deleteEmployee(employee: Employee) {
+    this.employeeService.deleteEmployeesService(employee.shopId, employee.employeeId).subscribe();
   }
 
   updateEmployee(employee: Employee) {

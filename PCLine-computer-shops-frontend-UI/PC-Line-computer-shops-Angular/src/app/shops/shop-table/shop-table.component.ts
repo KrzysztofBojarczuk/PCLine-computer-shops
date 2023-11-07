@@ -105,14 +105,19 @@ export class ShopTableComponent {
 
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
-        this.shopService.deleteShopService(shopId).subscribe(result => {
-          this.getShops('');
-          this.snackBar.open('Shop deleted successfully', 'Close', {
-            duration: 3000,
-          });
-        });
-      } else {
-        this.getShops('');
+        this.shopService.deleteShopService(shopId).subscribe(
+          result => {
+            this.getShops('');
+            this.snackBar.open('Shop deleted successfully', 'Close', {
+              duration: 3000,
+            });
+          },
+          error => {
+            this.snackBar.open('Error deleting shop', 'Close', {
+              duration: 3000,
+            });
+          }
+        );
       }
     });
   }
