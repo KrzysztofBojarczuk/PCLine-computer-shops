@@ -19,6 +19,9 @@ namespace PCLine_computer_shops.AutoMapper
 
             CreateMap<EmployeeCreateDto, Employee>();
             CreateMap<Employee, EmployeeGetDto>();
+
+            CreateMap<TaskEmployeeCreateDto, TaskEmployee>();
+            CreateMap<Task, TaskEmployeeGetDto>();
         }
     }
 }
