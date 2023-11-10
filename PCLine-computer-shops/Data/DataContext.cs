@@ -13,6 +13,7 @@ namespace PCLine_computer_shops.Data
             public DbSet<Employee> Employees { get; set; }  
             public DbSet<Address> Address { get; set; }
             public DbSet<User> Users { get; set; }
+            public DbSet<TaskEmployee> TaskEmployees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,6 +37,16 @@ namespace PCLine_computer_shops.Data
                 .HasOne(h => h.Address)
                 .WithOne(h => h.Shop)
                 .HasForeignKey<Address>(h => h.AddressId);
+
+            modelBuilder.Entity<TaskEmployee>()
+                .HasOne(h => h.Employee)
+                .WithOne(h => h.TaskEmployee)
+                .HasForeignKey<TaskEmployee>(h => h.TaskEmployeeId);
+
+            modelBuilder.Entity<TaskEmployee>()
+                .HasOne(te => te.Shop)
+                .WithOne(h => h.TaskEmployee)
+                .HasForeignKey<TaskEmployee>(h => h.TaskEmployeeId);
         }
     }
 }
