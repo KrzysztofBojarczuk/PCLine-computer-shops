@@ -11,6 +11,7 @@ namespace PCLine_computer_shops.Models
         public ICollection<Product> Products { get; set; } = new List<Product>();
         public ICollection<Employee> Employees { get; set; } = new List<Employee>();
         public Address? Address { get; set; }
+        public TaskEmployee? TaskEmployee { get; set; }
         //public ICollection<Review> Reviews { get; set; }
         //public ICollection<Employee> Employees { get; set; }
     }
