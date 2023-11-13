@@ -12,8 +12,8 @@ using PCLine_computer_shops.Data;
 namespace PCLine_computer_shops.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231012081932_Initial2")]
-    partial class Initial2
+    [Migration("20231112152007_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,42 @@ namespace PCLine_computer_shops.Migrations
                     b.HasKey("AddressId");
 
                     b.ToTable("Address");
+                });
+
+            modelBuilder.Entity("PCLine_computer_shops.Models.Employee", b =>
+                {
+                    b.Property<int>("EmployeeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EmployeePosition")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ShopId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmployeeId");
+
+                    b.HasIndex("ShopId");
+
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("PCLine_computer_shops.Models.Product", b =>
@@ -101,11 +137,78 @@ namespace PCLine_computer_shops.Migrations
                     b.ToTable("Shops");
                 });
 
+            modelBuilder.Entity("PCLine_computer_shops.Models.TaskEmployee", b =>
+                {
+                    b.Property<int>("TaskEmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TaskCreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TaskStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TimeEstiamted")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TaskEmployeeId");
+
+                    b.ToTable("TaskEmployees");
+                });
+
+            modelBuilder.Entity("PCLine_computer_shops.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Password = "admin",
+                            Username = "admin"
+                        });
+                });
+
             modelBuilder.Entity("PCLine_computer_shops.Models.Address", b =>
                 {
                     b.HasOne("PCLine_computer_shops.Models.Shop", "Shop")
                         .WithOne("Address")
                         .HasForeignKey("PCLine_computer_shops.Models.Address", "AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Shop");
+                });
+
+            modelBuilder.Entity("PCLine_computer_shops.Models.Employee", b =>
+                {
+                    b.HasOne("PCLine_computer_shops.Models.Shop", "Shop")
+                        .WithMany("Employees")
+                        .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -123,9 +226,28 @@ namespace PCLine_computer_shops.Migrations
                     b.Navigation("Shop");
                 });
 
+            modelBuilder.Entity("PCLine_computer_shops.Models.TaskEmployee", b =>
+                {
+                    b.HasOne("PCLine_computer_shops.Models.Employee", "Employee")
+                        .WithOne("TaskEmployee")
+                        .HasForeignKey("PCLine_computer_shops.Models.TaskEmployee", "TaskEmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("PCLine_computer_shops.Models.Employee", b =>
+                {
+                    b.Navigation("TaskEmployee")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("PCLine_computer_shops.Models.Shop", b =>
                 {
                     b.Navigation("Address");
+
+                    b.Navigation("Employees");
 
                     b.Navigation("Products");
                 });

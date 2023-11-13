@@ -134,6 +134,33 @@ namespace PCLine_computer_shops.Migrations
                     b.ToTable("Shops");
                 });
 
+            modelBuilder.Entity("PCLine_computer_shops.Models.TaskEmployee", b =>
+                {
+                    b.Property<int>("TaskEmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TaskCreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TaskStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TimeEstiamted")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TaskEmployeeId");
+
+                    b.ToTable("TaskEmployees");
+                });
+
             modelBuilder.Entity("PCLine_computer_shops.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -194,6 +221,23 @@ namespace PCLine_computer_shops.Migrations
                         .IsRequired();
 
                     b.Navigation("Shop");
+                });
+
+            modelBuilder.Entity("PCLine_computer_shops.Models.TaskEmployee", b =>
+                {
+                    b.HasOne("PCLine_computer_shops.Models.Employee", "Employee")
+                        .WithOne("TaskEmployee")
+                        .HasForeignKey("PCLine_computer_shops.Models.TaskEmployee", "TaskEmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("PCLine_computer_shops.Models.Employee", b =>
+                {
+                    b.Navigation("TaskEmployee")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PCLine_computer_shops.Models.Shop", b =>
