@@ -1,4 +1,5 @@
 ﻿using PCLine_computer_shops.Enums;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PCLine_computer_shops.Models
@@ -14,6 +15,6 @@ namespace PCLine_computer_shops.Models
         [ForeignKey("ShopId")]
         public int ShopId { get; set; }
         public Shop Shop { get; set; }
-        public TaskEmployee? TaskEmployee { get; set; }
+        public TaskEmployee TaskEmployee { get; set; }
     }
 }
