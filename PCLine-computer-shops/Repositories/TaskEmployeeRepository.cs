@@ -1,4 +1,6 @@
-﻿using PCLine_computer_shops.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using PCLine_computer_shops.Data;
 using PCLine_computer_shops.InterfaceReposiotry;
 using PCLine_computer_shops.Models;
 
@@ -22,9 +24,21 @@ namespace PCLine_computer_shops.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<ICollection<TaskEmployee>> GetAllTaskEmployees(string searchTerm)
+        public async Task<ICollection<TaskEmployee>> GetAllTaskEmployees(string searchTerm)
         {
-            throw new NotImplementedException();
+            var query = await _context.TaskEmployees.ToListAsync();
+
+            if (query == null)
+            {
+                return null;
+            }
+
+            if (!searchTerm.IsNullOrEmpty())
+            {
+                query = query.Where(h => h.Title.Contains(searchTerm) || h.Employee.FirstName.ToLower().Contains(searchTerm)).ToList();
+            }
+
+            return query;
         }
 
         public Task<TaskEmployee> GetTaskEmployeeById(int taskEmployeeId)
