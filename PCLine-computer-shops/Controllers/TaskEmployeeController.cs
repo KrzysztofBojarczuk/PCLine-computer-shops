@@ -28,5 +28,21 @@ namespace PCLine_computer_shops.Controllers
 
             return Ok(taskEmployeeGet);
         }
+
+
+        [HttpGet("Get/{taskEmployeeId}")]
+        public async Task<IActionResult> TaskEmployeeById(int taskEmployeeId)
+        {
+            var taskEmployee = await _taskEmployee.GetTaskEmployeeById(taskEmployeeId);
+
+            if(taskEmployee == null)
+            {
+                return NotFound();
+            }
+
+            var taskEmployeeGet = _mapper.Map<TaskEmployeeGetDto>(taskEmployee);
+
+            return Ok(taskEmployeeGet);
+        }
     }
 }

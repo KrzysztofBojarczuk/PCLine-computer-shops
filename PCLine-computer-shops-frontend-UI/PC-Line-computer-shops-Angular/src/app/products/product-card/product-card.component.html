@@ -1,5 +1,8 @@
-<mat-grid-list cols="8" rowHeight="200px" gutterSize="20px" class="mx-3">
-  <mat-grid-tile *ngFor="let product of products">
+<div class="row mt-5">
+  <div
+    *ngFor="let product of products"
+    class="col-lg-4 col-md-6 col-sm-12 mb-3"
+  >
     <mat-card>
       <mat-card-header>
         <mat-card-title>{{ product.name }}</mat-card-title>
@@ -11,5 +14,5 @@
         <p>Available amount: {{ product.amount }}</p>
       </mat-card-content>
     </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+  </div>
+</div>
