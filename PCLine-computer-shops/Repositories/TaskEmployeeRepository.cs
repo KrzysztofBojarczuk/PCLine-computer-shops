@@ -14,15 +14,6 @@ namespace PCLine_computer_shops.Repositories
             _context = context;
         }
 
-        public Task<TaskEmployee> CreateTaskEmployee(TaskEmployee taskEmployee)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<TaskEmployee> DeleteTaskEmployee(int taskEmployeeId)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<ICollection<TaskEmployee>> GetAllTaskEmployees(string searchTerm)
         {
@@ -41,12 +32,28 @@ namespace PCLine_computer_shops.Repositories
             return query;
         }
 
-        public Task<TaskEmployee> GetTaskEmployeeById(int taskEmployeeId)
+        public async Task<TaskEmployee> GetTaskEmployeeById(int taskEmployeeId)
+        {
+            var taskEmployee = await _context.TaskEmployees.FirstOrDefaultAsync(h => h.TaskEmployeeId == taskEmployeeId);
+
+            if (taskEmployee == null)
+            {
+                return null;
+            }
+
+            return taskEmployee;
+        }
+
+        public Task<TaskEmployee> UpdateTaskEmployee(TaskEmployee updateTaskEmployee)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<TaskEmployee> CreateTaskEmployee(TaskEmployee taskEmployee)
         {
             throw new NotImplementedException();
         }
 
-        public Task<TaskEmployee> UpdateTaskEmployee(TaskEmployee updateTaskEmployee)
+        public Task<TaskEmployee> DeleteTaskEmployee(int taskEmployeeId)
         {
             throw new NotImplementedException();
         }
