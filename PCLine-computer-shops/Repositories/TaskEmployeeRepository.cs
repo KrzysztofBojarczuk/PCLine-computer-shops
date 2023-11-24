@@ -44,11 +44,16 @@ namespace PCLine_computer_shops.Repositories
             return taskEmployee;
         }
 
-        public Task<TaskEmployee> UpdateTaskEmployee(TaskEmployee updateTaskEmployee)
+        public async Task<TaskEmployee> CreateTaskEmployee(TaskEmployee taskEmployee)
         {
-            throw new NotImplementedException();
+            _context.TaskEmployees.Add(taskEmployee);
+
+            await _context.SaveChangesAsync();
+
+            return taskEmployee;
         }
-        public Task<TaskEmployee> CreateTaskEmployee(TaskEmployee taskEmployee)
+
+        public Task<TaskEmployee> UpdateTaskEmployee(TaskEmployee updateTaskEmployee)
         {
             throw new NotImplementedException();
         }
