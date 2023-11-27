@@ -53,14 +53,29 @@ namespace PCLine_computer_shops.Repositories
             return taskEmployee;
         }
 
-        public Task<TaskEmployee> UpdateTaskEmployee(TaskEmployee updateTaskEmployee)
+        public async Task<TaskEmployee> UpdateTaskEmployee(TaskEmployee updateTaskEmployee)
         {
-            throw new NotImplementedException();
+            _context.Update(updateTaskEmployee);
+
+            await _context.SaveChangesAsync();
+
+            return updateTaskEmployee;
         }
 
-        public Task<TaskEmployee> DeleteTaskEmployee(int taskEmployeeId)
+        public async Task<TaskEmployee> DeleteTaskEmployee(int taskEmployeeId)
         {
-            throw new NotImplementedException();
+            var taskEmployee = await _context.TaskEmployees.FirstOrDefaultAsync(h => h.TaskEmployeeId == taskEmployeeId);
+
+            if(taskEmployee == null)
+            {
+                return null;
+            }
+
+            _context.TaskEmployees.Remove(taskEmployee);
+
+            await _context.SaveChangesAsync();
+
+            return taskEmployee;
         }
     }
 }
