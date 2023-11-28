@@ -3,7 +3,7 @@ using PCLine_computer_shops.Models;
 
 namespace PCLine_computer_shops.InterfaceReposiotry
 {
-    public interface ITaskEmployee
+    public interface ITaskEmployeeRepository
     {
         Task<ICollection<TaskEmployee>> GetAllTaskEmployees(string searchTerm);
         Task<TaskEmployee> CreateTaskEmployee(TaskEmployee taskEmployee);

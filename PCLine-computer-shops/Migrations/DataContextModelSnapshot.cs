@@ -51,10 +51,7 @@ namespace PCLine_computer_shops.Migrations
             modelBuilder.Entity("PCLine_computer_shops.Models.Employee", b =>
                 {
                     b.Property<int>("EmployeeId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -136,8 +133,11 @@ namespace PCLine_computer_shops.Migrations
 
             modelBuilder.Entity("PCLine_computer_shops.Models.TaskEmployee", b =>
                 {
-                    b.Property<int>("TaskEmployeeId")
+                    b.Property<int>("TaskId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TaskId"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -156,7 +156,7 @@ namespace PCLine_computer_shops.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TaskEmployeeId");
+                    b.HasKey("TaskId");
 
                     b.ToTable("TaskEmployees");
                 });
@@ -203,6 +203,12 @@ namespace PCLine_computer_shops.Migrations
 
             modelBuilder.Entity("PCLine_computer_shops.Models.Employee", b =>
                 {
+                    b.HasOne("PCLine_computer_shops.Models.TaskEmployee", "TaskEmployee")
+                        .WithOne("Employee")
+                        .HasForeignKey("PCLine_computer_shops.Models.Employee", "EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PCLine_computer_shops.Models.Shop", "Shop")
                         .WithMany("Employees")
                         .HasForeignKey("ShopId")
@@ -210,6 +216,8 @@ namespace PCLine_computer_shops.Migrations
                         .IsRequired();
 
                     b.Navigation("Shop");
+
+                    b.Navigation("TaskEmployee");
                 });
 
             modelBuilder.Entity("PCLine_computer_shops.Models.Product", b =>
@@ -223,23 +231,6 @@ namespace PCLine_computer_shops.Migrations
                     b.Navigation("Shop");
                 });
 
-            modelBuilder.Entity("PCLine_computer_shops.Models.TaskEmployee", b =>
-                {
-                    b.HasOne("PCLine_computer_shops.Models.Employee", "Employee")
-                        .WithOne("TaskEmployee")
-                        .HasForeignKey("PCLine_computer_shops.Models.TaskEmployee", "TaskEmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("PCLine_computer_shops.Models.Employee", b =>
-                {
-                    b.Navigation("TaskEmployee")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("PCLine_computer_shops.Models.Shop", b =>
                 {
                     b.Navigation("Address");
@@ -247,6 +238,11 @@ namespace PCLine_computer_shops.Migrations
                     b.Navigation("Employees");
 
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("PCLine_computer_shops.Models.TaskEmployee", b =>
+                {
+                    b.Navigation("Employee");
                 });
 #pragma warning restore 612, 618
         }

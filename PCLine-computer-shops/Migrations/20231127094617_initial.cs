@@ -27,6 +27,23 @@ namespace PCLine_computer_shops.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TaskEmployees",
+                columns: table => new
+                {
+                    TaskId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TaskCreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TimeEstiamted = table.Column<int>(type: "int", nullable: false),
+                    TaskStatus = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TaskEmployees", x => x.TaskId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -62,30 +79,6 @@ namespace PCLine_computer_shops.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employees",
-                columns: table => new
-                {
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmployeePosition = table.Column<int>(type: "int", nullable: false),
-                    ShopId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Employees", x => x.EmployeeId);
-                    table.ForeignKey(
-                        name: "FK_Employees_Shops_ShopId",
-                        column: x => x.ShopId,
-                        principalTable: "Shops",
-                        principalColumn: "ShopId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -108,24 +101,31 @@ namespace PCLine_computer_shops.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TaskEmployees",
+                name: "Employees",
                 columns: table => new
                 {
-                    TaskEmployeeId = table.Column<int>(type: "int", nullable: false),
-                    TaskCreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TimeEstiamted = table.Column<int>(type: "int", nullable: false),
-                    TaskStatus = table.Column<int>(type: "int", nullable: false)
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmployeePosition = table.Column<int>(type: "int", nullable: false),
+                    ShopId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TaskEmployees", x => x.TaskEmployeeId);
+                    table.PrimaryKey("PK_Employees", x => x.EmployeeId);
                     table.ForeignKey(
-                        name: "FK_TaskEmployees_Employees_TaskEmployeeId",
-                        column: x => x.TaskEmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "EmployeeId",
+                        name: "FK_Employees_Shops_ShopId",
+                        column: x => x.ShopId,
+                        principalTable: "Shops",
+                        principalColumn: "ShopId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Employees_TaskEmployees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "TaskEmployees",
+                        principalColumn: "TaskId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -152,16 +152,16 @@ namespace PCLine_computer_shops.Migrations
                 name: "Address");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "TaskEmployees");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "TaskEmployees");
 
             migrationBuilder.DropTable(
                 name: "Shops");

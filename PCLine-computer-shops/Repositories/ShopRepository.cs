@@ -63,6 +63,7 @@ namespace PCLine_computer_shops.Repositories
 
             return shop;
         }
+
         public async Task<Shop> UpdateShop(Shop updateShop)
         {
             _context.Shops.Update(updateShop);
