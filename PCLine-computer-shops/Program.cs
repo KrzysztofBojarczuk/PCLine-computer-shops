@@ -36,6 +36,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IShopRepository, ShopRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<ITaskEmployeeRepository, TaskEmployeeRepository>();
 
 builder.Services.AddDbContext<DataContext>(options =>
 {

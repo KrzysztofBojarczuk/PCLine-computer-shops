@@ -6,14 +6,13 @@ using PCLine_computer_shops.Models;
 
 namespace PCLine_computer_shops.Repositories
 {
-    public class TaskEmployeeRepository : ITaskEmployee
+    public class TaskEmployeeRepository : ITaskEmployeeRepository
     {
         private readonly DataContext _context;
         public TaskEmployeeRepository(DataContext context)
         {
             _context = context;
         }
-
 
         public async Task<ICollection<TaskEmployee>> GetAllTaskEmployees(string searchTerm)
         {
@@ -34,7 +33,7 @@ namespace PCLine_computer_shops.Repositories
 
         public async Task<TaskEmployee> GetTaskEmployeeById(int taskEmployeeId)
         {
-            var taskEmployee = await _context.TaskEmployees.FirstOrDefaultAsync(h => h.TaskEmployeeId == taskEmployeeId);
+            var taskEmployee = await _context.TaskEmployees.FirstOrDefaultAsync(h => h.TaskId == taskEmployeeId);
 
             if (taskEmployee == null)
             {
@@ -64,7 +63,7 @@ namespace PCLine_computer_shops.Repositories
 
         public async Task<TaskEmployee> DeleteTaskEmployee(int taskEmployeeId)
         {
-            var taskEmployee = await _context.TaskEmployees.FirstOrDefaultAsync(h => h.TaskEmployeeId == taskEmployeeId);
+            var taskEmployee = await _context.TaskEmployees.FirstOrDefaultAsync(h => h.TaskId == taskEmployeeId);
 
             if(taskEmployee == null)
             {
