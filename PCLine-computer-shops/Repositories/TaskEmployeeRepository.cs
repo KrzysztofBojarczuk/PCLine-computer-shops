@@ -23,10 +23,10 @@ namespace PCLine_computer_shops.Repositories
                 return null;
             }
 
-            if (!searchTerm.IsNullOrEmpty())
-            {
-                query = query.Where(h => h.Title.Contains(searchTerm) || h.Employee.FirstName.ToLower().Contains(searchTerm)).ToList();
-            }
+            //if (!searchTerm.IsNullOrEmpty())
+            //{
+            //    query = query.Where(h => h.Title.Contains(searchTerm) || h.Employee.FirstName.ToLower().Contains(searchTerm)).ToList();
+            //}
 
             return query;
         }

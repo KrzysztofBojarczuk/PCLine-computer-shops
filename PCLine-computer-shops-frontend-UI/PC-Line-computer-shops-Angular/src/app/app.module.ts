@@ -49,6 +49,7 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './loginSystem/login/login.component';
 import { AppRoutingLoginModule } from './loginSystem/app-routingLogin.module';
 import { AuthInterceptor } from './services/AuthInterceptor';
+import { TaskemployeesBoardComponent } from './taskemployees/taskemployees-board/taskemployees-board.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { AuthInterceptor } from './services/AuthInterceptor';
     ProductByIdComponent,
     HeaderComponent,
     LoginComponent,
+    TaskemployeesBoardComponent,
   ],
   imports: [
     MatTooltipModule,
