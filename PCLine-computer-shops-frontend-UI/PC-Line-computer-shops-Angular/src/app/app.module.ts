@@ -50,6 +50,7 @@ import { LoginComponent } from './loginSystem/login/login.component';
 import { AppRoutingLoginModule } from './loginSystem/app-routingLogin.module';
 import { AuthInterceptor } from './services/AuthInterceptor';
 import { TaskemployeesBoardComponent } from './taskemployees/taskemployees-board/taskemployees-board.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import { TaskemployeesBoardComponent } from './taskemployees/taskemployees-board
     MatSelectModule,
     MatSnackBarModule,
     MatButtonToggleModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    DragDropModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]
