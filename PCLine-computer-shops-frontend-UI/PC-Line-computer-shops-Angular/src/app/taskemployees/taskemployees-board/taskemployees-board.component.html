@@ -1,1 +1,50 @@
-<p>taskemployees-board works!</p>
+<div class="example-container">
+  <h2>To do</h2>
+
+  <div
+    cdkDropList
+    #todoList="cdkDropList"
+    [cdkDropListData]="todo"
+    [cdkDropListConnectedTo]="[doneList]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div *ngFor="let task of todo" class="example-box" cdkDrag>
+      {{ task.title }}
+    </div>
+  </div>
+</div>
+
+<div class="example-container">
+  <h2>In Progress</h2>
+
+  <div
+    cdkDropList
+    #doneList="cdkDropList"
+    [cdkDropListData]="inProgress"
+    [cdkDropListConnectedTo]="[todoList]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div *ngFor="let task of done" class="example-box" cdkDrag>
+      {{ task.title }}
+    </div>
+  </div>
+</div>
+
+<div class="example-container">
+  <h2>Done</h2>
+
+  <div
+    cdkDropList
+    #doneList="cdkDropList"
+    [cdkDropListData]="done"
+    [cdkDropListConnectedTo]="[todoList]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div *ngFor="let task of done" class="example-box" cdkDrag>
+      {{ task.title }}
+    </div>
+  </div>
+</div>
