@@ -9,6 +9,10 @@ import {
   CdkDrag,
   CdkDropList,
 } from '@angular/cdk/drag-drop';
+import { clippingParents } from '@popperjs/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 
 
 @Component({
@@ -21,7 +25,7 @@ export class TaskemployeesBoardComponent {
   inProgress: Taskemployee[] = [];
   done: Taskemployee[] = [];
 
-  constructor(private taskService: TaskemployeeService) {
+  constructor(private taskService: TaskemployeeService, private dialog: MatDialog, private snackBar: MatSnackBar) {
     this.getTaskEmployee();
   }
 
@@ -35,6 +39,7 @@ export class TaskemployeesBoardComponent {
   }
 
   drop(event: CdkDragDrop<Taskemployee[]>) {
+    console.log(event);
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -54,8 +59,36 @@ export class TaskemployeesBoardComponent {
         movedTask.taskStatus = TaskStatus.Done;
       }
 
-      // Update task status in the backend
-      //this.taskService.updateTaskStatus(movedTask).subscribe(/* Handle success/error */);
+      //this.taskService.updateTaskEmployee(movedTask.taskId, movedTask).subscribe();
     }
+  }
+
+  deleteTaskEmployee(taskEmployee: Taskemployee){
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+      width: '400px',
+      height: '200px',
+      data: {
+        titleText: "Delete Taskemployee",
+        confirmationText: "Do you really want delete Taskemployee?"
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.taskService.deleteTaskEmployee(taskEmployee.taskId).subscribe(
+          result => {
+            this.getTaskEmployee();
+            this.snackBar.open('Taskemployee deleted successfully', 'Close', {
+              duration: 3000,
+            });
+          },
+          error => {
+            this.snackBar.open('Error deleting Taskemployee', 'Close', {
+              duration: 3000,
+            });
+          }
+        );
+      }
+    });
   }
 }
