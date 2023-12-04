@@ -11,7 +11,14 @@
   >
     <div *ngFor="let task of todo" class="example-box" cdkDrag>
       {{ task.title }}
-    </div>
+      <button
+      mat-button
+      (click)="deleteTaskEmployee(task)"
+      matTooltip="Delete Taskemployee"
+      >
+      Delete
+    </button>
+  </div>
   </div>
 </div>
 
@@ -28,6 +35,13 @@
   >
     <div *ngFor="let task of done" class="example-box" cdkDrag>
       {{ task.title }}
+      <button
+      mat-button
+      (click)="deleteTaskEmployee(task)"
+      matTooltip="Delete Taskemployee"
+      >
+      Delete
+    </button>
     </div>
   </div>
 </div>
@@ -45,6 +59,13 @@
   >
     <div *ngFor="let task of done" class="example-box" cdkDrag>
       {{ task.title }}
+      <button
+      mat-button
+      (click)="deleteTaskEmployee(task)"
+      matTooltip="Delete Taskemployee"
+      >
+      Delete
+    </button>
     </div>
   </div>
 </div>
