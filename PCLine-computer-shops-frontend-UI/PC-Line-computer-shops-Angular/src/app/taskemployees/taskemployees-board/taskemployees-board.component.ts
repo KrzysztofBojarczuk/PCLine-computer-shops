@@ -13,6 +13,7 @@ import { clippingParents } from '@popperjs/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
+import { TaskemployeesFormComponent } from '../taskemployees-form/taskemployees-form.component';
 
 
 @Component({
@@ -39,7 +40,6 @@ export class TaskemployeesBoardComponent {
   }
 
   drop(event: CdkDragDrop<Taskemployee[]>) {
-    console.log(event);
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -47,19 +47,34 @@ export class TaskemployeesBoardComponent {
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex
+        event.currentIndex,
       );
-
+  
       const movedTask = event.container.data[event.currentIndex];
-      if (this.todo.includes(event.container.data[event.currentIndex])) {
-        movedTask.taskStatus = TaskStatus.Todo;
-      } else if (this.inProgress.includes(event.container.data[event.currentIndex])) {
-        movedTask.taskStatus = TaskStatus.Progress;
-      } else if (this.done.includes(event.container.data[event.currentIndex])) {
-        movedTask.taskStatus = TaskStatus.Done;
+  
+      console.log("Moved task before status update: ", movedTask);
+  
+      switch (event.container.id) {
+        case 'inProgressList':
+          movedTask.taskStatus = TaskStatus.Todo;
+          break;
+        case 'doneList':
+          movedTask.taskStatus = TaskStatus.Done;
+          break;
+        case 'todoList':
+        default:
+          movedTask.taskStatus = TaskStatus.Todo;
+          break;
       }
-
-      //this.taskService.updateTaskEmployee(movedTask.taskId, movedTask).subscribe();
+  
+      console.log("Moved task after status update: ", movedTask);
+  
+      this.taskService.updateTaskEmployee(movedTask.taskId, movedTask).subscribe(() => {
+        const index = event.previousContainer.data.indexOf(movedTask);
+        if (index !== -1) {
+          event.previousContainer.data.splice(index, 1);
+        }
+      });
     }
   }
 
@@ -89,6 +104,16 @@ export class TaskemployeesBoardComponent {
           }
         );
       }
+    });
+  }
+
+  createTaskEmployee(){
+    const dialogRef = this.dialog.open(TaskemployeesFormComponent,{
+      width: '400px',
+      height: '700px'
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      this.getTaskEmployee();
     });
   }
 }

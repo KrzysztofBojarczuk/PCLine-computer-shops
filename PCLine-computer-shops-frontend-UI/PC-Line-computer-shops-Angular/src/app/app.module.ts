@@ -51,6 +51,7 @@ import { AppRoutingLoginModule } from './loginSystem/app-routingLogin.module';
 import { AuthInterceptor } from './services/AuthInterceptor';
 import { TaskemployeesBoardComponent } from './taskemployees/taskemployees-board/taskemployees-board.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TaskemployeesFormComponent } from './taskemployees/taskemployees-form/taskemployees-form.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     HeaderComponent,
     LoginComponent,
     TaskemployeesBoardComponent,
+    TaskemployeesFormComponent,
   ],
   imports: [
     MatTooltipModule,

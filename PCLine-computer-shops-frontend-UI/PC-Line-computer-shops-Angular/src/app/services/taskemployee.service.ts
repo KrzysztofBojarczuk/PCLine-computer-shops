@@ -19,11 +19,12 @@ export class TaskemployeeService {
   }
 
   createTaskEmployee(taskEmployeeData: Taskemployee): Observable<TaskemployeeCreate> {
-    return this.http.post<TaskemployeeCreate>(`${this.apiUrl}TaskEmployee/Create`, taskEmployeeData);
+    return this.http.post<TaskemployeeCreate>(`${this.apiUrl}TaskEmployee/Post`, taskEmployeeData);
   }
 
   updateTaskEmployee(taskEmployeeId: number, updateTaskEmployee: Taskemployee): Observable<TaskemployeeCreate> {
-    console.log("SSSSS")
+    console.log(updateTaskEmployee)
+    console.log("aaaaaaaaaaaaa")
     return this.http.put<TaskemployeeCreate>(`${this.apiUrl}TaskEmployee/Put/${taskEmployeeId}`, updateTaskEmployee);
   }
 
