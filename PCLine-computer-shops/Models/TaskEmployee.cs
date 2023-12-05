@@ -12,6 +12,6 @@ namespace PCLine_computer_shops.Models
         public string Description { get; set; }
         public int TimeEstiamted { get; set; }
         public StatusTask TaskStatus { get; set; }
-        public Employee? Employee { get; set; }
+        //public Employee? Employee { get; set; }
     }
 }
