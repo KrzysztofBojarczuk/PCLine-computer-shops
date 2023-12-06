@@ -10,14 +10,19 @@ import { ShopService } from 'src/app/services/shop.service';
 @Component({
   selector: 'app-product-by-id',
   templateUrl: './product-by-id.component.html',
-  styleUrls: ['./product-by-id.component.scss']
+  styleUrls: ['./product-by-id.component.scss'],
 })
 export class ProductByIdComponent {
   shopForm: FormGroup;
   shops: Shop[] = [];
-  productsById: Product[] = []
+  productsById: Product[] = [];
 
-  constructor(private shopService: ShopService, private productService: ProductService, private dialog: MatDialog, private fb: FormBuilder) {
+  constructor(
+    private shopService: ShopService,
+    private productService: ProductService,
+    private dialog: MatDialog,
+    private fb: FormBuilder
+  ) {
     this.shopForm = this.fb.group({
       shopId: [''],
       name: [{ value: '', disabled: true }],
@@ -33,7 +38,7 @@ export class ProductByIdComponent {
       (result: Product[]) => {
         this.productsById = result;
       },
-      error => {
+      (error) => {
         console.error('Error fetching products:', error);
       }
     );
@@ -44,7 +49,7 @@ export class ProductByIdComponent {
       (result: Shop[]) => {
         this.shops = result;
       },
-      error => {
+      (error) => {
         console.error('Błąd podczas pobierania produktów:', error);
       }
     );
@@ -58,7 +63,7 @@ export class ProductByIdComponent {
         (result: Product[]) => {
           this.productsById = result;
         },
-        error => {
+        (error) => {
           console.error('Error fetching products:', error);
         }
       );
@@ -67,7 +72,9 @@ export class ProductByIdComponent {
 
   onShopIdChange(event: MatSelectChange) {
     const selectedShopId = event.value;
-    const selectedShop = this.shops.find(shop => shop.shopId === selectedShopId);
+    const selectedShop = this.shops.find(
+      (shop) => shop.shopId === selectedShopId
+    );
 
     if (selectedShop) {
       this.shopForm.patchValue({

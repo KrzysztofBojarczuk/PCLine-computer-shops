@@ -45,7 +45,7 @@
           <mat-label>Task assigned to:</mat-label>
           <mat-select matInput formControlName="nameEmployee" required>
           <mat-option *ngFor="let name of employees" [value]="name.firstName">
-            {{ name.firstName }}
+            {{ name.firstName +" " + name.lastName}}
           </mat-option>
         </mat-select>
         </mat-form-field>

@@ -52,6 +52,7 @@ import { AuthInterceptor } from './services/AuthInterceptor';
 import { TaskemployeesBoardComponent } from './taskemployees/taskemployees-board/taskemployees-board.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TaskemployeesFormComponent } from './taskemployees/taskemployees-form/taskemployees-form.component';
+import { TaskemployeesUpdateComponent } from './taskemployees/taskemployees-update/taskemployees-update.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { TaskemployeesFormComponent } from './taskemployees/taskemployees-form/t
     LoginComponent,
     TaskemployeesBoardComponent,
     TaskemployeesFormComponent,
+    TaskemployeesUpdateComponent,
   ],
   imports: [
     MatTooltipModule,
