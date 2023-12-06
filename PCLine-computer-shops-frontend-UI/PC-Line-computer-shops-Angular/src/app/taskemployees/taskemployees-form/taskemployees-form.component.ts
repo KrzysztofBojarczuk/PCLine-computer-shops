@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { clippingParents } from '@popperjs/core';
 import { TaskStatus } from 'src/app/enums/taskStatus';
+import { Employee } from 'src/app/models/employee';
 import { Taskemployee } from 'src/app/models/employeetask';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { TaskemployeeService } from 'src/app/services/taskemployee.service';
@@ -15,6 +16,8 @@ import { TaskemployeeService } from 'src/app/services/taskemployee.service';
 export class TaskemployeesFormComponent {
 
   taskEmployeeForm: FormGroup;
+
+  employees: Employee[] = [];
 
   taskStatuses: { value: TaskStatus; name: string }[] = [
     { value: TaskStatus.Todo, name: 'Todo' },
@@ -30,20 +33,22 @@ export class TaskemployeesFormComponent {
       title: ['', Validators.required],
       description: ['', Validators.required],
       timeEstimated: ['', Validators.required],
-      taskStatus: ['', Validators.required]
+      taskStatus: ['', Validators.required],
+      nameEmployee: ['', Validators.required]
     });
 
-    this.getAllEmployee();
+    this.getEmployee();
   }
 
-  getAllEmployee(){
-    this.employeeService.getEmployeesService().subscribe(result => {
-      console.log(result)
-    })
-  }
 
   submit(taskEmployee: Taskemployee) {
     this.taskService.createTaskEmployee(taskEmployee).subscribe();
     this.dialogRef.close();
+  }
+
+  getEmployee(){
+    this.employeeService.getEmployeesService('').subscribe((result: Employee[]) =>{
+      this.employees = result;
+    })
   }
 }

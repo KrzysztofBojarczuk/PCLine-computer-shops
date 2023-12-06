@@ -9,5 +9,6 @@ namespace PCLine_computer_shops.Dtos
         public string Description { get; set; }
         public int TimeEstiamted { get; set; }
         public StatusTask TaskStatus { get; set; }
+        public string NameEmployee { get; set; }
     }
 }

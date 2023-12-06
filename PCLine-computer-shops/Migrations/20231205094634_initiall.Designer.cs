@@ -12,8 +12,8 @@ using PCLine_computer_shops.Data;
 namespace PCLine_computer_shops.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231204090516_initial")]
-    partial class initial
+    [Migration("20231205094634_initiall")]
+    partial class initiall
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -146,6 +146,10 @@ namespace PCLine_computer_shops.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TaskId"));
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEmployee")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

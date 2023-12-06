@@ -15,6 +15,5 @@ namespace PCLine_computer_shops.Models
         [ForeignKey("ShopId")]
         public int ShopId { get; set; }
         public Shop Shop { get; set; }
-        //public TaskEmployee TaskEmployee { get; set; }
     }
 }

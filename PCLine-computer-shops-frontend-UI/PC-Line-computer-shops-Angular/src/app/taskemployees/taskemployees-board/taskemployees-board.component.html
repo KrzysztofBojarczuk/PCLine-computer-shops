@@ -14,7 +14,12 @@
     (cdkDropListDropped)="drop($event)"
   >
     <div *ngFor="let task of todo" class="example-box" cdkDrag>
-      {{ task.title }}
+      <h1>
+        {{ task.title }}
+      </h1>
+      <p>
+        {{task.nameEmployee}}
+      </p>
       <button
       mat-button
       (click)="deleteTaskEmployee(task)"

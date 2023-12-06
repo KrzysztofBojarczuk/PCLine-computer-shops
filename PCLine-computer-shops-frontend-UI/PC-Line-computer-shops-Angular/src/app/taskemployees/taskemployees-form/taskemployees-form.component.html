@@ -40,6 +40,16 @@
           </mat-select>
         </mat-form-field>
       </div>
+      <div class="mb-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Task assigned to:</mat-label>
+          <mat-select matInput formControlName="nameEmployee" required>
+          <mat-option *ngFor="let name of employees" [value]="name.firstName">
+            {{ name.firstName }}
+          </mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
     </div>
     <div class="d-flex justify-content-end p-2">
       <button style="margin-right: 8px" mat-raised-button mat-dialog-close>
