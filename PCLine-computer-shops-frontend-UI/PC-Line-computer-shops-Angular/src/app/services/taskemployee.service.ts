@@ -6,29 +6,41 @@ import { TaskemployeeCreate } from '../models/employeetask-create';
 import { clippingParents } from '@popperjs/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskemployeeService {
-
   private apiUrl = 'https://localhost:7068/api/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getTaskEmployeeService(searchTerm?: string): Observable<Taskemployee[]> {
-    return this.http.get<Taskemployee[]>(`${this.apiUrl}TaskEmployee/Get?searchTerm=${searchTerm}`);
+    return this.http.get<Taskemployee[]>(
+      `${this.apiUrl}TaskEmployee/Get?searchTerm=${searchTerm}`
+    );
   }
 
-  createTaskEmployee(taskEmployeeData: Taskemployee): Observable<TaskemployeeCreate> {
-    return this.http.post<TaskemployeeCreate>(`${this.apiUrl}TaskEmployee/Post`, taskEmployeeData);
+  createTaskEmployee(
+    taskEmployeeData: Taskemployee
+  ): Observable<TaskemployeeCreate> {
+    return this.http.post<TaskemployeeCreate>(
+      `${this.apiUrl}TaskEmployee/Post`,
+      taskEmployeeData
+    );
   }
 
-  updateTaskEmployee(taskEmployeeId: number, updateTaskEmployee: Taskemployee): Observable<TaskemployeeCreate> {
-    console.log(updateTaskEmployee)
-    console.log("aaaaaaaaaaaaa")
-    return this.http.put<TaskemployeeCreate>(`${this.apiUrl}TaskEmployee/Put/${taskEmployeeId}`, updateTaskEmployee);
+  updateTaskEmployee(
+    taskEmployeeId: number,
+    updateTaskEmployee: Taskemployee
+  ): Observable<TaskemployeeCreate> {
+    return this.http.put<TaskemployeeCreate>(
+      `${this.apiUrl}TaskEmployee/Put/${taskEmployeeId}`,
+      updateTaskEmployee
+    );
   }
 
   deleteTaskEmployee(taskEmployeeId: number): Observable<number> {
-    return this.http.delete<number>(`${this.apiUrl}TaskEmployee/Delete/${taskEmployeeId}`);
+    return this.http.delete<number>(
+      `${this.apiUrl}TaskEmployee/Delete/${taskEmployeeId}`
+    );
   }
 }

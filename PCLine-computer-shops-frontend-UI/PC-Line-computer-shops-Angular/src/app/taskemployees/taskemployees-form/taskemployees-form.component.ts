@@ -11,10 +11,9 @@ import { TaskemployeeService } from 'src/app/services/taskemployee.service';
 @Component({
   selector: 'app-taskemployees-form',
   templateUrl: './taskemployees-form.component.html',
-  styleUrls: ['./taskemployees-form.component.scss']
+  styleUrls: ['./taskemployees-form.component.scss'],
 })
 export class TaskemployeesFormComponent {
-
   taskEmployeeForm: FormGroup;
 
   employees: Employee[] = [];
@@ -22,33 +21,39 @@ export class TaskemployeesFormComponent {
   taskStatuses: { value: TaskStatus; name: string }[] = [
     { value: TaskStatus.Todo, name: 'Todo' },
     { value: TaskStatus.Progress, name: 'In Progress' },
-    { value: TaskStatus.Done, name: 'Done' }
+    { value: TaskStatus.Done, name: 'Done' },
   ];
-  
-  title = "Create Task"
 
-  constructor(private formBuilder: FormBuilder, private taskService: TaskemployeeService, public dialogRef: MatDialogRef<TaskemployeesFormComponent>, private employeeService: EmployeeService) {
+  title = 'Create Task';
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private taskService: TaskemployeeService,
+    public dialogRef: MatDialogRef<TaskemployeesFormComponent>,
+    private employeeService: EmployeeService
+  ) {
     this.taskEmployeeForm = this.formBuilder.group({
       taskCreatedDate: ['', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],
       timeEstimated: ['', Validators.required],
       taskStatus: ['', Validators.required],
-      nameEmployee: ['', Validators.required]
+      nameEmployee: ['', Validators.required],
     });
 
     this.getEmployee();
   }
-
 
   submit(taskEmployee: Taskemployee) {
     this.taskService.createTaskEmployee(taskEmployee).subscribe();
     this.dialogRef.close();
   }
 
-  getEmployee(){
-    this.employeeService.getEmployeesService('').subscribe((result: Employee[]) =>{
-      this.employees = result;
-    })
+  getEmployee() {
+    this.employeeService
+      .getEmployeesService('')
+      .subscribe((result: Employee[]) => {
+        this.employees = result;
+      });
   }
 }

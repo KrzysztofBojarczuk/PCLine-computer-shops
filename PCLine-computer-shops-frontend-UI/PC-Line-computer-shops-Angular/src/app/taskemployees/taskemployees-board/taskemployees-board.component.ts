@@ -16,48 +16,64 @@ import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/co
 import { TaskemployeesFormComponent } from '../taskemployees-form/taskemployees-form.component';
 import { Employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
-
+import { TaskemployeesUpdateComponent } from '../taskemployees-update/taskemployees-update.component';
 
 @Component({
   selector: 'app-taskemployees-board',
   templateUrl: './taskemployees-board.component.html',
-  styleUrls: ['./taskemployees-board.component.scss']
+  styleUrls: ['./taskemployees-board.component.scss'],
 })
 export class TaskemployeesBoardComponent {
   todo: Taskemployee[] = [];
   inProgress: Taskemployee[] = [];
   done: Taskemployee[] = [];
-  
-  constructor(private employeeService: EmployeeService, private taskService: TaskemployeeService, private dialog: MatDialog, private snackBar: MatSnackBar) {
+
+  constructor(
+    private employeeService: EmployeeService,
+    private taskService: TaskemployeeService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {
     this.getTaskEmployee();
   }
 
   getTaskEmployee(searchTerm?: string) {
-    this.taskService.getTaskEmployeeService(searchTerm).subscribe((result: Taskemployee[]) => {
-      this.todo = result.filter(task => task.taskStatus === TaskStatus.Todo);
-      this.inProgress = result.filter(task => task.taskStatus === TaskStatus.Progress);
-      this.done = result.filter(task => task.taskStatus === TaskStatus.Done);
+    this.taskService
+      .getTaskEmployeeService(searchTerm)
+      .subscribe((result: Taskemployee[]) => {
+        this.todo = result.filter(
+          (task) => task.taskStatus === TaskStatus.Todo
+        );
+        this.inProgress = result.filter(
+          (task) => task.taskStatus === TaskStatus.Progress
+        );
+        this.done = result.filter(
+          (task) => task.taskStatus === TaskStatus.Done
+        );
 
-      console.log(this.todo)
-    }
-    )
+        console.log(this.todo);
+      });
   }
 
   drop(event: CdkDragDrop<Taskemployee[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else {
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex,
+        event.currentIndex
       );
-  
+
       const movedTask = event.container.data[event.currentIndex];
-  
-      console.log("Moved task before status update: ", movedTask);
-  
+
+      console.log('Moved task before status update: ', movedTask);
+
       switch (event.container.id) {
         case 'inProgressList':
           movedTask.taskStatus = TaskStatus.Todo;
@@ -70,38 +86,51 @@ export class TaskemployeesBoardComponent {
           movedTask.taskStatus = TaskStatus.Todo;
           break;
       }
-  
-      console.log("Moved task after status update: ", movedTask);
-  
-      this.taskService.updateTaskEmployee(movedTask.taskId, movedTask).subscribe(() => {
-        const index = event.previousContainer.data.indexOf(movedTask);
-        if (index !== -1) {
-          event.previousContainer.data.splice(index, 1);
-        }
-      });
+
+      console.log('Moved task after status update: ', movedTask);
+
+      this.taskService
+        .updateTaskEmployee(movedTask.taskId, movedTask)
+        .subscribe(() => {
+          const index = event.previousContainer.data.indexOf(movedTask);
+          if (index !== -1) {
+            event.previousContainer.data.splice(index, 1);
+          }
+        });
     }
   }
 
-  deleteTaskEmployee(taskEmployee: Taskemployee){
+  updateTaskEmployee(taskEmployee: Taskemployee) {
+    const dialogRef = this.dialog.open(TaskemployeesUpdateComponent, {
+      width: '400px',
+      height: '800px',
+      data: taskEmployee,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getTaskEmployee();
+    });
+  }
+
+  deleteTaskEmployee(taskEmployee: Taskemployee) {
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       width: '400px',
       height: '200px',
       data: {
-        titleText: "Delete Taskemployee",
-        confirmationText: "Do you really want delete Taskemployee?"
-      }
+        titleText: 'Delete Taskemployee',
+        confirmationText: 'Do you really want delete Taskemployee?',
+      },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.taskService.deleteTaskEmployee(taskEmployee.taskId).subscribe(
-          result => {
+          (result) => {
             this.getTaskEmployee();
             this.snackBar.open('Taskemployee deleted successfully', 'Close', {
               duration: 3000,
             });
           },
-          error => {
+          (error) => {
             this.snackBar.open('Error deleting Taskemployee', 'Close', {
               duration: 3000,
             });
@@ -111,12 +140,12 @@ export class TaskemployeesBoardComponent {
     });
   }
 
-  createTaskEmployee(){
-    const dialogRef = this.dialog.open(TaskemployeesFormComponent,{
+  createTaskEmployee() {
+    const dialogRef = this.dialog.open(TaskemployeesFormComponent, {
       width: '400px',
-      height: '700px'
-    })
-    dialogRef.afterClosed().subscribe(result => {
+      height: '800px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
       this.getTaskEmployee();
     });
   }

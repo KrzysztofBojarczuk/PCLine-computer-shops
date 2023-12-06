@@ -14,16 +14,21 @@ import { AddProductToShopComponent } from '../add-product-to-shop/add-product-to
 @Component({
   selector: 'app-product-table',
   templateUrl: './product-table.component.html',
-  styleUrls: ['./product-table.component.scss']
+  styleUrls: ['./product-table.component.scss'],
 })
 export class ProductTableComponent {
   shops: Shop[] = [];
-  products: Product[] = []
-  productVat: number = 0
+  products: Product[] = [];
+  productVat: number = 0;
   value: string = '';
   step = 0;
 
-  constructor(private shopService: ShopService, private productService: ProductService, private dialog: MatDialog, private snackBar: MatSnackBar) { }
+  constructor(
+    private shopService: ShopService,
+    private productService: ProductService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     this.getAllProducts('');
@@ -46,10 +51,9 @@ export class ProductTableComponent {
       width: '900px',
       height: '520px',
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this.getAllProducts('');
-    }
-    )
+    });
   }
 
   calculateProductVat(productWithVat: number): number {
@@ -63,7 +67,10 @@ export class ProductTableComponent {
   }
 
   getTotalValue(): number {
-    return this.products.reduce((total, product) => total + (product.price * product.amount), 0);
+    return this.products.reduce(
+      (total, product) => total + product.price * product.amount,
+      0
+    );
   }
 
   getAllProducts(searchTerm?: string) {
@@ -71,7 +78,7 @@ export class ProductTableComponent {
       (result: Product[]) => {
         this.products = result;
       },
-      error => {
+      (error) => {
         console.error('Error fetching products:', error);
       }
     );
@@ -85,7 +92,7 @@ export class ProductTableComponent {
   createProduct() {
     const dialogRef = this.dialog.open(ProductFormComponent, {
       width: '400px',
-      height: '550px'
+      height: '550px',
     });
     dialogRef.afterClosed();
   }
@@ -97,10 +104,9 @@ export class ProductTableComponent {
       data: product,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.getAllProducts('')
-    }
-    )
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getAllProducts('');
+    });
   }
 
   deleteProduct(product: Product) {
@@ -108,26 +114,28 @@ export class ProductTableComponent {
       width: '400px',
       height: '200px',
       data: {
-        titleText: "Delete Product",
-        confirmationText: "Do you really want delete Product?"
-      }
+        titleText: 'Delete Product',
+        confirmationText: 'Do you really want delete Product?',
+      },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.productService.deleteProductService(product.shopId, product.productId).subscribe(
-          result => {
-            this.getAllProducts('');
-            this.snackBar.open('Product deleted successfully', 'Close', {
-              duration: 3000,
-            });
-          },
-          error => {
-            this.snackBar.open('Error deleting product', 'Close', {
-              duration: 3000,
-            });
-          }
-        );
+        this.productService
+          .deleteProductService(product.shopId, product.productId)
+          .subscribe(
+            (result) => {
+              this.getAllProducts('');
+              this.snackBar.open('Product deleted successfully', 'Close', {
+                duration: 3000,
+              });
+            },
+            (error) => {
+              this.snackBar.open('Error deleting product', 'Close', {
+                duration: 3000,
+              });
+            }
+          );
       }
     });
   }

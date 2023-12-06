@@ -10,15 +10,19 @@ import { VariableBinding } from '@angular/compiler';
 @Component({
   selector: 'app-product-update',
   templateUrl: './product-update.component.html',
-  styleUrls: ['./product-update.component.scss']
+  styleUrls: ['./product-update.component.scss'],
 })
 export class ProductUpdateComponent {
   productForm: FormGroup;
 
-  title = "Update Product"
+  title = 'Update Product';
 
-  constructor(private fb: FormBuilder, private productService: ProductService, private dialogRef: MatDialogRef<ProductFormComponent>, @Inject(MAT_DIALOG_DATA) public data: Product) {
-
+  constructor(
+    private fb: FormBuilder,
+    private productService: ProductService,
+    private dialogRef: MatDialogRef<ProductFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Product
+  ) {
     this.productForm = this.fb.group({
       name: [data.name, Validators.required],
       price: [data.price, Validators.required],
@@ -27,8 +31,9 @@ export class ProductUpdateComponent {
   }
 
   updateProduct(product: Product) {
-    this.productService.updateProductService(this.data.shopId, this.data.productId, product).subscribe();
+    this.productService
+      .updateProductService(this.data.shopId, this.data.productId, product)
+      .subscribe();
     this.dialogRef.close();
   }
-
 }
