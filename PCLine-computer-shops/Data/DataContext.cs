@@ -37,11 +37,6 @@ namespace PCLine_computer_shops.Data
                 .HasOne(h => h.Address)
                 .WithOne(h => h.Shop)
                 .HasForeignKey<Address>(h => h.AddressId);
-
-            //modelBuilder.Entity<TaskEmployee>()
-            //    .HasOne(h => h.Employee)
-            //    .WithOne(h => h.TaskEmployee)
-            //    .HasForeignKey<Employee>(h => h.EmployeeId);
         }
     }
 }

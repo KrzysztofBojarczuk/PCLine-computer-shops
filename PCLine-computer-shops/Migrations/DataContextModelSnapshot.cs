@@ -146,6 +146,10 @@ namespace PCLine_computer_shops.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NameEmployee")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("TaskCreatedDate")
                         .HasColumnType("datetime2");
 

@@ -14,6 +14,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 import { TaskemployeesFormComponent } from '../taskemployees-form/taskemployees-form.component';
+import { Employee } from 'src/app/models/employee';
+import { EmployeeService } from 'src/app/services/employee.service';
 
 
 @Component({
@@ -25,8 +27,8 @@ export class TaskemployeesBoardComponent {
   todo: Taskemployee[] = [];
   inProgress: Taskemployee[] = [];
   done: Taskemployee[] = [];
-
-  constructor(private taskService: TaskemployeeService, private dialog: MatDialog, private snackBar: MatSnackBar) {
+  
+  constructor(private employeeService: EmployeeService, private taskService: TaskemployeeService, private dialog: MatDialog, private snackBar: MatSnackBar) {
     this.getTaskEmployee();
   }
 
@@ -35,6 +37,8 @@ export class TaskemployeesBoardComponent {
       this.todo = result.filter(task => task.taskStatus === TaskStatus.Todo);
       this.inProgress = result.filter(task => task.taskStatus === TaskStatus.Progress);
       this.done = result.filter(task => task.taskStatus === TaskStatus.Done);
+
+      console.log(this.todo)
     }
     )
   }

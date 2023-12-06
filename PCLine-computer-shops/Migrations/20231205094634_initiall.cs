@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PCLine_computer_shops.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class initiall : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,7 +36,8 @@ namespace PCLine_computer_shops.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TimeEstiamted = table.Column<int>(type: "int", nullable: false),
-                    TaskStatus = table.Column<int>(type: "int", nullable: false)
+                    TaskStatus = table.Column<int>(type: "int", nullable: false),
+                    NameEmployee = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
