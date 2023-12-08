@@ -5,7 +5,7 @@ export interface Taskemployee {
   taskCreatedDate: Date;
   title: string;
   description: string;
-  timeEstiamted: number;
+  timeEstimated: number;
   taskStatus: TaskStatus;
   nameEmployee: string;
 }

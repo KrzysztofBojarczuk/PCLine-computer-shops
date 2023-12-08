@@ -37,11 +37,10 @@ export class TaskemployeesUpdateComponent {
       taskCreatedDate: [taskEmployee.taskCreatedDate, Validators.required],
       title: [taskEmployee.title, Validators.required],
       description: [taskEmployee.description, Validators.required],
-      timeEstimated: [taskEmployee.timeEstiamted, Validators.required],
+      timeEstimated: [taskEmployee.timeEstimated, Validators.required],
       taskStatus: [taskEmployee.taskStatus, Validators.required],
       nameEmployee: [taskEmployee.nameEmployee, Validators.required],
     });
-    console.log(taskEmployee);
     this.getEmployee();
   }
 
