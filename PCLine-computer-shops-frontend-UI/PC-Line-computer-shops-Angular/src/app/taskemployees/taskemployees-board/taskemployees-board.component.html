@@ -4,113 +4,117 @@
   </button>
 </div>
 
-<div class="example-container">
-  <h2>To do</h2>
+<div style="max-height: 73vh; overflow: auto">
+  <div class="example-container">
+    <h2>To do</h2>
 
-  <div
-    cdkDropList
-    cdkDropList
-    [id]="'todoList'"
-    [cdkDropListData]="todo"
-    [cdkDropListConnectedTo]="['inProgressList']"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)"
-  >
-    <div *ngFor="let task of todo" class="example-box" cdkDrag>
-      <h1>
-        {{ task.title }}
-      </h1>
-      <p>
-        {{ task.nameEmployee }}
-      </p>
-      <button
-        mat-button
-        (click)="updateTaskEmployee(task)"
-        matTooltip="Update Taskemployee"
-      >
-        Update TaskEmployee
-      </button>
-      <button
-        mat-button
-        (click)="deleteTaskEmployee(task)"
-        matTooltip="Delete Taskemployee"
-      >
-        Delete
-      </button>
+    <div
+      cdkDropList
+      cdkDropList
+      [id]="'todoList'"
+      [cdkDropListData]="todo"
+      [cdkDropListConnectedTo]="['inProgressList']"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div *ngFor="let task of todo" class="example-box" cdkDrag>
+        <h1>
+          {{ task.title }}
+        </h1>
+        <p>
+          {{ task.nameEmployee }}
+        </p>
+        <div class="d-flex justify-content-end p-2">
+          <button
+            mat-button
+            (click)="updateTaskEmployee(task)"
+            matTooltip="Update Taskemployee"
+          >
+            Update TaskEmployee
+          </button>
+          <button
+            mat-button
+            (click)="deleteTaskEmployee(task)"
+            matTooltip="Delete Taskemployee"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="example-container">
-  <h2>In Progress</h2>
+  <div class="example-container">
+    <h2>In Progress</h2>
 
-  <div
-    cdkDropList
-    cdkDropList
-    [id]="'inProgressList'"
-    [cdkDropListData]="inProgress"
-    [cdkDropListConnectedTo]="['todoList']"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)"
-  >
-    <div *ngFor="let task of inProgress" class="example-box" cdkDrag>
-      <h1>
-        {{ task.title }}
-      </h1>
-      <p>
-        {{ task.nameEmployee }}
-      </p>
-      <button
-        mat-button
-        (click)="updateTaskEmployee(task)"
-        matTooltip="Update Taskemployee"
-      >
-        Update TaskEmployee
-      </button>
+    <div
+      cdkDropList
+      cdkDropList
+      [id]="'inProgressList'"
+      [cdkDropListData]="inProgress"
+      [cdkDropListConnectedTo]="['todoList']"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div *ngFor="let task of inProgress" class="example-box" cdkDrag>
+        <h1>
+          {{ task.title }}
+        </h1>
+        <p>
+          {{ task.nameEmployee }}
+        </p>
+        <button
+          mat-button
+          (click)="updateTaskEmployee(task)"
+          matTooltip="Update Taskemployee"
+        >
+          Update TaskEmployee
+        </button>
 
-      <button
-        mat-button
-        (click)="deleteTaskEmployee(task)"
-        matTooltip="Delete Taskemployee"
-      >
-        Delete
-      </button>
+        <button
+          mat-button
+          (click)="deleteTaskEmployee(task)"
+          matTooltip="Delete Taskemployee"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="example-container">
-  <h2>Done</h2>
+  <div class="example-container">
+    <h2>Done</h2>
 
-  <div
-    cdkDropList
-    cdkDropList
-    [id]="'doneList'"
-    [cdkDropListConnectedTo]="['todoList']"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)"
-  >
-    <div *ngFor="let task of done" class="example-box" cdkDrag>
-      <h1>
-        {{ task.title }}
-      </h1>
-      <p>
-        {{ task.nameEmployee }}
-      </p>
-      <button
-        mat-button
-        (click)="updateTaskEmployee(task)"
-        matTooltip="Update Taskemployee"
-      >
-        Update TaskEmployee
-      </button>
-      <button
-        mat-button
-        (click)="deleteTaskEmployee(task)"
-        matTooltip="Delete Taskemployee"
-      >
-        Delete
-      </button>
+    <div
+      cdkDropList
+      cdkDropList
+      [id]="'doneList'"
+      [cdkDropListConnectedTo]="['todoList']"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div *ngFor="let task of done" class="example-box" cdkDrag>
+        <h1>
+          {{ task.title }}
+        </h1>
+        <p>
+          {{ task.nameEmployee }}
+        </p>
+        <button
+          mat-button
+          (click)="updateTaskEmployee(task)"
+          matTooltip="Update Taskemployee"
+        >
+          Update TaskEmployee
+        </button>
+        <button
+          mat-button
+          (click)="deleteTaskEmployee(task)"
+          matTooltip="Delete Taskemployee"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   </div>
 </div>
