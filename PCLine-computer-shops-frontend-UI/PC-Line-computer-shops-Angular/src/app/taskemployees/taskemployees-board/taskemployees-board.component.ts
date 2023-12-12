@@ -50,8 +50,6 @@ export class TaskemployeesBoardComponent {
         this.done = result.filter(
           (task) => task.taskStatus === TaskStatus.Done
         );
-
-        console.log(this.todo);
       });
   }
 
@@ -72,31 +70,21 @@ export class TaskemployeesBoardComponent {
 
       const movedTask = event.container.data[event.currentIndex];
 
-      console.log('Moved task before status update: ', movedTask);
-
       switch (event.container.id) {
         case 'inProgressList':
-          movedTask.taskStatus = TaskStatus.Todo;
+          movedTask.taskStatus = TaskStatus.Progress;
           break;
         case 'doneList':
           movedTask.taskStatus = TaskStatus.Done;
           break;
         case 'todoList':
-        default:
           movedTask.taskStatus = TaskStatus.Todo;
           break;
       }
 
-      console.log('Moved task after status update: ', movedTask);
-
       this.taskService
         .updateTaskEmployee(movedTask.taskId, movedTask)
-        .subscribe(() => {
-          const index = event.previousContainer.data.indexOf(movedTask);
-          if (index !== -1) {
-            event.previousContainer.data.splice(index, 1);
-          }
-        });
+        .subscribe();
     }
   }
 

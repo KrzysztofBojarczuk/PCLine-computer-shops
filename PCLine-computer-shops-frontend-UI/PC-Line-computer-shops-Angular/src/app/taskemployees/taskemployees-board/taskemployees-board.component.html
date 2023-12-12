@@ -10,10 +10,9 @@
 
     <div
       cdkDropList
-      cdkDropList
       [id]="'todoList'"
       [cdkDropListData]="todo"
-      [cdkDropListConnectedTo]="['inProgressList']"
+      [cdkDropListConnectedTo]="['inProgressList', 'doneList']"
       class="example-list"
       (cdkDropListDropped)="drop($event)"
     >
@@ -49,10 +48,9 @@
 
     <div
       cdkDropList
-      cdkDropList
       [id]="'inProgressList'"
       [cdkDropListData]="inProgress"
-      [cdkDropListConnectedTo]="['todoList']"
+      [cdkDropListConnectedTo]="['todoList', 'doneList']"
       class="example-list"
       (cdkDropListDropped)="drop($event)"
     >
@@ -87,9 +85,9 @@
 
     <div
       cdkDropList
-      cdkDropList
       [id]="'doneList'"
-      [cdkDropListConnectedTo]="['todoList']"
+      [cdkDropListData]="done"
+      [cdkDropListConnectedTo]="['inProgressList', 'todoList']"
       class="example-list"
       (cdkDropListDropped)="drop($event)"
     >
