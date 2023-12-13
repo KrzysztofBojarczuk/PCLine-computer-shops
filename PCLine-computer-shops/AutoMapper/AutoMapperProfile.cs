@@ -21,7 +21,11 @@ namespace PCLine_computer_shops.AutoMapper
             CreateMap<Employee, EmployeeGetDto>();
 
             CreateMap<TaskEmployeeCreateDto, TaskEmployee>();
-            CreateMap<TaskEmployee, TaskEmployeeGetDto>();
+            CreateMap<TaskEmployee, TaskEmployeeGetDto>()
+                .ForMember(dest => dest.TaskFiles, opt => opt.Ignore());
+
+            CreateMap<TaskFileCreateDto, TaskFile>();
+            CreateMap<TaskFile, TaskFileGetDto>();
         }
     }
 }

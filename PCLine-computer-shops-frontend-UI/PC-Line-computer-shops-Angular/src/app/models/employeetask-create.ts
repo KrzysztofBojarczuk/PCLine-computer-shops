@@ -7,4 +7,5 @@ export interface TaskemployeeCreate {
   timeEstimated: number;
   taskStatus: TaskStatus;
   nameEmployee: string;
+  files?: File[];
 }

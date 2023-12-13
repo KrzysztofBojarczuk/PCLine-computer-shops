@@ -13,5 +13,6 @@ namespace PCLine_computer_shops.Models
         public int TimeEstimated { get; set; }
         public StatusTask TaskStatus { get; set; }
         public string NameEmployee { get; set; }
+        public ICollection<TaskFile> TaskFiles { get; set; } = new List<TaskFile>();
     }
 }

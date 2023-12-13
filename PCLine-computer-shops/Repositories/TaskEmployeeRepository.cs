@@ -18,6 +18,7 @@ namespace PCLine_computer_shops.Repositories
         {
             var query = await _context.TaskEmployees.ToListAsync();
 
+
             if (query == null)
             {
                 return null;
@@ -75,6 +76,18 @@ namespace PCLine_computer_shops.Repositories
             await _context.SaveChangesAsync();
 
             return taskEmployee;
+        }
+
+        public async Task<ICollection<TaskFile>> GetTaskFiles(int taskEmployeeId)
+        {
+            var files = await _context.TaskFiles.Where(h => h.TaskId == taskEmployeeId).ToListAsync();
+
+            if (files == null)
+            {
+                return null;
+            }
+
+            return files;
         }
     }
 }

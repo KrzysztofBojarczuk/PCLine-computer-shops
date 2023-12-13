@@ -8,7 +8,7 @@ using PCLine_computer_shops.Models;
 
 namespace PCLine_computer_shops.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TaskEmployeeController : ControllerBase
@@ -48,9 +48,27 @@ namespace PCLine_computer_shops.Controllers
         }
 
         [HttpPost("Post")]
-        public async Task<IActionResult> CreateTaskEmployee([FromBody] TaskEmployeeCreateDto taskEmployee)
+        public async Task<IActionResult> CreateTaskEmployee([FromForm] TaskEmployeeCreateDto taskEmployee, List<IFormFile> files)
         {
             var taskEmployeeCreate = _mapper.Map<TaskEmployee>(taskEmployee);
+
+            foreach (var file in files)
+            {
+                byte[] fileBytes;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await file.CopyToAsync(ms);
+                    fileBytes = ms.ToArray();
+                }
+
+                var taskFile = new TaskFile
+                {
+                    FileName = file.FileName,
+                    FileContent = fileBytes 
+                };
+
+                taskEmployeeCreate.TaskFiles.Add(taskFile);
+            }
 
             await _taskEmployeeRepository.CreateTaskEmployee(taskEmployeeCreate);
 
@@ -82,6 +100,21 @@ namespace PCLine_computer_shops.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpGet("GetTaskFiles/{taskEmployeeId}")]
+        public async Task<IActionResult> TaskFiles(int taskEmployeeId)
+        {
+            var taskFiles = await _taskEmployeeRepository.GetTaskFiles(taskEmployeeId);
+
+            if (taskFiles == null)
+            {
+                return NotFound();
+            }
+
+            var taskFilesGet = _mapper.Map<List<TaskFileGetDto>>(taskFiles);
+
+            return Ok(taskFilesGet);
         }
     }
 }
