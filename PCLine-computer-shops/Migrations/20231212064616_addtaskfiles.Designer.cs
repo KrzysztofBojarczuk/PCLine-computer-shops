@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PCLine_computer_shops.Data;
 
@@ -11,9 +12,11 @@ using PCLine_computer_shops.Data;
 namespace PCLine_computer_shops.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231212064616_addtaskfiles")]
+    partial class addtaskfiles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -184,12 +187,15 @@ namespace PCLine_computer_shops.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TaskEmployeeTaskId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TaskId")
                         .HasColumnType("int");
 
                     b.HasKey("TaskFileId");
 
-                    b.HasIndex("TaskId");
+                    b.HasIndex("TaskEmployeeTaskId");
 
                     b.ToTable("TaskFiles");
                 });
@@ -260,7 +266,7 @@ namespace PCLine_computer_shops.Migrations
                 {
                     b.HasOne("PCLine_computer_shops.Models.TaskEmployee", "TaskEmployee")
                         .WithMany("TaskFiles")
-                        .HasForeignKey("TaskId")
+                        .HasForeignKey("TaskEmployeeTaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

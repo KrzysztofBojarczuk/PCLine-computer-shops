@@ -8,4 +8,5 @@ export interface Taskemployee {
   timeEstimated: number;
   taskStatus: TaskStatus;
   nameEmployee: string;
+  files?: File[];
 }

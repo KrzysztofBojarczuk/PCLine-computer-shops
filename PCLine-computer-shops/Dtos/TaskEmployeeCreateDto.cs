@@ -1,4 +1,5 @@
 ﻿using PCLine_computer_shops.Enums;
+using PCLine_computer_shops.Models;
 
 namespace PCLine_computer_shops.Dtos
 {

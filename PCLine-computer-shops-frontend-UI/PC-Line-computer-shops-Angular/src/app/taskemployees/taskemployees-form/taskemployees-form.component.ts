@@ -5,6 +5,7 @@ import { clippingParents } from '@popperjs/core';
 import { TaskStatus } from 'src/app/enums/taskStatus';
 import { Employee } from 'src/app/models/employee';
 import { Taskemployee } from 'src/app/models/employeetask';
+import { TaskemployeeCreate } from 'src/app/models/employeetask-create';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { TaskemployeeService } from 'src/app/services/taskemployee.service';
 
@@ -15,7 +16,7 @@ import { TaskemployeeService } from 'src/app/services/taskemployee.service';
 })
 export class TaskemployeesFormComponent {
   taskEmployeeForm: FormGroup;
-
+  selectedFiles: File[] = [];
   employees: Employee[] = [];
 
   taskStatuses: { value: TaskStatus; name: string }[] = [
@@ -39,12 +40,14 @@ export class TaskemployeesFormComponent {
       timeEstimated: ['', Validators.required],
       taskStatus: ['', Validators.required],
       nameEmployee: ['', Validators.required],
+      files: [''],
     });
 
     this.getEmployee();
   }
 
   submit(taskEmployee: Taskemployee) {
+    taskEmployee.files = this.selectedFiles;
     this.taskService.createTaskEmployee(taskEmployee).subscribe();
     this.dialogRef.close();
   }
@@ -55,5 +58,10 @@ export class TaskemployeesFormComponent {
       .subscribe((result: Employee[]) => {
         this.employees = result;
       });
+  }
+
+  onFileChange(event: any) {
+    const files: File[] = event.target.files;
+    this.selectedFiles = Array.from(files);
   }
 }

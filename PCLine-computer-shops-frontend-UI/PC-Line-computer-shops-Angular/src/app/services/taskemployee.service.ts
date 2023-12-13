@@ -22,9 +22,26 @@ export class TaskemployeeService {
   createTaskEmployee(
     taskEmployeeData: Taskemployee
   ): Observable<TaskemployeeCreate> {
+    const formData = new FormData();
+    formData.append(
+      'taskCreatedDate',
+      taskEmployeeData.taskCreatedDate.toISOString()
+    );
+    formData.append('title', taskEmployeeData.title);
+    formData.append('description', taskEmployeeData.description);
+    formData.append('timeEstimated', taskEmployeeData.timeEstimated.toString());
+    formData.append('taskStatus', taskEmployeeData.taskStatus.toString());
+    formData.append('nameEmployee', taskEmployeeData.nameEmployee);
+
+    if (taskEmployeeData.files && taskEmployeeData.files.length > 0) {
+      for (let i = 0; i < taskEmployeeData.files.length; i++) {
+        formData.append('files', taskEmployeeData.files[i]);
+      }
+    }
+
     return this.http.post<TaskemployeeCreate>(
       `${this.apiUrl}TaskEmployee/Post`,
-      taskEmployeeData
+      formData
     );
   }
 

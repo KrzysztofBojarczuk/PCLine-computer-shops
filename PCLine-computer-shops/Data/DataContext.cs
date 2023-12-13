@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PCLine_computer_shops.Models;
+using System.Formats.Tar;
 
 namespace PCLine_computer_shops.Data
 {
@@ -14,6 +15,7 @@ namespace PCLine_computer_shops.Data
             public DbSet<Address> Address { get; set; }
             public DbSet<User> Users { get; set; }
             public DbSet<TaskEmployee> TaskEmployees { get; set; }
+            public DbSet<TaskFile> TaskFiles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +39,12 @@ namespace PCLine_computer_shops.Data
                 .HasOne(h => h.Address)
                 .WithOne(h => h.Shop)
                 .HasForeignKey<Address>(h => h.AddressId);
+
+            modelBuilder.Entity<TaskEmployee>()
+                .HasMany(h => h.TaskFiles)
+                .WithOne(h => h.TaskEmployee)
+                .HasForeignKey(h => h.TaskId)
+                .IsRequired();
         }
     }
 }
