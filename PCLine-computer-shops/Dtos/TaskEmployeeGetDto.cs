@@ -11,6 +11,6 @@ namespace PCLine_computer_shops.Dtos
         public int TimeEstimated { get; set; }
         public StatusTask TaskStatus { get; set; }
         public string NameEmployee { get; set; }
-        public ICollection<IFormFile> TaskFiles { get; set; }
+        public ICollection<TaskFileGetDto> TaskFiles { get; set; }
     }
 }
