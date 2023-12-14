@@ -16,7 +16,7 @@ namespace PCLine_computer_shops.Repositories
 
         public async Task<ICollection<TaskEmployee>> GetAllTaskEmployees(string searchTerm)
         {
-            var query = await _context.TaskEmployees.ToListAsync();
+            var query = await _context.TaskEmployees.Include(h => h.TaskFiles).ToListAsync();
 
 
             if (query == null)
