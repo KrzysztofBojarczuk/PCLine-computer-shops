@@ -18,26 +18,37 @@ import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/co
 @Component({
   selector: 'app-shop-table',
   templateUrl: './shop-table.component.html',
-  styleUrls: ['./shop-table.component.scss']
+  styleUrls: ['./shop-table.component.scss'],
 })
 export class ShopTableComponent {
-
   dataSource: MatTableDataSource<Shop>;
   value: string = '';
 
-  displayedColumns: string[] = ['shopId', 'name', 'startDate', 'country', 'actions'];
+  displayedColumns: string[] = [
+    'shopId',
+    'name',
+    'startDate',
+    'country',
+    'actions',
+  ];
 
   inputDisabled: boolean = false;
 
   countryValues = [
-    { number: Country.Poland, name: "Poland" },
-    { number: Country.Germany, name: "Germany" },
-    { number: Country.France, name: "France" },
-  ]
+    { number: Country.Poland, name: 'Poland' },
+    { number: Country.Germany, name: 'Germany' },
+    { number: Country.France, name: 'France' },
+  ];
 
   selectedValues: number[] = [];
 
-  constructor(private shopService: ShopService, private dialog: MatDialog, private snackBar: MatSnackBar, private productService: ProductService, private router: Router) {
+  constructor(
+    private shopService: ShopService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private productService: ProductService,
+    private router: Router
+  ) {
     this.dataSource = new MatTableDataSource<Shop>([]);
   }
 
@@ -64,7 +75,7 @@ export class ShopTableComponent {
       (result: Shop[]) => {
         this.dataSource = new MatTableDataSource(result);
       },
-      error => {
+      (error) => {
         console.error('Błąd podczas pobierania produktów:', error);
       }
     );
@@ -73,12 +84,11 @@ export class ShopTableComponent {
   createShop() {
     const dialogRef = this.dialog.open(ShopFormComponent, {
       width: '400px',
-      height: '450px'
+      height: '450px',
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this.getShops('');
-    }
-    )
+    });
   }
 
   updateShop(shop: Shop) {
@@ -87,10 +97,9 @@ export class ShopTableComponent {
       height: '450px',
       data: shop,
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this.getShops('');
-    }
-    )
+    });
   }
 
   deleteShop(shopId: number) {
@@ -98,21 +107,21 @@ export class ShopTableComponent {
       width: '400px',
       height: '200px',
       data: {
-        titleText: "Delete Shop",
-        confirmationText: "Do you really want delete Shop?"
-      }
+        titleText: 'Delete Shop',
+        confirmationText: 'Do you really want delete Shop?',
+      },
     });
 
-    dialogRef.afterClosed().subscribe(res => {
+    dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.shopService.deleteShopService(shopId).subscribe(
-          result => {
+          (result) => {
             this.getShops('');
             this.snackBar.open('Shop deleted successfully', 'Close', {
               duration: 3000,
             });
           },
-          error => {
+          (error) => {
             this.snackBar.open('Error deleting shop', 'Close', {
               duration: 3000,
             });
@@ -128,10 +137,9 @@ export class ShopTableComponent {
       height: '450px',
       data: shopId,
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this.getShops('');
-    }
-    )
+    });
   }
 
   informationsAboutShop(shopId: number) {
@@ -144,7 +152,6 @@ export class ShopTableComponent {
       height: '550px',
       data: shopId,
     });
-
   }
 
   createEmployee(shopId: number) {

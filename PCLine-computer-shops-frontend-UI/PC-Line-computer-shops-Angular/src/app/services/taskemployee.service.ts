@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Taskemployee } from '../models/employeetask';
 import { Observable } from 'rxjs';
 import { TaskemployeeCreate } from '../models/employeetask-create';
-import { clippingParents } from '@popperjs/core';
+import { TaskFiles } from '../models/task-files';
 
 @Injectable({
   providedIn: 'root',
@@ -58,6 +58,12 @@ export class TaskemployeeService {
   deleteTaskEmployee(taskEmployeeId: number): Observable<number> {
     return this.http.delete<number>(
       `${this.apiUrl}TaskEmployee/Delete/${taskEmployeeId}`
+    );
+  }
+
+  getTaskFilesByEmployeeId(taskEmployeeId: number): Observable<TaskFiles[]> {
+    return this.http.get<TaskFiles[]>(
+      `${this.apiUrl}TaskEmployee/GetTaskFiles/${taskEmployeeId}`
     );
   }
 }

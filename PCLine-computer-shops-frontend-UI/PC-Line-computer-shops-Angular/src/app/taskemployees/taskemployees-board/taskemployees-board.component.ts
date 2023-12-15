@@ -17,6 +17,7 @@ import { TaskemployeesFormComponent } from '../taskemployees-form/taskemployees-
 import { Employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { TaskemployeesUpdateComponent } from '../taskemployees-update/taskemployees-update.component';
+import { TaskFiles } from 'src/app/models/task-files';
 
 @Component({
   selector: 'app-taskemployees-board',
@@ -27,6 +28,7 @@ export class TaskemployeesBoardComponent {
   todo: Taskemployee[] = [];
   inProgress: Taskemployee[] = [];
   done: Taskemployee[] = [];
+  taskFilesMap: { [taskId: number]: TaskFiles[] } = {};
 
   constructor(
     private employeeService: EmployeeService,
@@ -41,6 +43,10 @@ export class TaskemployeesBoardComponent {
     this.taskService
       .getTaskEmployeeService(searchTerm)
       .subscribe((result: Taskemployee[]) => {
+        result.forEach((task) => {
+          this.getTaskFilesForTask(task.taskId);
+        });
+
         this.todo = result.filter(
           (task) => task.taskStatus === TaskStatus.Todo
         );
@@ -136,5 +142,13 @@ export class TaskemployeesBoardComponent {
     dialogRef.afterClosed().subscribe((result) => {
       this.getTaskEmployee();
     });
+  }
+
+  getTaskFilesForTask(taskId: number) {
+    this.taskService
+      .getTaskFilesByEmployeeId(taskId)
+      .subscribe((files: TaskFiles[]) => {
+        this.taskFilesMap[taskId] = files;
+      });
   }
 }

@@ -23,6 +23,11 @@
         <p>
           {{ task.nameEmployee }}
         </p>
+        <p *ngIf="taskFilesMap[task.taskId]?.length === 0">No Files</p>
+        <div *ngFor="let file of taskFilesMap[task.taskId]">
+          <p>Name of file: {{ file.fileName }}</p>
+        </div>
+
         <div class="d-flex justify-content-end p-2">
           <button
             mat-button
@@ -61,6 +66,12 @@
         <p>
           {{ task.nameEmployee }}
         </p>
+
+        <p *ngIf="taskFilesMap[task.taskId]?.length === 0">No Files</p>
+        <div *ngFor="let file of taskFilesMap[task.taskId]">
+          <p>Name of file: {{ file.fileName }}</p>
+        </div>
+
         <button
           mat-button
           (click)="updateTaskEmployee(task)"
@@ -98,6 +109,12 @@
         <p>
           {{ task.nameEmployee }}
         </p>
+
+        <p *ngIf="taskFilesMap[task.taskId]?.length === 0">No Files</p>
+        <div *ngFor="let file of taskFilesMap[task.taskId]">
+          <p>Name of file: {{ file.fileName }}</p>
+        </div>
+
         <button
           mat-button
           (click)="updateTaskEmployee(task)"
