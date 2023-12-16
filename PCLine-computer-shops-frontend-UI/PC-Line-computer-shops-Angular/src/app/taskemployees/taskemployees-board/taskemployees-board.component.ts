@@ -151,4 +151,13 @@ export class TaskemployeesBoardComponent {
         this.taskFilesMap[taskId] = files;
       });
   }
+
+  downloadFile(fileContent: string, fileName: string) {
+    const link = document.createElement('a');
+    link.setAttribute('href', 'data:text/plain;base64,' + fileContent);
+    link.setAttribute('download', fileName);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 }

@@ -25,7 +25,9 @@
         </p>
         <p *ngIf="taskFilesMap[task.taskId]?.length === 0">No Files</p>
         <div *ngFor="let file of taskFilesMap[task.taskId]">
-          <p>Name of file: {{ file.fileName }}</p>
+          <a (click)="downloadFile(file.fileContent, file.fileName)">
+            <p>Name of file: {{ file.fileName }}</p>
+          </a>
         </div>
 
         <div class="d-flex justify-content-end p-2">
@@ -69,7 +71,9 @@
 
         <p *ngIf="taskFilesMap[task.taskId]?.length === 0">No Files</p>
         <div *ngFor="let file of taskFilesMap[task.taskId]">
-          <p>Name of file: {{ file.fileName }}</p>
+          <a (click)="downloadFile(file.fileContent, file.fileName)">
+            <p>Name of file: {{ file.fileName }}</p>
+          </a>
         </div>
 
         <button
@@ -112,7 +116,9 @@
 
         <p *ngIf="taskFilesMap[task.taskId]?.length === 0">No Files</p>
         <div *ngFor="let file of taskFilesMap[task.taskId]">
-          <p>Name of file: {{ file.fileName }}</p>
+          <a (click)="downloadFile(file.fileContent, file.fileName)">
+            <p>Name of file: {{ file.fileName }}</p>
+          </a>
         </div>
 
         <button
