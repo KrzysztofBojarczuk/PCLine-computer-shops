@@ -2,3 +2,5 @@
 ![2](https://github.com/KrzysztofBojarczuk/PCLine-computer-shops/assets/69596796/11fb2724-91f1-4dd6-95aa-42f7850e9d65)
 ![3](https://github.com/KrzysztofBojarczuk/PCLine-computer-shops/assets/69596796/7311fae2-5560-41f3-96a1-86771a8d65a1)
 ![4](https://github.com/KrzysztofBojarczuk/PCLine-computer-shops/assets/69596796/05cae00d-484e-49ed-b86e-a92a1b329999)
+![5](https://github.com/KrzysztofBojarczuk/PCLine-computer-shops/assets/69596796/59d0804c-9ed4-475a-9f1f-81730c70618f)
+![6](https://github.com/KrzysztofBojarczuk/PCLine-computer-shops/assets/69596796/067989bb-acaf-470c-bec4-0581e95cdeea)
