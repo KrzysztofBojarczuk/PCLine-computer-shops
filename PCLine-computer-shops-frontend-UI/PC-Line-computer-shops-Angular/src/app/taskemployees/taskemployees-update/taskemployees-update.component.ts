@@ -2,11 +2,18 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskemployeeService } from 'src/app/services/taskemployee.service';
 import { TaskemployeesFormComponent } from '../taskemployees-form/taskemployees-form.component';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { Taskemployee } from 'src/app/models/employeetask';
 import { Employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { TaskStatus } from 'src/app/enums/taskStatus';
+import { TaskFiles } from 'src/app/models/task-files';
+import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-taskemployees-update',
@@ -19,6 +26,8 @@ export class TaskemployeesUpdateComponent {
   taskEmployeeForm: FormGroup;
 
   employees: Employee[] = [];
+  selectedFiles: File[] = [];
+  taskFilesMap: { [taskId: number]: TaskFiles[] } = {};
 
   taskStatuses: { value: TaskStatus; name: string }[] = [
     { value: TaskStatus.Todo, name: 'Todo' },
@@ -27,6 +36,8 @@ export class TaskemployeesUpdateComponent {
   ];
 
   constructor(
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
     private employeeService: EmployeeService,
     private formBuilder: FormBuilder,
     private taskService: TaskemployeeService,
@@ -40,8 +51,10 @@ export class TaskemployeesUpdateComponent {
       timeEstimated: [taskEmployee.timeEstimated, Validators.required],
       taskStatus: [taskEmployee.taskStatus, Validators.required],
       nameEmployee: [taskEmployee.nameEmployee, Validators.required],
+      files: [''],
     });
     this.getEmployee();
+    this.getTaskFilesForTask(this.taskEmployee.taskId);
   }
 
   updateTaskEmployee(taskEmployee: Taskemployee) {
@@ -57,5 +70,27 @@ export class TaskemployeesUpdateComponent {
       .subscribe((result: Employee[]) => {
         this.employees = result;
       });
+  }
+
+  getTaskFilesForTask(taskId: number) {
+    this.taskService
+      .getTaskFilesByEmployeeId(taskId)
+      .subscribe((files: TaskFiles[]) => {
+        this.taskFilesMap[taskId] = files;
+      });
+  }
+
+  downloadFile(fileContent: string, fileName: string) {
+    const link = document.createElement('a');
+    link.setAttribute('href', 'data:text/plain;base64,' + fileContent);
+    link.setAttribute('download', fileName);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  onFileChange(event: any) {
+    const files: File[] = event.target.files;
+    this.selectedFiles = Array.from(files);
   }
 }

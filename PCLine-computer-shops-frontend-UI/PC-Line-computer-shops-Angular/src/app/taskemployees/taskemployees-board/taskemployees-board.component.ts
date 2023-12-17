@@ -160,4 +160,33 @@ export class TaskemployeesBoardComponent {
     link.click();
     document.body.removeChild(link);
   }
+
+  deleteFile(taskEmployeeId: number, fileId: number) {
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+      width: '400px',
+      height: '200px',
+      data: {
+        titleText: 'Delete File',
+        confirmationText: 'Do you really want delete File?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.taskService.deleteFileService(taskEmployeeId, fileId).subscribe(
+          (result) => {
+            this.snackBar.open('File deleted successfully', 'Close', {
+              duration: 3000,
+            });
+          },
+          (error) => {
+            this.snackBar.open('Error deleting file', 'Close', {
+              duration: 3000,
+            });
+          }
+        );
+        this.getTaskEmployee();
+      }
+    });
+  }
 }

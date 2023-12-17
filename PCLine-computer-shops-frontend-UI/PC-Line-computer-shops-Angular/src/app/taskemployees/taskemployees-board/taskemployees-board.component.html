@@ -24,10 +24,23 @@
           {{ task.nameEmployee }}
         </p>
         <p *ngIf="taskFilesMap[task.taskId]?.length === 0">No Files</p>
-        <div *ngFor="let file of taskFilesMap[task.taskId]">
-          <a (click)="downloadFile(file.fileContent, file.fileName)">
-            <p>Name of file: {{ file.fileName }}</p>
-          </a>
+        <div class="row">
+          <div *ngFor="let file of taskFilesMap[task.taskId]">
+            <div class="row align-items-center">
+              <div class="col">
+                <p>Name of file: {{ file.fileName }}</p>
+              </div>
+              <div class="col-auto">
+                <button
+                  mat-icon-button
+                  (click)="deleteFile(task.taskId, file.taskFileId)"
+                  matTooltip="Delete File"
+                >
+                  <i class="bi bi-trash" style="font-size: 1.5rem"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="d-flex justify-content-end p-2">
@@ -70,10 +83,23 @@
         </p>
 
         <p *ngIf="taskFilesMap[task.taskId]?.length === 0">No Files</p>
-        <div *ngFor="let file of taskFilesMap[task.taskId]">
-          <a (click)="downloadFile(file.fileContent, file.fileName)">
-            <p>Name of file: {{ file.fileName }}</p>
-          </a>
+        <div class="row">
+          <div *ngFor="let file of taskFilesMap[task.taskId]">
+            <div class="row align-items-center">
+              <div class="col">
+                <p class="mb-0">Name of file: {{ file.fileName }}</p>
+              </div>
+              <div class="col-auto">
+                <button
+                  mat-icon-button
+                  (click)="deleteFile(task.taskId, file.taskFileId)"
+                  matTooltip="Delete File"
+                >
+                  <i class="bi bi-file-earmark-x" style="font-size: 1.5rem"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <button
@@ -115,10 +141,23 @@
         </p>
 
         <p *ngIf="taskFilesMap[task.taskId]?.length === 0">No Files</p>
-        <div *ngFor="let file of taskFilesMap[task.taskId]">
-          <a (click)="downloadFile(file.fileContent, file.fileName)">
-            <p>Name of file: {{ file.fileName }}</p>
-          </a>
+        <div class="row">
+          <div *ngFor="let file of taskFilesMap[task.taskId]">
+            <div class="row align-items-center">
+              <div class="col">
+                <p class="mb-0">Name of file: {{ file.fileName }}</p>
+              </div>
+              <div class="col-auto">
+                <button
+                  mat-icon-button
+                  (click)="deleteFile(task.taskId, file.taskFileId)"
+                  matTooltip="Delete File"
+                >
+                  <i class="bi bi-file-earmark-x" style="font-size: 1.5rem"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <button
