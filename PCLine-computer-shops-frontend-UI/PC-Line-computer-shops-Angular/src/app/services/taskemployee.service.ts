@@ -66,4 +66,10 @@ export class TaskemployeeService {
       `${this.apiUrl}TaskEmployee/GetTaskFiles/${taskEmployeeId}`
     );
   }
+
+  deleteFileService(taskEmployeeId: number, fileId: number): Observable<void> {
+    return this.http.delete<void>(
+      `${this.apiUrl}TaskEmployee/Delete/TaskFile/${taskEmployeeId}/${fileId}`
+    );
+  }
 }

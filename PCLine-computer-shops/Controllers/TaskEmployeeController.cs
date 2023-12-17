@@ -37,7 +37,7 @@ namespace PCLine_computer_shops.Controllers
         {
             var taskEmployee = await _taskEmployeeRepository.GetTaskEmployeeById(taskEmployeeId);
 
-            if(taskEmployee == null)
+            if (taskEmployee == null)
             {
                 return NotFound();
             }
@@ -64,7 +64,7 @@ namespace PCLine_computer_shops.Controllers
                 var taskFile = new TaskFile
                 {
                     FileName = file.FileName,
-                    FileContent = fileBytes 
+                    FileContent = fileBytes
                 };
 
                 taskEmployeeCreate.TaskFiles.Add(taskFile);
@@ -83,7 +83,7 @@ namespace PCLine_computer_shops.Controllers
             var toUpdateTaskEmployee = _mapper.Map<TaskEmployee>(taskEmployeeUpdate);
 
             toUpdateTaskEmployee.TaskId = taskEmployeeId;
-            
+
             await _taskEmployeeRepository.UpdateTaskEmployee(toUpdateTaskEmployee);
 
             return NoContent();
@@ -115,6 +115,19 @@ namespace PCLine_computer_shops.Controllers
             var taskFilesGet = _mapper.Map<List<TaskFileGetDto>>(taskFiles);
 
             return Ok(taskFilesGet);
+        }
+
+        [HttpDelete("Delete/TaskFile/{taskEmployeeId}/{taskFileId}")]
+        public async Task<IActionResult> DeleteTaskFiles(int taskEmployeeId, int taskFileId)
+        {
+            var deleteTaskFiles = await _taskEmployeeRepository.DeleteTaskFiles(taskEmployeeId, taskFileId);
+
+            if(deleteTaskFiles == null)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
         }
     }
 }

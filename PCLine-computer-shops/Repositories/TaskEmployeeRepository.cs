@@ -16,7 +16,7 @@ namespace PCLine_computer_shops.Repositories
 
         public async Task<ICollection<TaskEmployee>> GetAllTaskEmployees(string searchTerm)
         {
-            var query = await _context.TaskEmployees.Include(h => h.TaskFiles).ToListAsync();
+            var query = await _context.TaskEmployees.ToListAsync();
 
 
             if (query == null)
@@ -88,6 +88,22 @@ namespace PCLine_computer_shops.Repositories
             }
 
             return files;
+        }
+
+        public async Task<TaskFile> DeleteTaskFiles(int taskEmployeeId, int taskFilesId)
+        {
+            var taskFiles = await _context.TaskFiles.FirstOrDefaultAsync(h => h.TaskId == taskEmployeeId && h.TaskFileId == taskFilesId);
+
+            if (taskFiles == null)
+            {
+                return null;
+            }
+
+            _context.TaskFiles.Remove(taskFiles);
+
+            await _context.SaveChangesAsync();
+
+            return taskFiles;
         }
     }
 }

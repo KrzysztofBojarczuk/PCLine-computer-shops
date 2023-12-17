@@ -11,5 +11,6 @@ namespace PCLine_computer_shops.InterfaceReposiotry
         Task<TaskEmployee> UpdateTaskEmployee(TaskEmployee updateTaskEmployee);
         Task<TaskEmployee> DeleteTaskEmployee(int taskEmployeeId);
         Task<ICollection<TaskFile>> GetTaskFiles(int taskEmployeeId);
+        Task<TaskFile> DeleteTaskFiles(int taskEmployeeId, int TaskFileId);
     }
 }
