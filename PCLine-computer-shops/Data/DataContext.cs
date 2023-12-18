@@ -1,15 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using PCLine_computer_shops.Models;
 using System.Formats.Tar;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace PCLine_computer_shops.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<IdentityUser>
     {
-            public DataContext(DbContextOptions options) : base(options)
-            {
-            }
-            public DbSet<Shop> Shops { get; set; }
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        {
+        }
+        public DbSet<Shop> Shops { get; set; }
             public DbSet<Product> Products { get; set; }
             public DbSet<Employee> Employees { get; set; }  
             public DbSet<Address> Address { get; set; }
@@ -45,6 +47,8 @@ namespace PCLine_computer_shops.Data
                 .WithOne(h => h.TaskEmployee)
                 .HasForeignKey(h => h.TaskId)
                 .IsRequired();
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
