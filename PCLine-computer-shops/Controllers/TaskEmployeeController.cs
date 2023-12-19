@@ -129,5 +129,33 @@ namespace PCLine_computer_shops.Controllers
 
             return NoContent();
         }
+
+        [HttpPost("AddFiles/{taskEmployeeId}")]
+        public async Task<IActionResult> AddFilesToTaskEmployee(int taskEmployeeId, [FromForm] List<IFormFile> files)
+        {
+            var taskEmployee = await _taskEmployeeRepository.GetTaskEmployeeById(taskEmployeeId);
+
+            foreach (var file in files)
+            {
+                byte[] fileBytes;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    await file.CopyToAsync(ms);
+                    fileBytes = ms.ToArray();
+                }
+
+                var taskFile = new TaskFile
+                {
+                    FileName = file.FileName,
+                    FileContent = fileBytes
+                };
+
+                taskEmployee.TaskFiles.Add(taskFile);
+            }
+
+            await _taskEmployeeRepository.UpdateTaskEmployee(taskEmployee);
+
+            return NoContent();
+        }
     }
 }
