@@ -54,13 +54,19 @@ export class TaskemployeesUpdateComponent {
       files: [''],
     });
     this.getEmployee();
-    this.getTaskFilesForTask(this.taskEmployee.taskId);
   }
 
   updateTaskEmployee(taskEmployee: Taskemployee) {
     this.taskService
       .updateTaskEmployee(this.taskEmployee.taskId, taskEmployee)
       .subscribe();
+
+    taskEmployee.files = this.selectedFiles;
+
+    this.taskService
+      .addFilesToTaskEmployee(this.taskEmployee.taskId, taskEmployee.files)
+      .subscribe();
+
     this.dialogRef.close();
   }
 
@@ -70,23 +76,6 @@ export class TaskemployeesUpdateComponent {
       .subscribe((result: Employee[]) => {
         this.employees = result;
       });
-  }
-
-  getTaskFilesForTask(taskId: number) {
-    this.taskService
-      .getTaskFilesByEmployeeId(taskId)
-      .subscribe((files: TaskFiles[]) => {
-        this.taskFilesMap[taskId] = files;
-      });
-  }
-
-  downloadFile(fileContent: string, fileName: string) {
-    const link = document.createElement('a');
-    link.setAttribute('href', 'data:text/plain;base64,' + fileContent);
-    link.setAttribute('download', fileName);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
   }
 
   onFileChange(event: any) {

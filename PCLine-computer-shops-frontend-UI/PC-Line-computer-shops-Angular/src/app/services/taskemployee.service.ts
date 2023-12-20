@@ -67,9 +67,27 @@ export class TaskemployeeService {
     );
   }
 
-  deleteFileService(taskEmployeeId: number, fileId: number): Observable<void> {
-    return this.http.delete<void>(
+  deleteFileService(
+    taskEmployeeId: number,
+    fileId: number
+  ): Observable<number> {
+    return this.http.delete<number>(
       `${this.apiUrl}TaskEmployee/Delete/TaskFile/${taskEmployeeId}/${fileId}`
+    );
+  }
+
+  addFilesToTaskEmployee(
+    taskEmployeeId: number,
+    files: File[]
+  ): Observable<void> {
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append('files', files[i]);
+    }
+
+    return this.http.post<void>(
+      `${this.apiUrl}TaskEmployee/AddFiles/${taskEmployeeId}`,
+      formData
     );
   }
 }
