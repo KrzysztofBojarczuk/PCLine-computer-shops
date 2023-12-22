@@ -29,6 +29,7 @@ export class TaskemployeesBoardComponent {
   inProgress: Taskemployee[] = [];
   done: Taskemployee[] = [];
   taskFilesMap: { [taskId: number]: TaskFiles[] } = {};
+  value: string = '';
 
   constructor(
     private employeeService: EmployeeService,
@@ -36,7 +37,12 @@ export class TaskemployeesBoardComponent {
     private dialog: MatDialog,
     private snackBar: MatSnackBar
   ) {
-    this.getTaskEmployee();
+    this.getTaskEmployee('');
+  }
+
+  clearSearch() {
+    this.value = '';
+    this.getTaskEmployee('');
   }
 
   getTaskEmployee(searchTerm?: string) {
@@ -140,7 +146,7 @@ export class TaskemployeesBoardComponent {
       height: '800px',
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.getTaskEmployee();
+      this.getTaskEmployee('');
     });
   }
 
