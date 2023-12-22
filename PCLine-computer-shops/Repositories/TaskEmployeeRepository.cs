@@ -18,16 +18,15 @@ namespace PCLine_computer_shops.Repositories
         {
             var query = await _context.TaskEmployees.ToListAsync();
 
+            if (!searchTerm.IsNullOrEmpty())
+            {
+                query = query.Where(h => h.Title.ToLower().Contains(searchTerm) || h.Description.ToLower().Contains(searchTerm) || h.NameEmployee.ToLower().Contains(searchTerm)).ToList();
+            }
 
             if (query == null)
             {
                 return null;
             }
-
-            //if (!searchTerm.IsNullOrEmpty())
-            //{
-            //    query = query.Where(h => h.Title.Contains(searchTerm) || h.Employee.FirstName.ToLower().Contains(searchTerm)).ToList();
-            //}
 
             return query;
         }
