@@ -45,7 +45,7 @@ export class ProductByIdComponent {
   }
 
   getShops() {
-    this.shopService.getShopsService('').subscribe(
+    this.shopService.getShopForProduct().subscribe(
       (result: Shop[]) => {
         this.shops = result;
       },

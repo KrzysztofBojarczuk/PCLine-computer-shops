@@ -17,7 +17,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { ShopTableComponent } from './shops/shop-table/shop-table.component';
 import { ShopFormComponent } from './shops/shop-form/shop-form.component';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBar, MatSnackBarRef, MatSnackBarModule } from '@angular/material/snack-bar';
+import {
+  MatSnackBar,
+  MatSnackBarRef,
+  MatSnackBarModule,
+} from '@angular/material/snack-bar';
 import { ShopUpdateComponent } from './shops/shop-update/shop-update.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -31,7 +35,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { AdditionalInformationsComponent } from './shops/additional-informations/additional-informations.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { NavBarComponent } from './nav-bar/nav-bar.component';;
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { AdressFormComponent } from './shops/adress-form/adress-form.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -53,6 +57,7 @@ import { TaskemployeesBoardComponent } from './taskemployees/taskemployees-board
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TaskemployeesFormComponent } from './taskemployees/taskemployees-form/taskemployees-form.component';
 import { TaskemployeesUpdateComponent } from './taskemployees/taskemployees-update/taskemployees-update.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -112,9 +117,12 @@ import { TaskemployeesUpdateComponent } from './taskemployees/taskemployees-upda
     MatSnackBarModule,
     MatButtonToggleModule,
     MatCheckboxModule,
-    DragDropModule
+    DragDropModule,
+    MatPaginatorModule,
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -12,9 +12,8 @@ import { ShopService } from 'src/app/services/shop.service';
 @Component({
   selector: 'app-add-employee-to-shop',
   templateUrl: './add-employee-to-shop.component.html',
-  styleUrls: ['./add-employee-to-shop.component.scss']
+  styleUrls: ['./add-employee-to-shop.component.scss'],
 })
-
 export class AddEmployeeToShopComponent {
   employeeForm: FormGroup;
   shopForm: FormGroup;
@@ -25,15 +24,20 @@ export class AddEmployeeToShopComponent {
     { value: EmployeePosition.Seller, nameOfposition: 'Seller' },
     { value: EmployeePosition.Technician, nameOfposition: 'Technician' },
     { value: EmployeePosition.OfficeWorker, nameOfposition: 'Office Worker' },
-    { value: EmployeePosition.Driver, nameOfposition: 'Driver' }
+    { value: EmployeePosition.Driver, nameOfposition: 'Driver' },
   ];
 
-  constructor(private fb: FormBuilder, private shopService: ShopService, private employeeService: EmployeeService, private dialogRef: MatDialogRef<void>) {
+  constructor(
+    private fb: FormBuilder,
+    private shopService: ShopService,
+    private employeeService: EmployeeService,
+    private dialogRef: MatDialogRef<void>
+  ) {
     this.shopForm = this.fb.group({
       shopId: ['', Validators.required],
       name: [{ value: '', disabled: true }, Validators.required],
       startDate: [{ value: '', disabled: true }, Validators.required],
-      country: [{ value: '', disabled: true }, Validators.required]
+      country: [{ value: '', disabled: true }, Validators.required],
     });
 
     this.employeeForm = this.fb.group({
@@ -50,11 +54,11 @@ export class AddEmployeeToShopComponent {
   }
 
   getShops() {
-    this.shopService.getShopsService('').subscribe(
+    this.shopService.getShopForProduct().subscribe(
       (result: Shop[]) => {
         this.shops = result;
       },
-      error => {
+      (error) => {
         console.error('Błąd podczas pobierania produktów:', error);
       }
     );
@@ -62,21 +66,24 @@ export class AddEmployeeToShopComponent {
 
   onShopIdChange(event: MatSelectChange) {
     const selectedShopId = event.value;
-    const selectedShop = this.shops.find(shop => shop.shopId === selectedShopId);
+    const selectedShop = this.shops.find(
+      (shop) => shop.shopId === selectedShopId
+    );
 
     if (selectedShop) {
       this.shopForm.patchValue({
         name: selectedShop.name,
         startDate: selectedShop.startDate,
-        country: selectedShop.country
+        country: selectedShop.country,
       });
     }
   }
 
   submit(shopId: number, employee: EmployeeCreate) {
-    this.employeeService.postEmployeeForShopService(shopId, employee).subscribe(res => {
-      this.dialogRef.close();
-    }
-    );
+    this.employeeService
+      .postEmployeeForShopService(shopId, employee)
+      .subscribe((res) => {
+        this.dialogRef.close();
+      });
   }
 }

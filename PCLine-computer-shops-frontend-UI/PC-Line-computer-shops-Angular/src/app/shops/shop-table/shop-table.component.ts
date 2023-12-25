@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { AdressFormComponent } from '../adress-form/adress-form.component';
 import { EmployeeFormComponent } from 'src/app/employee/employee-form/employee-form.component';
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-shop-table',
@@ -42,6 +43,10 @@ export class ShopTableComponent {
 
   selectedValues: number[] = [];
 
+  pageIndex: number = 1;
+  pageSize: number = 10;
+  length: number = 0;
+
   constructor(
     private shopService: ShopService,
     private dialog: MatDialog,
@@ -54,6 +59,10 @@ export class ShopTableComponent {
 
   ngOnInit() {
     this.getShops('');
+
+    this.shopService.getShopForProduct().subscribe((shops: Shop[]) => {
+      this.length = shops.length;
+    });
   }
 
   onSelectedValuesChange() {
@@ -70,15 +79,28 @@ export class ShopTableComponent {
     this.getShops('');
   }
 
+  getLengthShops() {
+    this.shopService.getShopForProduct().subscribe((shops: Shop[]) => {
+      this.length = shops.length;
+    });
+  }
+
   getShops(searchTerm?: string, selectedValues?: number[]) {
-    this.shopService.getShopsService(searchTerm, selectedValues).subscribe(
-      (result: Shop[]) => {
-        this.dataSource = new MatTableDataSource(result);
-      },
-      (error) => {
-        console.error('Błąd podczas pobierania produktów:', error);
-      }
-    );
+    this.shopService
+      .getShopsService(
+        this.pageIndex,
+        this.pageSize,
+        searchTerm,
+        selectedValues
+      )
+      .subscribe(
+        (result: Shop[]) => {
+          this.dataSource = new MatTableDataSource(result);
+        },
+        (error) => {
+          console.error('Błąd podczas pobierania produktów:', error);
+        }
+      );
   }
 
   createShop() {
@@ -88,6 +110,7 @@ export class ShopTableComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.getShops('');
+      this.getLengthShops();
     });
   }
 
@@ -160,5 +183,12 @@ export class ShopTableComponent {
       height: '650px',
       data: shopId,
     });
+  }
+
+  onPageChange(event: PageEvent) {
+    this.pageIndex = event.pageIndex + 1;
+    this.pageSize = event.pageSize;
+
+    this.getShops('', this.selectedValues);
   }
 }
