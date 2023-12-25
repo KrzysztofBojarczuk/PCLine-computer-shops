@@ -12,7 +12,7 @@ import { ProductCreate } from 'src/app/models/product-create';
 @Component({
   selector: 'app-add-product-to-shop',
   templateUrl: './add-product-to-shop.component.html',
-  styleUrls: ['./add-product-to-shop.component.scss']
+  styleUrls: ['./add-product-to-shop.component.scss'],
 })
 export class AddProductToShopComponent {
   productForm: FormGroup;
@@ -20,12 +20,17 @@ export class AddProductToShopComponent {
   shops: Shop[] = [];
   products: Product[] = [];
 
-  constructor(private shopService: ShopService, private fb: FormBuilder, private productService: ProductService, private dialogRef: MatDialogRef<void>) {
+  constructor(
+    private shopService: ShopService,
+    private fb: FormBuilder,
+    private productService: ProductService,
+    private dialogRef: MatDialogRef<void>
+  ) {
     this.shopForm = this.fb.group({
       shopId: ['', Validators.required],
       name: [{ value: '', disabled: true }, Validators.required],
       startDate: [{ value: '', disabled: true }, Validators.required],
-      country: [{ value: '', disabled: true }, Validators.required]
+      country: [{ value: '', disabled: true }, Validators.required],
     });
 
     this.productForm = this.fb.group({
@@ -40,11 +45,11 @@ export class AddProductToShopComponent {
   }
 
   getShops() {
-    this.shopService.getShopsService('').subscribe(
+    this.shopService.getShopForProduct().subscribe(
       (result: Shop[]) => {
         this.shops = result;
       },
-      error => {
+      (error) => {
         console.error('Błąd podczas pobierania produktów:', error);
       }
     );
@@ -52,21 +57,24 @@ export class AddProductToShopComponent {
 
   onShopIdChange(event: MatSelectChange) {
     const selectedShopId = event.value;
-    const selectedShop = this.shops.find(shop => shop.shopId === selectedShopId);
+    const selectedShop = this.shops.find(
+      (shop) => shop.shopId === selectedShopId
+    );
 
     if (selectedShop) {
       this.shopForm.patchValue({
         name: selectedShop.name,
         startDate: selectedShop.startDate,
-        country: selectedShop.country
+        country: selectedShop.country,
       });
     }
   }
 
   submit(shopId: number, product: ProductCreate) {
-    this.productService.postProductForShopService(shopId, product).subscribe(res => {
-      this.dialogRef.close();
-    }
-    );
+    this.productService
+      .postProductForShopService(shopId, product)
+      .subscribe((res) => {
+        this.dialogRef.close();
+      });
   }
 }

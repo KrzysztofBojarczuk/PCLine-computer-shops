@@ -2,8 +2,10 @@
 using Microsoft.IdentityModel.Tokens;
 using PCLine_computer_shops.Data;
 using PCLine_computer_shops.Enums;
+using PCLine_computer_shops.Extensions;
 using PCLine_computer_shops.InterfaceReposiotry;
 using PCLine_computer_shops.Models;
+using System.Linq;
 
 namespace PCLine_computer_shops.Repositories
 {
@@ -16,29 +18,30 @@ namespace PCLine_computer_shops.Repositories
             _context = context;
         }
 
-        public async Task<ICollection<Shop>> GetAllShops(string searchTerm, List<Country> enumCountry)
+        public async Task<ICollection<Shop>> GetAllShops(int pageNumber, int pageSize, string searchTerm, List<Country> enumCountry)
         {
-            var query = await _context.Shops.Include(h => h.Products).ToListAsync();
+            IQueryable<Shop> query = _context.Shops;
 
             if (!searchTerm.IsNullOrEmpty())
             {
-                query = query.Where(h => h.ShopId.ToString().Contains(searchTerm) || h.Name.ToLower().Contains(searchTerm)).ToList();
+                query = query.Where(h => h.ShopId.ToString().Contains(searchTerm) || h.Name.ToLower().Contains(searchTerm)); 
             }
 
-            if (query == null)
+            if (enumCountry != null && enumCountry.Any())
             {
-                return null;
+                query = query.Where(h => enumCountry.Contains(h.Country));
             }
 
-            if (enumCountry == null)
-            {
-                enumCountry = new List<Country>();
-            }
+            var paginatedList = await PaginatedList<Shop>.CreateAsync(query, pageNumber, pageSize); 
 
-            if (enumCountry.Any())
-            {
-                query = query.Where(h => enumCountry.Contains(h.Country)).ToList();
-            }
+            var shops = paginatedList.Items.ToList(); 
+
+            return shops;
+        }
+
+        public async Task<ICollection<Shop>> GetAllShopsForProduct()
+        {
+            var query = await _context.Shops.ToListAsync();
 
             return query;
         }

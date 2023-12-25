@@ -9,7 +9,7 @@ using PCLine_computer_shops.Models;
 
 namespace PCLine_computer_shops.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ShopsController : ControllerBase
@@ -23,10 +23,21 @@ namespace PCLine_computer_shops.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("Get")]
-        public async Task<IActionResult> GetAllShops([FromQuery] List<Country> enumCountry = null, string searchTerm = "")
+        [HttpGet("GetAllShopsForProduct")]
+        public async Task<IActionResult> GetAllShopsForProduct()
         {
-            var shops = await _shopRepository.GetAllShops(searchTerm, enumCountry);
+            var shops = await _shopRepository.GetAllShopsForProduct();
+
+            var shopsGet = _mapper.Map<List<ShopGetDto>>(shops);
+
+            return Ok(shopsGet);
+        }
+
+
+        [HttpGet("Get")]
+        public async Task<IActionResult> GetAllShops(int pageNumber, int pageSize, string searchTerm = "", [FromQuery] List<Country> enumCountry = null)
+        {
+            var shops = await _shopRepository.GetAllShops(pageNumber, pageSize, searchTerm, enumCountry);
 
             var shopsGet = _mapper.Map<List<ShopGetDto>>(shops);
 
