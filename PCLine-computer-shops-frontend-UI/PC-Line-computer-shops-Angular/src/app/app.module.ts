@@ -50,14 +50,14 @@ import { AddEmployeeToShopComponent } from './employee/add-employee-to-shop/add-
 import { AddProductToShopComponent } from './products/add-product-to-shop/add-product-to-shop.component';
 import { ProductByIdComponent } from './products/product-by-id/product-by-id.component';
 import { HeaderComponent } from './header/header.component';
-import { LoginComponent } from './loginSystem/login/login.component';
-import { AppRoutingLoginModule } from './loginSystem/app-routingLogin.module';
 import { AuthInterceptor } from './services/AuthInterceptor';
 import { TaskemployeesBoardComponent } from './taskemployees/taskemployees-board/taskemployees-board.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TaskemployeesFormComponent } from './taskemployees/taskemployees-form/taskemployees-form.component';
 import { TaskemployeesUpdateComponent } from './taskemployees/taskemployees-update/taskemployees-update.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { RegisterComponent } from './Authentication/register/register.component';
+import { LoginComponent } from './Authentication/login/login.component';
 
 @NgModule({
   declarations: [
@@ -81,10 +81,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     AddProductToShopComponent,
     ProductByIdComponent,
     HeaderComponent,
-    LoginComponent,
     TaskemployeesBoardComponent,
     TaskemployeesFormComponent,
     TaskemployeesUpdateComponent,
+    RegisterComponent,
+    LoginComponent,
   ],
   imports: [
     MatTooltipModule,
@@ -101,7 +102,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    AppRoutingLoginModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatDialogModule,
@@ -125,4 +125,4 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
