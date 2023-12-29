@@ -11,7 +11,7 @@ namespace PCLine_computer_shops.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
-        public DbSet<Shop> Shops { get; set; }
+            public DbSet<Shop> Shops { get; set; }
             public DbSet<Product> Products { get; set; }
             public DbSet<Employee> Employees { get; set; }  
             public DbSet<Address> Address { get; set; }
