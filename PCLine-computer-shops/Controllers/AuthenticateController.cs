@@ -30,8 +30,7 @@ namespace PCLine_computer_shops.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost]
-        [Route("login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await _userManager.FindByNameAsync(model.Username);
@@ -61,8 +60,7 @@ namespace PCLine_computer_shops.Controllers
             return Unauthorized();
         }
 
-        [HttpPost]
-        [Route("register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             var userExists = await _userManager.FindByNameAsync(model.Username);
@@ -82,8 +80,7 @@ namespace PCLine_computer_shops.Controllers
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
 
-        [HttpPost]
-        [Route("register-admin")]
+        [HttpPost("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
         {
             var userExists = await _userManager.FindByNameAsync(model.Username);
@@ -131,25 +128,26 @@ namespace PCLine_computer_shops.Controllers
             return token;
         }
 
-        [HttpGet]
-        [Route("users")]
+        [HttpGet("users")]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _userManager.Users.ToListAsync();
+
             return Ok(users);
         }
 
-        [HttpDelete]
-        [Route("delete/{userId}")]
+        [HttpDelete("delete/{userId}")]
         public async Task<IActionResult> DeleteUser(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
+
             if (user == null)
             {
                 return NotFound("User not found");
             }
 
             var result = await _userManager.DeleteAsync(user);
+
             if (result.Succeeded)
             {
                 return Ok("User deleted successfully");
