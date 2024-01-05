@@ -9,7 +9,7 @@ using PCLine_computer_shops.Models;
 
 namespace PCLine_computer_shops.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ShopsController : ControllerBase
@@ -28,9 +28,9 @@ namespace PCLine_computer_shops.Controllers
         {
             var shops = await _shopRepository.GetAllShopsForProduct();
 
-            var shopsGet = _mapper.Map<List<ShopGetDto>>(shops);
+            var shopsMapped = _mapper.Map<List<ShopGetDto>>(shops);
 
-            return Ok(shopsGet);
+            return Ok(shopsMapped);
         }
 
 
@@ -39,9 +39,9 @@ namespace PCLine_computer_shops.Controllers
         {
             var shops = await _shopRepository.GetAllShops(pageNumber, pageSize, searchTerm, enumCountry);
 
-            var shopsGet = _mapper.Map<List<ShopGetDto>>(shops);
+            var shopsMapped = _mapper.Map<List<ShopGetDto>>(shops);
 
-            return Ok(shopsGet);
+            return Ok(shopsMapped);
         }
 
         [HttpPost("Post")]
@@ -51,9 +51,9 @@ namespace PCLine_computer_shops.Controllers
 
             await _shopRepository.CreateShop(shopCreate);
 
-            var shopGet = _mapper.Map<ShopGetDto>(shopCreate);
+            var shopMapped = _mapper.Map<ShopGetDto>(shopCreate);
 
-            return CreatedAtAction(nameof(ShopByIdGet), new { shopId = shopCreate.ShopId }, shopGet);
+            return CreatedAtAction(nameof(ShopByIdGet), new { shopId = shopCreate.ShopId }, shopMapped);
         }
 
         [HttpGet("Get/{shopId}")]
@@ -66,9 +66,9 @@ namespace PCLine_computer_shops.Controllers
                 return NotFound();
             }
 
-            var shopGet = _mapper.Map<ShopGetDto>(shop);
+            var shopMapped = _mapper.Map<ShopGetDto>(shop);
 
-            return Ok(shopGet);
+            return Ok(shopMapped);
         }
 
         [HttpPut("Put/{shopId}")]

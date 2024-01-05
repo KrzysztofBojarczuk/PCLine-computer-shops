@@ -42,9 +42,9 @@ namespace PCLine_computer_shops.Controllers
                 return NotFound();
             }
 
-            var taskEmployeeGet = _mapper.Map<TaskEmployeeGetDto>(taskEmployee);
+            var taskEmployeeMapped = _mapper.Map<TaskEmployeeGetDto>(taskEmployee);
 
-            return Ok(taskEmployeeGet);
+            return Ok(taskEmployeeMapped);
         }
 
         [HttpPost("Post")]
@@ -72,9 +72,9 @@ namespace PCLine_computer_shops.Controllers
 
             await _taskEmployeeRepository.CreateTaskEmployee(taskEmployeeCreate);
 
-            var taskEmployeeGet = _mapper.Map<TaskEmployeeGetDto>(taskEmployeeCreate);
+            var taskEmployeeMapped = _mapper.Map<TaskEmployeeGetDto>(taskEmployeeCreate);
 
-            return CreatedAtAction(nameof(TaskEmployeeById), new { taskEmployeeId = taskEmployeeCreate.TaskId }, taskEmployeeGet);
+            return CreatedAtAction(nameof(TaskEmployeeById), new { taskEmployeeId = taskEmployeeCreate.TaskId }, taskEmployeeMapped);
         }
 
         [HttpPut("Put/{taskEmployeeId}")]
@@ -112,9 +112,9 @@ namespace PCLine_computer_shops.Controllers
                 return NotFound();
             }
 
-            var taskFilesGet = _mapper.Map<List<TaskFileGetDto>>(taskFiles);
+            var taskFilesMapped = _mapper.Map<List<TaskFileGetDto>>(taskFiles);
 
-            return Ok(taskFilesGet);
+            return Ok(taskFilesMapped);
         }
 
         [HttpDelete("Delete/TaskFile/{taskEmployeeId}/{taskFileId}")]

@@ -35,9 +35,9 @@ namespace PCLine_computer_shops.Controllers
                 return NotFound();
             }
 
-            var addressGetDto = _mapper.Map<AddressGetDto>(address);
+            var addressMapped = _mapper.Map<AddressGetDto>(address);
 
-            return Ok(addressGetDto);
+            return Ok(addressMapped);
         }
 
 
@@ -51,9 +51,9 @@ namespace PCLine_computer_shops.Controllers
                 return NotFound();
             }
 
-            var address = _mapper.Map<Address>(addressDto);
+            var addressMapped = _mapper.Map<Address>(addressDto);
 
-            var addedAddress = await _addressRepository.CreateAddressToShop(shopId, address);
+            var addedAddress = await _addressRepository.CreateAddressToShop(shopId, addressMapped);
 
             if (addedAddress == null)
             {

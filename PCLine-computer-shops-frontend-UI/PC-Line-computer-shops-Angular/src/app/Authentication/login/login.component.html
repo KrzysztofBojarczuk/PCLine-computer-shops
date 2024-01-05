@@ -5,7 +5,7 @@
   <mat-card style="padding: 20px">
     <form
       [formGroup]="loginForm"
-      (ngSubmit)="onSubmit()"
+      (ngSubmit)="onSubmit(loginForm.value)"
       class="row"
       style="max-width: 400px; width: 100%"
     >
