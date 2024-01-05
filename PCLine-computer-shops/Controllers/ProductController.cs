@@ -87,9 +87,9 @@ namespace PCLine_computer_shops.Controllers
                 return NotFound();
             }
 
-            var productsGet = _mapper.Map<List<ProductGetDto>>(products);
+            var productsMapped = _mapper.Map<List<ProductGetDto>>(products);
 
-            return Ok(productsGet);
+            return Ok(productsMapped);
         }
 
         [HttpGet("Get/{shopId}")]
@@ -102,9 +102,9 @@ namespace PCLine_computer_shops.Controllers
                 return NotFound();
             }
 
-            var productsGet = _mapper.Map<List<ProductGetDto>>(products);
+            var productsMapped = _mapper.Map<List<ProductGetDto>>(products);
 
-            return Ok(productsGet);
+            return Ok(productsMapped);
         }
 
         [HttpGet("Get/{shopId}/GetProduct/{productId}")]
@@ -117,9 +117,9 @@ namespace PCLine_computer_shops.Controllers
                 return NotFound();
             }
 
-            var productGet = _mapper.Map<ProductGetDto>(product); 
+            var productMapped = _mapper.Map<ProductGetDto>(product); 
             
-            return Ok(productGet);
+            return Ok(productMapped);
         }
 
         [HttpPost("Post/{shopId}")]
@@ -134,9 +134,9 @@ namespace PCLine_computer_shops.Controllers
                 return NotFound(); 
             }
 
-            var productGet = _mapper.Map<ProductGetDto>(productCreate);
+            var productMapped = _mapper.Map<ProductGetDto>(productCreate);
 
-            return CreatedAtAction(nameof(ProductByIdGet), new { shopId = shopId, productId = productGet.ProductId }, productGet);
+            return CreatedAtAction(nameof(ProductByIdGet), new { shopId = shopId, productId = productMapped.ProductId }, productMapped);
         }
 
         [HttpPut("Put/{shopId}/{productId}")]

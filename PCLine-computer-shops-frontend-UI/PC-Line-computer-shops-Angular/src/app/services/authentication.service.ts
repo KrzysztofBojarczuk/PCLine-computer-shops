@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegisterUser } from '../models/register';
 import { Observable } from 'rxjs';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -16,5 +17,9 @@ export class AuthenticationService {
       this.apiUrl + 'Authenticate/register',
       registerUser
     );
+  }
+
+  loginUserService(loginUser: User): Observable<User> {
+    return this.http.post<User>(this.apiUrl + 'Authenticate/login', loginUser);
   }
 }

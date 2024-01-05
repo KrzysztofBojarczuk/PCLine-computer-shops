@@ -49,9 +49,9 @@ namespace PCLine_computer_shops.Controllers
                 return NotFound();
             }
 
-            var employeesGet = _mapper.Map<List<EmployeeGetDto>>(employees);
+            var employeesMapped = _mapper.Map<List<EmployeeGetDto>>(employees);
 
-            return Ok(employeesGet);
+            return Ok(employeesMapped);
         }
 
         [HttpGet("Get/{shopId}")]
@@ -64,9 +64,9 @@ namespace PCLine_computer_shops.Controllers
                     return NotFound();
                 }
             
-            var employesGet = _mapper.Map<List<EmployeeGetDto>>(shop);
+            var employesMapped = _mapper.Map<List<EmployeeGetDto>>(shop);
 
-            return Ok(employesGet);
+            return Ok(employesMapped);
         }
 
         [HttpGet("Get/{shopId}/GetEmployee/{employeeId}")]
@@ -79,9 +79,9 @@ namespace PCLine_computer_shops.Controllers
                 return NotFound();
             }
 
-            var employeeGet = _mapper.Map<EmployeeGetDto>(employee);
+            var employeeMapped = _mapper.Map<EmployeeGetDto>(employee);
 
-            return Ok(employeeGet);
+            return Ok(employeeMapped);
         }
 
         [HttpPost("Post/{shopId}")]
@@ -96,9 +96,9 @@ namespace PCLine_computer_shops.Controllers
                 return NotFound();
             }
 
-            var employeeGet = _mapper.Map<EmployeeGetDto>(employeeCreate);
+            var employeeMapped = _mapper.Map<EmployeeGetDto>(employeeCreate);
 
-            return CreatedAtAction(nameof(GetEmployeeById), new { shopId = shopId, employeeId = employeeGet.EmployeeId }, employeeGet);
+            return CreatedAtAction(nameof(GetEmployeeById), new { shopId = shopId, employeeId = employeeMapped.EmployeeId }, employeeMapped);
         }
 
         [HttpPut("Put/{shopId}/{employeeId}")]
