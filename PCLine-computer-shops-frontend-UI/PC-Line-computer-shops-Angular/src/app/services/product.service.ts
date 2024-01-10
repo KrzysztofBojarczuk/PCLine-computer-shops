@@ -44,7 +44,6 @@ export class ProductService {
       product
     );
   }
-
   updateProductService(
     shopId: number,
     productId: number,
