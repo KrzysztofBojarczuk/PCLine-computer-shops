@@ -10,6 +10,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  isLoggedIn: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -22,6 +23,10 @@ export class LoginComponent {
   }
 
   onSubmit(loginUser: User) {
-    this.authenticationService.loginUserService(loginUser).subscribe();
+    this.authenticationService.loginUserService(loginUser).subscribe((res) => {
+      const token = res.token;
+      this.authenticationService.setToken(token);
+      this.authenticationService.setLoggedIn(true);
+    });
   }
 }

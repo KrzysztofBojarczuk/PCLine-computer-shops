@@ -9,8 +9,26 @@ import { User } from '../models/user';
 })
 export class AuthenticationService {
   private apiUrl = 'https://localhost:7068/api/';
+  private token: string = '';
+  private isLoggedIn: boolean = false;
 
   constructor(private http: HttpClient) {}
+
+  setToken(token: string) {
+    this.token = token;
+  }
+
+  getToken() {
+    return this.token;
+  }
+
+  public setLoggedIn(value: boolean): void {
+    this.isLoggedIn = value;
+  }
+
+  public getLoggedIn(): boolean {
+    return this.isLoggedIn;
+  }
 
   registerUserService(registerUser: RegisterUser): Observable<RegisterUser> {
     return this.http.post<RegisterUser>(
