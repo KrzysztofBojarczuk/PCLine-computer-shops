@@ -4,10 +4,13 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using PCLine_computer_shops.Controllers;
 using PCLine_computer_shops.Dtos;
+using PCLine_computer_shops.Enums;
 using PCLine_computer_shops.InterfaceReposiotry;
 using PCLine_computer_shops.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,19 +32,25 @@ namespace PCLine_computer_shops.Tests.Controller
         [Fact]
         public async Task ShopsController_GetAllShops_ReturnOkAsync()
         {
+
+            int pageNumber = 1;
+
+            int pageSize = 10;
+
+            string searchTerm = "";
+
             var shops = A.Fake<ICollection<ShopGetDto>>();
 
             var shopsList = A.Fake<List<ShopGetDto>>();
 
             A.CallTo(() => _mapper.Map<List<ShopGetDto>>(shops)).Returns(shopsList);
-
             var controller = new ShopsController(_shopRepository, _mapper);
 
-            var result = await controller.GetAllShops();
+            var result = await controller.GetAllShops(pageNumber,pageSize,searchTerm,null);
 
             result.Should().NotBeNull();
 
-            result.Should().BeOfType(typeof(OkObjectResult)); 
+            result.Should().BeOfType(typeof(OkObjectResult));
         }
 
         [Fact]
@@ -55,7 +64,7 @@ namespace PCLine_computer_shops.Tests.Controller
             var shopsList = A.Fake<List<ShopGetDto>>();
 
             A.CallTo(() => _mapper.Map<Shop>(shopCreate)).Returns(shop);
-            A.CallTo(() => _shopRepository.CreateShop(shop)).Returns(shop);
+            A.CallTo(() => _shopRepository.CreateShopAsync(shop)).Returns(shop);
 
             var controller = new ShopsController(_shopRepository, _mapper);
 

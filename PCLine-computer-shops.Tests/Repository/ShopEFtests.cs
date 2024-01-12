@@ -52,7 +52,7 @@ namespace PCLine_computer_shops.Tests.Repository
             var dbContext = await GetDatabaseContext();
             var shopsRespository = new ShopRepository(dbContext);
 
-            var result = shopsRespository.CreateShop(shop);
+            var result = shopsRespository.CreateShopAsync(shop);
             result.Should();
         }
 
@@ -63,7 +63,7 @@ namespace PCLine_computer_shops.Tests.Repository
             var dbContext = await GetDatabaseContext();
             var shopRepository = new ShopRepository(dbContext);
 
-            var result = shopRepository.GetShopById(shopId);
+            var result = shopRepository.GetShopByIdAsync(shopId);
 
             result.Should().NotBe(0);
         }
