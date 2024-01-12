@@ -27,7 +27,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("GetValueOfProducts")]
         public async Task<decimal> GetValueOfProducts()
         {
-            var numuberofProducts = await _productRepository.CountAllProductsValue();
+            var numuberofProducts = await _productRepository.CountAllProductsValueAsync();
 
             if (numuberofProducts == null)
             {
@@ -41,7 +41,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("GetNumberOfProducts")]
         public async Task<int> GetNomuberOfProducts()        
         {
-            var numuberofProducts = await _productRepository.CountAllproducts();
+            var numuberofProducts = await _productRepository.CountAllproductsAsync();
 
             if (numuberofProducts == null)
             {
@@ -54,7 +54,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("GetNumberOfProductsForShop/{shopId}")]
         public async Task<int> GetNomuberOfProductsForShop(int shopId)
         {
-            var numuberofProductsForShop = await _productRepository.CountAllProductsForShopById(shopId);
+            var numuberofProductsForShop = await _productRepository.CountAllProductsForShopByIdAsync(shopId);
 
             if (numuberofProductsForShop == null)
             {
@@ -67,7 +67,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("GetValueProductsForShop/{shopId}")]
         public async Task<decimal> GetValueOfProductsForShop(int shopId)
         {
-            var valueofProductsForShop = await _productRepository.CountAllProductsValueForShopById(shopId);
+            var valueofProductsForShop = await _productRepository.CountAllProductsValueForShopByIdAsync(shopId);
 
             if (valueofProductsForShop == null)
             {
@@ -80,7 +80,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("Get")]
         public async Task<IActionResult> GetAllProducts([FromQuery] string searchTerm = "")
         {
-            var products = await _productRepository.GetAllProducts(searchTerm);
+            var products = await _productRepository.GetAllProductsAsync(searchTerm);
 
             if (products == null)
             {
@@ -95,7 +95,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("Get/{shopId}")]
         public async Task<IActionResult> GetAllProductsForShop(int shopId, [FromQuery] string searchTerm = "")
         {
-            var products = await _productRepository.GetAllProductsForShopById(shopId, searchTerm);
+            var products = await _productRepository.GetAllProductsForShopByIdAsync(shopId, searchTerm);
 
             if (products == null)
             {
@@ -110,7 +110,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("Get/{shopId}/GetProduct/{productId}")]
         public async Task<IActionResult> ProductByIdGet(int shopId, int productId)
         {
-            var product = await _productRepository.GetProductById(shopId, productId);
+            var product = await _productRepository.GetProductByIdAsync(shopId, productId);
 
             if (product == null)
             {
@@ -127,7 +127,7 @@ namespace PCLine_computer_shops.Controllers
         {
             var productCreate = _mapper.Map<Product>(newProduct);
 
-            await _productRepository.CreateProductForShop(shopId, productCreate);
+            await _productRepository.CreateProductForShopAsync(shopId, productCreate);
 
             if (productCreate == null)
             {
@@ -148,7 +148,7 @@ namespace PCLine_computer_shops.Controllers
 
             toUpdateProduct.ShopId = shopId;
 
-            await _productRepository.UpdateProduct(shopId, toUpdateProduct);
+            await _productRepository.UpdateProductAsync(shopId, toUpdateProduct);
            
             return NoContent();
         }
@@ -156,7 +156,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpDelete("Delete/{shopId}/product/{productId}")]
         public async Task<IActionResult> DeleteProduct(int shopId, int productId)
         {
-            var deleteProduct = await _productRepository.DeleteProduct(shopId, productId);
+            var deleteProduct = await _productRepository.DeleteProductAsync(shopId, productId);
 
             if (deleteProduct == null)
             {

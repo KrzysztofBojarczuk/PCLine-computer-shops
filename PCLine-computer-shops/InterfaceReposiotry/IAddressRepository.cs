@@ -4,8 +4,8 @@ namespace PCLine_computer_shops.InterfaceReposiotry
 {
     public interface IAddressRepository
     {
-        Task<Address> CreateAddressToShop(int shopId, Address address);
-        Task<Address> GetAddressForShopById(int shopId);
-        Task<Address> DeleteAddressForShop(int shopId);
+        Task<Address> CreateAddressToShopAsync(int shopId, Address address);
+        Task<Address> GetAddressForShopByIdAsync(int shopId);
+        Task<Address> DeleteAddressForShopAsync(int shopId);
     }
 }

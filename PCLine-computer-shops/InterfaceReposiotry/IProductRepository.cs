@@ -4,15 +4,15 @@ namespace PCLine_computer_shops.InterfaceReposiotry
 {
     public interface IProductRepository
     {
-        Task<decimal> CountAllProductsValue();
-        Task<int> CountAllproducts();
-        Task<int> CountAllProductsForShopById(int shopId);
-        Task<decimal> CountAllProductsValueForShopById(int shopId);
-        Task<ICollection<Product>> GetAllProducts(string searchTerm);
-        Task<ICollection<Product>> GetAllProductsForShopById(int productId, string searchTerm);
-        Task<Product> CreateProductForShop(int shopId, Product product);
-        Task<Product> GetProductById(int shopId, int productId);
-        Task<Product> UpdateProduct(int shopId, Product updateProduct);
-        Task<Product> DeleteProduct(int shopId, int productId);
+        Task<decimal> CountAllProductsValueAsync();
+        Task<int> CountAllproductsAsync();
+        Task<int> CountAllProductsForShopByIdAsync(int shopId);
+        Task<decimal> CountAllProductsValueForShopByIdAsync(int shopId);
+        Task<ICollection<Product>> GetAllProductsAsync(string searchTerm);
+        Task<ICollection<Product>> GetAllProductsForShopByIdAsync(int productId, string searchTerm);
+        Task<Product> CreateProductForShopAsync(int shopId, Product product);
+        Task<Product> GetProductByIdAsync(int shopId, int productId);
+        Task<Product> UpdateProductAsync(int shopId, Product updateProduct);
+        Task<Product> DeleteProductAsync(int shopId, int productId);
     }
 }

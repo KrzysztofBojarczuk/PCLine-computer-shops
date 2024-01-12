@@ -25,7 +25,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("Get")]
         public async Task<IActionResult> GetAllTaskEmployee(string searchTerm = "")
         {
-            var taskEmployee = await _taskEmployeeRepository.GetAllTaskEmployees(searchTerm);
+            var taskEmployee = await _taskEmployeeRepository.GetAllTaskEmployeesAsync(searchTerm);
 
             var taskEmployeeGet = _mapper.Map<List<TaskEmployeeGetDto>>(taskEmployee);
 
@@ -35,7 +35,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("Get/{taskEmployeeId}")]
         public async Task<IActionResult> TaskEmployeeById(int taskEmployeeId)
         {
-            var taskEmployee = await _taskEmployeeRepository.GetTaskEmployeeById(taskEmployeeId);
+            var taskEmployee = await _taskEmployeeRepository.GetTaskEmployeeByIdAsync(taskEmployeeId);
 
             if (taskEmployee == null)
             {
@@ -70,7 +70,7 @@ namespace PCLine_computer_shops.Controllers
                 taskEmployeeCreate.TaskFiles.Add(taskFile);
             }
 
-            await _taskEmployeeRepository.CreateTaskEmployee(taskEmployeeCreate);
+            await _taskEmployeeRepository.CreateTaskEmployeeAsync(taskEmployeeCreate);
 
             var taskEmployeeMapped = _mapper.Map<TaskEmployeeGetDto>(taskEmployeeCreate);
 
@@ -84,7 +84,7 @@ namespace PCLine_computer_shops.Controllers
 
             toUpdateTaskEmployee.TaskId = taskEmployeeId;
 
-            await _taskEmployeeRepository.UpdateTaskEmployee(toUpdateTaskEmployee);
+            await _taskEmployeeRepository.UpdateTaskEmployeeAsync(toUpdateTaskEmployee);
 
             return NoContent();
         }
@@ -92,7 +92,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpDelete("Delete/{taskEmployeeId}")]
         public async Task<IActionResult> DeleteTaskEmployee(int taskEmployeeId)
         {
-            var deletetaskEmployeeId = await _taskEmployeeRepository.DeleteTaskEmployee(taskEmployeeId);
+            var deletetaskEmployeeId = await _taskEmployeeRepository.DeleteTaskEmployeeAsync(taskEmployeeId);
 
             if (deletetaskEmployeeId == null)
             {
@@ -105,7 +105,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("GetTaskFiles/{taskEmployeeId}")]
         public async Task<IActionResult> TaskFiles(int taskEmployeeId)
         {
-            var taskFiles = await _taskEmployeeRepository.GetTaskFiles(taskEmployeeId);
+            var taskFiles = await _taskEmployeeRepository.GetTaskFilesAsync(taskEmployeeId);
 
             if (taskFiles == null)
             {
@@ -120,7 +120,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpDelete("Delete/TaskFile/{taskEmployeeId}/{taskFileId}")]
         public async Task<IActionResult> DeleteTaskFiles(int taskEmployeeId, int taskFileId)
         {
-            var deleteTaskFiles = await _taskEmployeeRepository.DeleteTaskFiles(taskEmployeeId, taskFileId);
+            var deleteTaskFiles = await _taskEmployeeRepository.DeleteTaskFilesAsync(taskEmployeeId, taskFileId);
 
             if(deleteTaskFiles == null)
             {
@@ -133,7 +133,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpPost("AddFiles/{taskEmployeeId}")]
         public async Task<IActionResult> AddFilesToTaskEmployee(int taskEmployeeId, [FromForm] List<IFormFile> files)
         {
-            var taskEmployee = await _taskEmployeeRepository.GetTaskEmployeeById(taskEmployeeId);
+            var taskEmployee = await _taskEmployeeRepository.GetTaskEmployeeByIdAsync(taskEmployeeId);
 
             foreach (var file in files)
             {
@@ -153,7 +153,7 @@ namespace PCLine_computer_shops.Controllers
                 taskEmployee.TaskFiles.Add(taskFile);
             }
 
-            await _taskEmployeeRepository.UpdateTaskEmployee(taskEmployee);
+            await _taskEmployeeRepository.UpdateTaskEmployeeAsync(taskEmployee);
 
             return NoContent();
         }

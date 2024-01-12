@@ -5,13 +5,13 @@ namespace PCLine_computer_shops.InterfaceReposiotry
 {
     public interface IEmployeeRepository
     {
-        Task<decimal> CountAllEmployeesSalaries();
-        Task<int> CountAllEmployees();
-        Task<ICollection<Employee>> GetAllEmployees(string searchTerm, List<EmployeePosition> enumEmployeePosition);
-        Task<ICollection<Employee>> GetAllEmployeesForShopById(int shopId);
-        Task<Employee> CreateEmployeeForShop(int shopId, Employee employee);
-        Task<Employee> GetEmployeeById(int shopId, int employeeId);
-        Task<Employee> UpdateEmployee(int shopId, Employee updateEmployee);
-        Task<Employee> DeleteEmployee(int shopId, int employeeId);
+        Task<decimal> CountAllEmployeesSalariesAsync();
+        Task<int> CountAllEmployeesAsync();
+        Task<ICollection<Employee>> GetAllEmployeesAsync(string searchTerm, List<EmployeePosition> enumEmployeePosition);
+        Task<ICollection<Employee>> GetAllEmployeesForShopByIdAsync(int shopId);
+        Task<Employee> CreateEmployeeForShopAsync(int shopId, Employee employee);
+        Task<Employee> GetEmployeeByIdAsync(int shopId, int employeeId);
+        Task<Employee> UpdateEmployeeAsync(int shopId, Employee updateEmployee);
+        Task<Employee> DeleteEmployeeAsync(int shopId, int employeeId);
     }
 }

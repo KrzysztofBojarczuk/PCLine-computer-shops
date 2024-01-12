@@ -18,7 +18,7 @@ namespace PCLine_computer_shops.Repositories
             _context = context;
         }
 
-        public async Task<ICollection<Shop>> GetAllShops(int pageNumber, int pageSize, string searchTerm, List<Country> enumCountry)
+        public async Task<ICollection<Shop>> GetAllShopsAsync(int pageNumber, int pageSize, string searchTerm, List<Country> enumCountry)
         {
             IQueryable<Shop> query = _context.Shops;
 
@@ -39,14 +39,14 @@ namespace PCLine_computer_shops.Repositories
             return shops;
         }
 
-        public async Task<ICollection<Shop>> GetAllShopsForProduct()
+        public async Task<ICollection<Shop>> GetAllShopsForProductAsync()
         {
             var query = await _context.Shops.ToListAsync();
 
             return query;
         }
 
-        public async Task<Shop> GetShopById(int shopId)
+        public async Task<Shop> GetShopByIdAsync(int shopId)
         {
             var shop = await _context.Shops.FirstOrDefaultAsync(h => h.ShopId == shopId);
 
@@ -58,16 +58,16 @@ namespace PCLine_computer_shops.Repositories
             return shop;
         }
 
-        public async Task<Shop> CreateShop(Shop shop)
+        public async Task<Shop> CreateShopAsync(Shop shop)
         {
-            _context.Shops.Add(shop);
+            await _context.Shops.AddAsync(shop);
 
             await _context.SaveChangesAsync();
 
             return shop;
         }
 
-        public async Task<Shop> UpdateShop(Shop updateShop)
+        public async Task<Shop> UpdateShopAsync(Shop updateShop)
         {
             _context.Shops.Update(updateShop);
 
@@ -76,7 +76,7 @@ namespace PCLine_computer_shops.Repositories
             return updateShop;
         }
 
-        public async Task<Shop> DeleteShop(int shopdId)
+        public async Task<Shop> DeleteShopAsync(int shopdId)
         {
             var shop = await _context.Shops.FirstOrDefaultAsync(h => h.ShopId == shopdId);
 
