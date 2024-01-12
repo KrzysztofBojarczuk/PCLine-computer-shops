@@ -15,7 +15,7 @@ namespace PCLine_computer_shops.Repositories
             _context = context;
         }
 
-        public async Task<Address> GetAddressForShopById(int shopId)
+        public async Task<Address> GetAddressForShopByIdAsync(int shopId)
         {
             var shop = await _context.Shops
                           .Include(s => s.Address) 
@@ -29,7 +29,7 @@ namespace PCLine_computer_shops.Repositories
             return shop.Address;
         }
 
-        public async Task<Address> CreateAddressToShop(int shopId, Address address)
+        public async Task<Address> CreateAddressToShopAsync(int shopId, Address address)
         {
             var shop = await _context.Shops.FirstOrDefaultAsync(h => h.ShopId == shopId);
 
@@ -45,7 +45,7 @@ namespace PCLine_computer_shops.Repositories
             return address;
         }
 
-        public async Task<Address> DeleteAddressForShop(int shopId)
+        public async Task<Address> DeleteAddressForShopAsync(int shopId)
         {
             var shop = await _context.Shops.Include(h => h.Address).FirstOrDefaultAsync(s => s.ShopId == shopId);
 

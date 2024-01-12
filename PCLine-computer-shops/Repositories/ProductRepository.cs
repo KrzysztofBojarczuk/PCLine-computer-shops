@@ -18,7 +18,7 @@ namespace PCLine_computer_shops.Repositories
             _context = context;
         }
 
-        public async Task<decimal> CountAllProductsValue()
+        public async Task<decimal> CountAllProductsValueAsync()
         {
             var query = await _context.Products.ToListAsync();
 
@@ -27,7 +27,7 @@ namespace PCLine_computer_shops.Repositories
             return totalValueOfProducts;
         }
 
-        public async Task<int> CountAllproducts()
+        public async Task<int> CountAllproductsAsync()
         {
             var query = await _context.Products.ToListAsync();
 
@@ -36,7 +36,7 @@ namespace PCLine_computer_shops.Repositories
             return totalAmount;
         }
 
-        public async Task<int> CountAllProductsForShopById(int shopId)
+        public async Task<int> CountAllProductsForShopByIdAsync(int shopId)
         {
             int totalAmount = await _context.Products
                                         .Where(product => product.ShopId == shopId)
@@ -45,7 +45,7 @@ namespace PCLine_computer_shops.Repositories
             return totalAmount;
         }
 
-        public async Task<decimal> CountAllProductsValueForShopById(int shopId)
+        public async Task<decimal> CountAllProductsValueForShopByIdAsync(int shopId)
         {
             var query = await _context.Products.Where(product => product.ShopId == shopId).ToListAsync();
 
@@ -54,7 +54,7 @@ namespace PCLine_computer_shops.Repositories
             return totalValueOfProducts;
         }
 
-        public async Task<ICollection<Product>> GetAllProducts(string searchTerm)
+        public async Task<ICollection<Product>> GetAllProductsAsync(string searchTerm)
         {
             var query = await _context.Products.ToListAsync();
 
@@ -71,7 +71,7 @@ namespace PCLine_computer_shops.Repositories
             return query;
         }
 
-        public async Task<ICollection<Product>> GetAllProductsForShopById(int shopId, string searchTerm)
+        public async Task<ICollection<Product>> GetAllProductsForShopByIdAsync(int shopId, string searchTerm)
         {
             var query = await _context.Products.Where(h => h.ShopId == shopId).ToListAsync();
 
@@ -88,7 +88,7 @@ namespace PCLine_computer_shops.Repositories
             return query;
         }
 
-        public async Task<Product> CreateProductForShop(int shopId, Product product)
+        public async Task<Product> CreateProductForShopAsync(int shopId, Product product)
         {
             var shop = await _context.Shops.Include(h => h.Products).FirstOrDefaultAsync(h => h.ShopId == shopId);
 
@@ -103,7 +103,7 @@ namespace PCLine_computer_shops.Repositories
             return product;
         }
 
-        public async Task<Product> GetProductById(int shopId, int productId)
+        public async Task<Product> GetProductByIdAsync(int shopId, int productId)
         {
             var product = await _context.Products.FirstOrDefaultAsync(h => h.ShopId == shopId && h.ProductId == productId);
 
@@ -115,7 +115,7 @@ namespace PCLine_computer_shops.Repositories
             return product;
         }
 
-        public async Task<Product> UpdateProduct(int shopId, Product updateProduct)
+        public async Task<Product> UpdateProductAsync(int shopId, Product updateProduct)
         {
             _context.Products.Update(updateProduct);
             await _context.SaveChangesAsync();
@@ -123,7 +123,7 @@ namespace PCLine_computer_shops.Repositories
             return updateProduct;
         }
 
-        public async Task<Product> DeleteProduct(int shopId, int productId)
+        public async Task<Product> DeleteProductAsync(int shopId, int productId)
         {
             var product = await _context.Products.FirstOrDefaultAsync(h => h.ShopId == shopId && h.ProductId == productId);
             

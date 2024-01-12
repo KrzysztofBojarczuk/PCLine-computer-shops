@@ -26,7 +26,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("GetAllShopsForProduct")]
         public async Task<IActionResult> GetAllShopsForProduct()
         {
-            var shops = await _shopRepository.GetAllShopsForProduct();
+            var shops = await _shopRepository.GetAllShopsForProductAsync();
 
             var shopsMapped = _mapper.Map<List<ShopGetDto>>(shops);
 
@@ -37,7 +37,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("Get")]
         public async Task<IActionResult> GetAllShops(int pageNumber, int pageSize, string searchTerm = "", [FromQuery] List<Country> enumCountry = null)
         {
-            var shops = await _shopRepository.GetAllShops(pageNumber, pageSize, searchTerm, enumCountry);
+            var shops = await _shopRepository.GetAllShopsAsync(pageNumber, pageSize, searchTerm, enumCountry);
 
             var shopsMapped = _mapper.Map<List<ShopGetDto>>(shops);
 
@@ -49,7 +49,7 @@ namespace PCLine_computer_shops.Controllers
         {
             var shopCreate = _mapper.Map<Shop>(shop);
 
-            await _shopRepository.CreateShop(shopCreate);
+            await _shopRepository.CreateShopAsync(shopCreate);
 
             var shopMapped = _mapper.Map<ShopGetDto>(shopCreate);
 
@@ -59,7 +59,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("Get/{shopId}")]
         public async Task<IActionResult> ShopByIdGet(int shopId)
         {
-            var shop = await _shopRepository.GetShopById(shopId);
+            var shop = await _shopRepository.GetShopByIdAsync(shopId);
 
             if (shop == null)
             {
@@ -77,7 +77,7 @@ namespace PCLine_computer_shops.Controllers
             var toUpdateShop = _mapper.Map<Shop>(shopUpdate);
 
             toUpdateShop.ShopId = shopId;
-            await _shopRepository.UpdateShop(toUpdateShop);
+            await _shopRepository.UpdateShopAsync(toUpdateShop);
 
             return NoContent();
         }
@@ -85,7 +85,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpDelete("Delete/{shopId}")]
         public async Task<IActionResult> DeleteShop(int shopId)
         {
-            var deleteShop = await _shopRepository.DeleteShop(shopId);
+            var deleteShop = await _shopRepository.DeleteShopAsync(shopId);
 
             if (deleteShop == null)
             {

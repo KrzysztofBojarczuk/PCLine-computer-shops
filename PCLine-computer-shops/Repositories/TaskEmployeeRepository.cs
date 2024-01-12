@@ -14,7 +14,7 @@ namespace PCLine_computer_shops.Repositories
             _context = context;
         }
 
-        public async Task<ICollection<TaskEmployee>> GetAllTaskEmployees(string searchTerm)
+        public async Task<ICollection<TaskEmployee>> GetAllTaskEmployeesAsync(string searchTerm)
         {
             var query = await _context.TaskEmployees.ToListAsync();
 
@@ -31,7 +31,7 @@ namespace PCLine_computer_shops.Repositories
             return query;
         }
 
-        public async Task<TaskEmployee> GetTaskEmployeeById(int taskEmployeeId)
+        public async Task<TaskEmployee> GetTaskEmployeeByIdAsync(int taskEmployeeId)
         {
             var taskEmployee = await _context.TaskEmployees.FirstOrDefaultAsync(h => h.TaskId == taskEmployeeId);
 
@@ -43,16 +43,16 @@ namespace PCLine_computer_shops.Repositories
             return taskEmployee;
         }
 
-        public async Task<TaskEmployee> CreateTaskEmployee(TaskEmployee taskEmployee)
+        public async Task<TaskEmployee> CreateTaskEmployeeAsync(TaskEmployee taskEmployee)
         {
-            _context.TaskEmployees.Add(taskEmployee);
+            await _context.TaskEmployees.AddAsync(taskEmployee);
 
             await _context.SaveChangesAsync();
 
             return taskEmployee;
         }
 
-        public async Task<TaskEmployee> UpdateTaskEmployee(TaskEmployee updateTaskEmployee)
+        public async Task<TaskEmployee> UpdateTaskEmployeeAsync(TaskEmployee updateTaskEmployee)
         {
             _context.Update(updateTaskEmployee);
 
@@ -61,7 +61,7 @@ namespace PCLine_computer_shops.Repositories
             return updateTaskEmployee;
         }
 
-        public async Task<TaskEmployee> DeleteTaskEmployee(int taskEmployeeId)
+        public async Task<TaskEmployee> DeleteTaskEmployeeAsync(int taskEmployeeId)
         {
             var taskEmployee = await _context.TaskEmployees.FirstOrDefaultAsync(h => h.TaskId == taskEmployeeId);
 
@@ -77,7 +77,7 @@ namespace PCLine_computer_shops.Repositories
             return taskEmployee;
         }
 
-        public async Task<ICollection<TaskFile>> GetTaskFiles(int taskEmployeeId)
+        public async Task<ICollection<TaskFile>> GetTaskFilesAsync(int taskEmployeeId)
         {
             var files = await _context.TaskFiles.Where(h => h.TaskId == taskEmployeeId).ToListAsync();
 
@@ -89,7 +89,7 @@ namespace PCLine_computer_shops.Repositories
             return files;
         }
 
-        public async Task<TaskFile> DeleteTaskFiles(int taskEmployeeId, int taskFilesId)
+        public async Task<TaskFile> DeleteTaskFilesAsync(int taskEmployeeId, int taskFilesId)
         {
             var taskFiles = await _context.TaskFiles.FirstOrDefaultAsync(h => h.TaskId == taskEmployeeId && h.TaskFileId == taskFilesId);
 

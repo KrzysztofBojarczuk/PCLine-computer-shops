@@ -5,12 +5,12 @@ namespace PCLine_computer_shops.InterfaceReposiotry
 {
     public interface ITaskEmployeeRepository
     {
-        Task<ICollection<TaskEmployee>> GetAllTaskEmployees(string searchTerm);
-        Task<TaskEmployee> CreateTaskEmployee(TaskEmployee taskEmployee);
-        Task<TaskEmployee> GetTaskEmployeeById(int taskEmployeeId);
-        Task<TaskEmployee> UpdateTaskEmployee(TaskEmployee updateTaskEmployee);
-        Task<TaskEmployee> DeleteTaskEmployee(int taskEmployeeId);
-        Task<ICollection<TaskFile>> GetTaskFiles(int taskEmployeeId);
-        Task<TaskFile> DeleteTaskFiles(int taskEmployeeId, int TaskFileId);
+        Task<ICollection<TaskEmployee>> GetAllTaskEmployeesAsync(string searchTerm);
+        Task<TaskEmployee> CreateTaskEmployeeAsync(TaskEmployee taskEmployee);
+        Task<TaskEmployee> GetTaskEmployeeByIdAsync(int taskEmployeeId);
+        Task<TaskEmployee> UpdateTaskEmployeeAsync(TaskEmployee updateTaskEmployee);
+        Task<TaskEmployee> DeleteTaskEmployeeAsync(int taskEmployeeId);
+        Task<ICollection<TaskFile>> GetTaskFilesAsync(int taskEmployeeId);
+        Task<TaskFile> DeleteTaskFilesAsync(int taskEmployeeId, int TaskFileId);
     }
 }

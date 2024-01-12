@@ -16,7 +16,7 @@ namespace PCLine_computer_shops.Repositories
             _context = context;
         }
 
-        public async Task<decimal> CountAllEmployeesSalaries()
+        public async Task<decimal> CountAllEmployeesSalariesAsync()
         {
             var query = await _context.Employees.ToListAsync();
 
@@ -25,14 +25,14 @@ namespace PCLine_computer_shops.Repositories
             return totalSalaries;
         }
 
-        public async Task<int> CountAllEmployees()
+        public async Task<int> CountAllEmployeesAsync()
         {
             var query = await _context.Employees.ToListAsync();
 
             return query.Count();
         }
 
-        public async Task<ICollection<Employee>> GetAllEmployees(string searchTerm, List<EmployeePosition> enumEmployeePosition)
+        public async Task<ICollection<Employee>> GetAllEmployeesAsync(string searchTerm, List<EmployeePosition> enumEmployeePosition)
         {
             var query = await _context.Employees.ToListAsync();
 
@@ -59,7 +59,7 @@ namespace PCLine_computer_shops.Repositories
             return query;
         }
 
-        public async Task<ICollection<Employee>> GetAllEmployeesForShopById(int shopId)
+        public async Task<ICollection<Employee>> GetAllEmployeesForShopByIdAsync(int shopId)
         {
             var query = await _context.Employees.Where(h => h.ShopId == shopId).ToListAsync();
 
@@ -71,7 +71,7 @@ namespace PCLine_computer_shops.Repositories
             return query;
         }
 
-        public async Task<Employee> GetEmployeeByIdForShop(int shopId, int employeeId)
+        public async Task<Employee> GetEmployeeByIdForShopAsync(int shopId, int employeeId)
         {
             var employee = await _context.Employees.FirstOrDefaultAsync(h => h.EmployeeId == employeeId && h.ShopId == shopId);
 
@@ -83,7 +83,7 @@ namespace PCLine_computer_shops.Repositories
             return employee;
         }
 
-        public async Task<Employee> CreateEmployeeForShop(int shopId, Employee employee)
+        public async Task<Employee> CreateEmployeeForShopAsync(int shopId, Employee employee)
         {
             var shop = await _context.Shops.Include(h => h.Employees).FirstOrDefaultAsync(h => h.ShopId == shopId);
 
@@ -98,7 +98,7 @@ namespace PCLine_computer_shops.Repositories
             return employee;
         }
 
-        public async Task<Employee> GetEmployeeById(int shopId, int employeeId)
+        public async Task<Employee> GetEmployeeByIdAsync(int shopId, int employeeId)
         {
             var employee = await _context.Employees.FirstOrDefaultAsync(h => h.ShopId == shopId && h.EmployeeId == employeeId);
 
@@ -110,7 +110,7 @@ namespace PCLine_computer_shops.Repositories
             return employee;
         }
 
-        public async Task<Employee> UpdateEmployee(int shopId, Employee updateEmployee)
+        public async Task<Employee> UpdateEmployeeAsync(int shopId, Employee updateEmployee)
         {
             _context.Employees.Update(updateEmployee);
             await _context.SaveChangesAsync();
@@ -118,7 +118,7 @@ namespace PCLine_computer_shops.Repositories
             return updateEmployee;
         }
 
-        public async Task<Employee> DeleteEmployee(int shopId, int employeeId)
+        public async Task<Employee> DeleteEmployeeAsync(int shopId, int employeeId)
         {
             var employee = await _context.Employees.FirstOrDefaultAsync(h => h.ShopId == shopId && h.EmployeeId == employeeId);
 

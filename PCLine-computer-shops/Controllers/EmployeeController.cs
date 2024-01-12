@@ -26,7 +26,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("GetTotalSalariesOfEmployees")]
         public async Task<decimal> GetNumberOfEmployeesSalaries()
         {
-            var employeesSalaries = await _employeeRepository.CountAllEmployeesSalaries();
+            var employeesSalaries = await _employeeRepository.CountAllEmployeesSalariesAsync();
 
             return employeesSalaries;
         }
@@ -34,7 +34,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("GetNumberOfEmployees")]
         public async Task<int> GetNumberOfEmployees()
         {
-            var numberOfEmployees = await _employeeRepository.CountAllEmployees();
+            var numberOfEmployees = await _employeeRepository.CountAllEmployeesAsync();
             
             return numberOfEmployees;
         }
@@ -42,7 +42,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("Get")]
         public async Task<IActionResult> GetAllEmployees([FromQuery] List<EmployeePosition> enumEmployeePosition, string searchTerm = "")
         {
-            var employees = await _employeeRepository.GetAllEmployees(searchTerm, enumEmployeePosition);
+            var employees = await _employeeRepository.GetAllEmployeesAsync(searchTerm, enumEmployeePosition);
 
             if (employees == null)
             {
@@ -57,7 +57,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("Get/{shopId}")]
         public async Task<IActionResult> GetAllEmployeeForShpById(int shopId)
         {
-            var shop = await _employeeRepository.GetAllEmployeesForShopById(shopId);
+            var shop = await _employeeRepository.GetAllEmployeesForShopByIdAsync(shopId);
 
                 if(shop == null)
                 {
@@ -72,7 +72,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpGet("Get/{shopId}/GetEmployee/{employeeId}")]
         public async Task<IActionResult> GetEmployeeById(int shopId, int employeeId)
         {
-            var employee = await _employeeRepository.GetEmployeeById(shopId, employeeId);
+            var employee = await _employeeRepository.GetEmployeeByIdAsync(shopId, employeeId);
 
             if (employee == null)
             {
@@ -89,7 +89,7 @@ namespace PCLine_computer_shops.Controllers
         {
             var employeeCreate = _mapper.Map<Employee>(newEmployee);
 
-            await _employeeRepository.CreateEmployeeForShop(shopId, employeeCreate);
+            await _employeeRepository.CreateEmployeeForShopAsync(shopId, employeeCreate);
 
             if (employeeCreate == null)
             {
@@ -110,7 +110,7 @@ namespace PCLine_computer_shops.Controllers
 
             toUpdateEmployee.ShopId = shopId;
 
-            await _employeeRepository.UpdateEmployee(shopId, toUpdateEmployee);
+            await _employeeRepository.UpdateEmployeeAsync(shopId, toUpdateEmployee);
 
             return NoContent();
         }
@@ -118,7 +118,7 @@ namespace PCLine_computer_shops.Controllers
         [HttpDelete("Delete/{shopId}/employee/{employeeId}")]
         public async Task<IActionResult> DeleteEmployee(int shopId, int employeeId)
         {
-            var deleteEmployee = await _employeeRepository.DeleteEmployee(shopId, employeeId);
+            var deleteEmployee = await _employeeRepository.DeleteEmployeeAsync(shopId, employeeId);
 
             if (deleteEmployee == null)
             {
