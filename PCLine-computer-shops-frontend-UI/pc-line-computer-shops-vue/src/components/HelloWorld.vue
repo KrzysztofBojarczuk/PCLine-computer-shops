@@ -1,22 +1,19 @@
 <template>
-  <div>
-    <div>{{ name }}</div>
-    <div v-text="greetings"></div>
-    <v-chip variant="outlined"> Chip </v-chip>
-  </div>
+  <div>{{ text1 }}</div>
+  <div v-text="text2"></div>
 </template>
 
-<script>
-export default {
-  name: "PC line computers shops",
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "HelloWorld",
+
   data() {
     return {
-      name: "Message",
-      greetings: "Hellodda",
+      text1: "Hello 1",
+      text2: "Hello 2",
     };
   },
-};
+});
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
