@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
+    "axios": "^1.6.5",
     "core-js": "^3.8.3",
     "register-service-worker": "^1.7.2",
     "roboto-fontface": "*",
@@ -38,7 +39,7 @@
     "prettier": "^2.4.1",
     "sass": "^1.32.7",
     "sass-loader": "^12.0.0",
-    "typescript": "~4.5.5",
+    "typescript": "^5.3.3",
     "vue-cli-plugin-vuetify": "~2.5.8",
     "webpack-plugin-vuetify": "^2.0.0-alpha.0"
   },
