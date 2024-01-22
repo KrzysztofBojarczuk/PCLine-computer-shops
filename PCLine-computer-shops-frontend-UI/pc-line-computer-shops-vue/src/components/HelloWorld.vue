@@ -1,26 +1,41 @@
 <template>
   <div>{{ text1 }}</div>
   <div v-text="text2"></div>
-  <h1 v-bind:style="successSTyle">SSSSSSSSSSSSSSSSSSSSSSSSSSSSS</h1>
-  <div class="text-center ma-2">
-    <v-table>
-      <thead>
-        <tr>
-          <th class="text-left">Id</th>
-          <th class="text-left">Name</th>
-          <th class="text-left">Date</th>
-          <th class="text-left">Country</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in desserts" :key="item.shopId">
-          <td class="text-left">{{ item.shopId }}</td>
-          <td class="text-left">{{ item.name }}</td>
-          <td class="text-left">{{ item.startDate }}</td>
-          <td class="text-left">{{ item.country }}</td>
-        </tr>
-      </tbody>
-    </v-table>
+  <h1 v-bind:style="successSTyle"></h1>
+  <v-container>
+    <v-row justify="center" align="end">
+      <v-col cols="auto">
+        <v-btn @click="toggleTableVisibility" variant="outlined"
+          >Toggle Table</v-btn
+        >
+      </v-col>
+      <v-col cols="auto">
+        <v-btn variant="outlined">Create Shop</v-btn>
+      </v-col>
+    </v-row>
+  </v-container>
+  <div v-if="showTable">
+    <div class="text-center ma-2">
+      <v-table>
+        <thead>
+          <tr>
+            <th class="text-left">Id</th>
+            <th class="text-left">Name</th>
+            <th class="text-left">Date</th>
+            <th class="text-left">Country</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in desserts" :key="item.shopId">
+            <td class="text-left">{{ item.shopId }}</td>
+            <td class="text-left">{{ item.name }}</td>
+            <td class="text-left">{{ item.startDate }}</td>
+            <td class="text-left">{{ item.country }}</td>
+          </tr>
+        </tbody>
+        <div v-if="desserts?.length === 0">No elemnts</div>
+      </v-table>
+    </div>
   </div>
 </template>
 
@@ -43,6 +58,7 @@ export default defineComponent({
       },
       apiUrl: "https://localhost:7068/api/",
       desserts: [] as Shop[],
+      showTable: true,
     };
   },
 
@@ -61,6 +77,10 @@ export default defineComponent({
       } catch (error) {
         console.error("Error fetching data:", error);
       }
+    },
+
+    toggleTableVisibility() {
+      this.showTable = !this.showTable;
     },
   },
 
