@@ -3,7 +3,20 @@
   <div v-text="text2"></div>
   <h1 v-bind:style="successSTyle"></h1>
   <v-container>
-    <v-row justify="center" align="end">
+    <v-row justify="start" align="end">
+      <v-col cols="auto">
+        <v-text-field
+          v-model="searchTerm"
+          label="Search"
+          class="custom-input"
+        ></v-text-field>
+      </v-col>
+      <v-col cols="auto">
+        <v-btn @click="searchData" variant="outlined">Search</v-btn>
+      </v-col>
+      <v-col cols="auto">
+        <v-btn @click="clearSearch" variant="outlined">Clear</v-btn>
+      </v-col>
       <v-col cols="auto">
         <v-btn @click="toggleTableVisibility" variant="outlined"
           >Toggle Table</v-btn
@@ -59,6 +72,7 @@ export default defineComponent({
       apiUrl: "https://localhost:7068/api/",
       desserts: [] as Shop[],
       showTable: true,
+      searchTerm: "",
     };
   },
 
@@ -71,6 +85,7 @@ export default defineComponent({
           params: {
             pageNumber,
             pageSize,
+            searchTerm: this.searchTerm,
           },
         });
         this.desserts = response.data;
@@ -82,6 +97,15 @@ export default defineComponent({
     toggleTableVisibility() {
       this.showTable = !this.showTable;
     },
+
+    searchData() {
+      this.fetchData();
+    },
+
+    clearSearch() {
+      this.searchTerm = "";
+      this.fetchData();
+    },
   },
 
   mounted() {
@@ -89,3 +113,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.custom-input {
+  width: 200px;
+}
+</style>
