@@ -10,7 +10,31 @@
         >
       </v-col>
       <v-col cols="auto">
-        <v-btn variant="outlined">Create Shop</v-btn>
+        <v-dialog width="500">
+          <template v-slot:activator="{ props }">
+            <v-btn v-bind="props" @click="openDialogShop" variant="outlined"
+              >Create Shop</v-btn
+            >
+          </template>
+
+          <template v-slot:default="{ isActive }">
+            <v-card title="Dialog">
+              <v-card-text>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+
+                <v-btn
+                  text="Close Dialog"
+                  @click="isActive.value = false"
+                ></v-btn>
+              </v-card-actions>
+            </v-card>
+          </template>
+        </v-dialog>
       </v-col>
     </v-row>
   </v-container>
@@ -59,6 +83,7 @@ export default defineComponent({
       apiUrl: "https://localhost:7068/api/",
       desserts: [] as Shop[],
       showTable: true,
+      showDialogShop: false,
     };
   },
 
@@ -81,6 +106,14 @@ export default defineComponent({
 
     toggleTableVisibility() {
       this.showTable = !this.showTable;
+    },
+
+    openDialogShop() {
+      this.showDialogShop = true;
+    },
+
+    closeDialogShop() {
+      this.showDialogShop = false;
     },
   },
 
