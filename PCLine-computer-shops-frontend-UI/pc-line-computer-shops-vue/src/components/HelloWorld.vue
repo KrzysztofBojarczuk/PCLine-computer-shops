@@ -129,6 +129,8 @@ export default defineComponent({
 
     closeDialogShop() {
       this.showDialogShop = false;
+    },
+
     searchData() {
       this.fetchData();
     },
