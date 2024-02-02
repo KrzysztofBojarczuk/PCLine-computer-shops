@@ -33,18 +33,43 @@
           <template v-slot:default="{ isActive }">
             <v-card title="Dialog">
               <v-card-text>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                <v-container>
+                  <v-form @submit.prevent="submitForm">
+                    <v-col cols="10">
+                      <v-text-field
+                        v-model="shopData.name"
+                        label="Name:"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="10">
+                      <v-select
+                        v-model="shopData.country"
+                        :items="items"
+                        label="Country:"
+                        item-value="value"
+                      ></v-select>
+                    </v-col>
+                    <v-col cols="10">
+                      <v-text-field
+                        type="date"
+                        v-model="shopData.startDate"
+                        label="Start Date:"
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-btn
+                      type="submit"
+                      color="primary"
+                      @click="isActive.value = false"
+                      >Dodaj sklep</v-btn
+                    >
+                    <v-btn
+                      text="Close Dialog"
+                      @click="isActive.value = false"
+                    ></v-btn>
+                  </v-form>
+                </v-container>
               </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-
-                <v-btn
-                  text="Close Dialog"
-                  @click="isActive.value = false"
-                ></v-btn>
-              </v-card-actions>
             </v-card>
           </template>
         </v-dialog>
@@ -80,6 +105,7 @@
 import { defineComponent } from "vue";
 import axios from "axios";
 import { Shop } from "src/models/shop";
+import { Country } from "@/enums/country";
 
 export default defineComponent({
   name: "HelloWorld",
@@ -98,6 +124,13 @@ export default defineComponent({
       showTable: true,
       showDialogShop: false,
       searchTerm: "",
+      shopData: {
+        name: "",
+        startDate: "",
+        country: Number,
+      },
+      select: null,
+      items: [1, 2, 3],
     };
   },
 
@@ -105,7 +138,7 @@ export default defineComponent({
     async fetchData() {
       try {
         const pageNumber = 1;
-        const pageSize = 10;
+        const pageSize = 50;
         const response = await axios.get(this.apiUrl + `Shops/Get`, {
           params: {
             pageNumber,
@@ -116,6 +149,18 @@ export default defineComponent({
         this.desserts = response.data;
       } catch (error) {
         console.error("Error fetching data:", error);
+      }
+    },
+
+    async submitForm() {
+      try {
+        const response = await axios.post(
+          this.apiUrl + "Shops/Post",
+          this.shopData
+        );
+        console.log(response);
+      } catch (error) {
+        console.error("Error:", error);
       }
     },
 
