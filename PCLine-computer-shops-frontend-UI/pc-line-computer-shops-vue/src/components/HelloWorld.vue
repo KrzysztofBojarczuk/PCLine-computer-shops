@@ -85,6 +85,7 @@
             <th class="text-left">Name</th>
             <th class="text-left">Date</th>
             <th class="text-left">Country</th>
+            <th class="text-left">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -93,6 +94,9 @@
             <td class="text-left">{{ item.name }}</td>
             <td class="text-left">{{ item.startDate }}</td>
             <td class="text-left">{{ item.country }}</td>
+            <td class="text-left">
+              <v-icon @click="deleteShop(item.shopId)">mdi-delete</v-icon>
+            </td>
           </tr>
         </tbody>
         <div v-if="desserts?.length === 0">No elemnts</div>
@@ -149,6 +153,15 @@ export default defineComponent({
         this.desserts = response.data;
       } catch (error) {
         console.error("Error fetching data:", error);
+      }
+    },
+
+    async deleteShop(shopId: number) {
+      try {
+        await axios.delete(this.apiUrl + `Shops/Delete/${shopId}`);
+        this.fetchData();
+      } catch (error) {
+        console.error("Error deleting shop:", error);
       }
     },
 
