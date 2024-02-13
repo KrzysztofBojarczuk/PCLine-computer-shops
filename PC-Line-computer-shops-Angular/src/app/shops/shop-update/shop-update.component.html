@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-between p-2">
+  <h2>{{ title }}</h2>
+  <i class="bi bi-x-circle" style="font-size: 1.5rem" mat-dialog-close></i>
+</div>
+<form [formGroup]="shopForm" (ngSubmit)="update(shopForm.value)">
+  <div class="p-3 m-0 border-0 m-0 border-0">
+    <div class="mb-3">
+      <mat-form-field class="example-full-width">
+        <mat-label>Name:</mat-label>
+        <input matInput formControlName="name" required />
+      </mat-form-field>
+    </div>
+
+    <div class="mb-3">
+      <mat-form-field class="example-full-width">
+        <mat-label>Country:</mat-label>
+        <mat-select formControlName="country" required>
+          <mat-option *ngFor="let country of countries" [value]="country.value">
+            {{ country.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="mb-3">
+      <mat-form-field class="example-full-width">
+        <mat-label>Start Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="startDate"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="d-flex justify-content-end p-2">
+    <button style="margin-right: 8px" mat-raised-button mat-dialog-close>
+      Cancel
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="shopForm.invalid"
+    >
+      Submit
+    </button>
+  </div>
+</form>

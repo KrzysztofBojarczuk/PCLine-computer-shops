@@ -1,0 +1,87 @@
+<div class="d-flex justify-content-between p-2">
+  <h2>Add Product To Shop</h2>
+  <i class="bi bi-x-circle" style="font-size: 1.5rem" mat-dialog-close></i>
+</div>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <form [formGroup]="shopForm">
+        <h1>Choose Shop</h1>
+        <div class="mb-3">
+          <mat-form-field>
+            <mat-label>Select Shop</mat-label>
+            <mat-select
+              formControlName="shopId"
+              (selectionChange)="onShopIdChange($event)"
+            >
+              <mat-option *ngFor="let shop of shops" [value]="shop.shopId">{{
+                shop.shopId
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="mb-3">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" />
+          </mat-form-field>
+        </div>
+        <div class="mb-3">
+          <mat-form-field>
+            <mat-label>Start Date</mat-label>
+            <input matInput formControlName="startDate" />
+          </mat-form-field>
+        </div>
+        <div class="mb-3">
+          <mat-form-field>
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="country" />
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-6">
+      <form
+        [formGroup]="productForm"
+        (ngSubmit)="submit(shopForm.get('shopId')?.value, productForm.value)"
+      >
+        <div class="p-3 m-0 border-0 m-0 border-0">
+          <div class="mb-3">
+            <mat-form-field class="example-full-width">
+              <mat-label>Name:</mat-label>
+              <input matInput formControlName="name" required />
+            </mat-form-field>
+          </div>
+
+          <div class="mb-3">
+            <mat-form-field class="example-full-width">
+              <mat-label>Price:</mat-label>
+              <input matInput formControlName="price" type="number" required />
+            </mat-form-field>
+          </div>
+
+          <div class="mb-3">
+            <mat-form-field class="example-full-width">
+              <mat-label>Amount:</mat-label>
+              <input matInput formControlName="amount" type="number" required />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end p-2">
+          <button style="margin-right: 8px" mat-raised-button mat-dialog-close>
+            Cancel
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="productForm.invalid || !shopForm.get('shopId')?.value"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
