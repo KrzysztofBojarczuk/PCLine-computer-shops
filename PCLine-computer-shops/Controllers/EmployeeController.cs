@@ -23,6 +23,20 @@ namespace PCLine_computer_shops.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("GetNumberOfEmployeesForShop/{shopId}")]
+        public async Task<ActionResult<int>> GetNumberOfEmployeesForShop(int shopId)
+        {
+            var employeeShop = await _employeeRepository.GetAllEmployeesForShopByIdAsync(shopId);
+
+            if (employeeShop == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(employeeShop.Count());
+        }
+
+
         [HttpGet("GetTotalSalariesOfEmployees")]
         public async Task<decimal> GetNumberOfEmployeesSalaries()
         {
