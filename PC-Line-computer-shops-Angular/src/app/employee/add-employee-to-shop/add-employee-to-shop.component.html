@@ -1,0 +1,108 @@
+<div class="d-flex justify-content-between p-2">
+  <h2>Add Employee To Shop</h2>
+  <i class="bi bi-x-circle" style="font-size: 1.5rem" mat-dialog-close></i>
+</div>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <form [formGroup]="shopForm">
+        <h1>Choose Shop</h1>
+        <div class="mb-3">
+          <mat-form-field>
+            <mat-label>Select Shop</mat-label>
+            <mat-select
+              formControlName="shopId"
+              (selectionChange)="onShopIdChange($event)"
+            >
+              <mat-option *ngFor="let shop of shops" [value]="shop.shopId">{{
+                shop.shopId
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="mb-3">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" />
+          </mat-form-field>
+        </div>
+        <div class="mb-3">
+          <mat-form-field>
+            <mat-label>Start Date</mat-label>
+            <input matInput formControlName="startDate" />
+          </mat-form-field>
+        </div>
+        <div class="mb-3">
+          <mat-form-field>
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="country" />
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-6">
+      <form
+        [formGroup]="employeeForm"
+        (ngSubmit)="submit(shopForm.get('shopId')?.value, employeeForm.value)"
+      >
+        <div class="p-3 m-0 border-0 m-0 border-0">
+          <div class="mb-3">
+            <mat-form-field class="example-full-width">
+              <mat-label>First Name:</mat-label>
+              <input matInput formControlName="firstName" required />
+            </mat-form-field>
+          </div>
+
+          <div class="mb-3">
+            <mat-form-field class="example-full-width">
+              <mat-label>Last Name:</mat-label>
+              <input matInput formControlName="lastName" required />
+            </mat-form-field>
+          </div>
+
+          <div class="mb-3">
+            <mat-form-field class="example-full-width">
+              <mat-label>Salary:</mat-label>
+              <input matInput formControlName="salary" type="number" required />
+            </mat-form-field>
+          </div>
+
+          <div class="mb-3">
+            <mat-form-field class="example-full-width">
+              <mat-label>Email:</mat-label>
+              <input matInput formControlName="email" required />
+            </mat-form-field>
+          </div>
+
+          <div class="mb-3">
+            <mat-form-field class="example-full-width">
+              <mat-label>Employee Position</mat-label>
+              <mat-select formControlName="employeePosition" required>
+                <mat-option
+                  *ngFor="let position of employeePosition"
+                  [value]="position.value"
+                >
+                  {{ position.nameOfposition }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end p-2">
+          <button style="margin-right: 8px" mat-raised-button mat-dialog-close>
+            Cancel
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="employeeForm.invalid || !shopForm.get('shopId')?.value"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

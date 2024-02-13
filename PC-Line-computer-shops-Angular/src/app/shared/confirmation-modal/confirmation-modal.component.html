@@ -1,0 +1,11 @@
+<div class="d-flex justify-content-between p-2">
+  <h2>{{ data.titleText }}</h2>
+  <i class="bi bi-x-circle" style="font-size: 1.5rem" mat-dialog-close></i>
+</div>
+<h2 [ngStyle]="{ 'margin-left.px': 8 }">{{ data.confirmationText }}</h2>
+<div class="d-flex justify-content-end p-2">
+  <button mat-button (click)="onCancel()" style="margin-right: 8px">
+    Cancel
+  </button>
+  <button mat-button (click)="onConfirm()">Confirmation</button>
+</div>

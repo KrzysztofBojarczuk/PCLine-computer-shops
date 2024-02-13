@@ -1,0 +1,2 @@
+<app-nav-bar *ngIf="authenticationService.getLoggedIn()"></app-nav-bar>
+<app-login *ngIf="!authenticationService.getLoggedIn()"></app-login>

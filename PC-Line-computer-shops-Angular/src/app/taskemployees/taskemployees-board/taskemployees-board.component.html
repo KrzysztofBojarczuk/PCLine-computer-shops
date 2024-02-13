@@ -1,0 +1,202 @@
+<div class="row mt-5">
+  <div class="col-md-6">
+    <mat-form-field class="example-form-field">
+      <input matInput type="text" placeholder="Search" [(ngModel)]="value" />
+    </mat-form-field>
+
+    <button
+      style="margin-left: 10px"
+      mat-raised-button
+      (click)="getTaskEmployee(value)"
+    >
+      Search
+    </button>
+    <button style="margin-left: 10px" mat-raised-button (click)="clearSearch()">
+      Clear
+    </button>
+    <button
+      style="margin-left: 10px"
+      mat-raised-button
+      (click)="createTaskEmployee()"
+    >
+      Create TaskEmployee
+    </button>
+  </div>
+</div>
+<div style="max-height: 73vh; overflow: auto">
+  <div class="example-container">
+    <h2>To do</h2>
+
+    <div
+      cdkDropList
+      [id]="'todoList'"
+      [cdkDropListData]="todo"
+      [cdkDropListConnectedTo]="['inProgressList', 'doneList']"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div *ngFor="let task of todo" class="example-box" cdkDrag>
+        <h1>
+          {{ task.title }}
+        </h1>
+        <p>{{ task.description }}</p>
+        <p>
+          {{ task.nameEmployee }}
+        </p>
+        <p *ngIf="taskFilesMap[task.taskId]?.length === 0">No Files</p>
+        <div class="row">
+          <div *ngFor="let file of taskFilesMap[task.taskId]">
+            <div class="row align-items-center">
+              <div class="col">
+                <p>Name of file: {{ file.fileName }}</p>
+              </div>
+              <div class="col-auto">
+                <button
+                  mat-icon-button
+                  (click)="deleteFile(task.taskId, file.taskFileId)"
+                  matTooltip="Delete File"
+                >
+                  <i class="bi bi-trash" style="font-size: 1.5rem"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end p-2">
+          <button
+            mat-button
+            (click)="updateTaskEmployee(task)"
+            matTooltip="Update Taskemployee"
+          >
+            Update TaskEmployee
+          </button>
+          <button
+            mat-button
+            (click)="deleteTaskEmployee(task)"
+            matTooltip="Delete Taskemployee"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h2>In Progress</h2>
+
+    <div
+      cdkDropList
+      [id]="'inProgressList'"
+      [cdkDropListData]="inProgress"
+      [cdkDropListConnectedTo]="['todoList', 'doneList']"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div *ngFor="let task of inProgress" class="example-box" cdkDrag>
+        <h1>
+          {{ task.title }}
+        </h1>
+        <p>{{ task.description }}</p>
+        <p>
+          {{ task.nameEmployee }}
+        </p>
+
+        <p *ngIf="taskFilesMap[task.taskId]?.length === 0">No Files</p>
+        <div class="row">
+          <div *ngFor="let file of taskFilesMap[task.taskId]">
+            <div class="row align-items-center">
+              <div class="col">
+                <p class="mb-0">Name of file: {{ file.fileName }}</p>
+              </div>
+              <div class="col-auto">
+                <button
+                  mat-icon-button
+                  (click)="deleteFile(task.taskId, file.taskFileId)"
+                  matTooltip="Delete File"
+                >
+                  <i class="bi bi-trash" style="font-size: 1.5rem"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button
+          mat-button
+          (click)="updateTaskEmployee(task)"
+          matTooltip="Update Taskemployee"
+        >
+          Update TaskEmployee
+        </button>
+
+        <button
+          mat-button
+          (click)="deleteTaskEmployee(task)"
+          matTooltip="Delete Taskemployee"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h2>Done</h2>
+
+    <div
+      cdkDropList
+      [id]="'doneList'"
+      [cdkDropListData]="done"
+      [cdkDropListConnectedTo]="['inProgressList', 'todoList']"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div *ngFor="let task of done" class="example-box" cdkDrag>
+        <h1>
+          {{ task.title }}
+        </h1>
+        <p>{{ task.description }}</p>
+        <p>
+          {{ task.nameEmployee }}
+        </p>
+
+        <p *ngIf="taskFilesMap[task.taskId]?.length === 0">No Files</p>
+        <div class="row">
+          <div *ngFor="let file of taskFilesMap[task.taskId]">
+            <div class="row align-items-center">
+              <div class="col">
+                <p class="mb-0">Name of file: {{ file.fileName }}</p>
+              </div>
+              <div class="col-auto">
+                <button
+                  mat-icon-button
+                  (click)="deleteFile(task.taskId, file.taskFileId)"
+                  matTooltip="Delete File"
+                >
+                  <i class="bi bi-trash" style="font-size: 1.5rem"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button
+          mat-button
+          (click)="updateTaskEmployee(task)"
+          matTooltip="Update Taskemployee"
+        >
+          Update TaskEmployee
+        </button>
+        <button
+          mat-button
+          (click)="deleteTaskEmployee(task)"
+          matTooltip="Delete Taskemployee"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
