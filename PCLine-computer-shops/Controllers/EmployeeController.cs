@@ -36,7 +36,6 @@ namespace PCLine_computer_shops.Controllers
             return Ok(employeeShop.Count());
         }
 
-
         [HttpGet("GetTotalSalariesOfEmployees")]
         public async Task<decimal> GetNumberOfEmployeesSalaries()
         {
