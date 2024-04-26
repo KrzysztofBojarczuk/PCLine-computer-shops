@@ -9,7 +9,7 @@ using PCLine_computer_shops.Models;
 
 namespace PCLine_computer_shops.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ShopsController : ControllerBase
