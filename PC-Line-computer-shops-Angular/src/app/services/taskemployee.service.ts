@@ -9,13 +9,13 @@ import { TaskFiles } from '../models/task-files';
   providedIn: 'root',
 })
 export class TaskemployeeService {
-  private apiUrl = 'https://localhost:7068/api/';
+  private apiUrl = 'https://localhost:7068/api/TaskEmployee/';
 
   constructor(private http: HttpClient) {}
 
   getTaskEmployeeService(searchTerm?: string): Observable<Taskemployee[]> {
     return this.http.get<Taskemployee[]>(
-      `${this.apiUrl}TaskEmployee/Get?searchTerm=${searchTerm}`
+      `${this.apiUrl}?searchTerm=${searchTerm}`
     );
   }
 
@@ -39,10 +39,7 @@ export class TaskemployeeService {
       }
     }
 
-    return this.http.post<TaskemployeeCreate>(
-      `${this.apiUrl}TaskEmployee/Post`,
-      formData
-    );
+    return this.http.post<TaskemployeeCreate>(`${this.apiUrl}`, formData);
   }
 
   updateTaskEmployee(
@@ -50,20 +47,18 @@ export class TaskemployeeService {
     updateTaskEmployee: Taskemployee
   ): Observable<TaskemployeeCreate> {
     return this.http.put<TaskemployeeCreate>(
-      `${this.apiUrl}TaskEmployee/Put/${taskEmployeeId}`,
+      `${this.apiUrl}${taskEmployeeId}`,
       updateTaskEmployee
     );
   }
 
   deleteTaskEmployee(taskEmployeeId: number): Observable<number> {
-    return this.http.delete<number>(
-      `${this.apiUrl}TaskEmployee/Delete/${taskEmployeeId}`
-    );
+    return this.http.delete<number>(`${this.apiUrl}${taskEmployeeId}`);
   }
 
   getTaskFilesByEmployeeId(taskEmployeeId: number): Observable<TaskFiles[]> {
     return this.http.get<TaskFiles[]>(
-      `${this.apiUrl}TaskEmployee/GetTaskFiles/${taskEmployeeId}`
+      `${this.apiUrl}GetTaskFiles/${taskEmployeeId}`
     );
   }
 
@@ -72,7 +67,7 @@ export class TaskemployeeService {
     fileId: number
   ): Observable<number> {
     return this.http.delete<number>(
-      `${this.apiUrl}TaskEmployee/Delete/TaskFile/${taskEmployeeId}/${fileId}`
+      `${this.apiUrl}TaskFile/${taskEmployeeId}/${fileId}`
     );
   }
 
@@ -86,7 +81,7 @@ export class TaskemployeeService {
     }
 
     return this.http.post<void>(
-      `${this.apiUrl}TaskEmployee/AddFiles/${taskEmployeeId}`,
+      `${this.apiUrl}AddFiles/${taskEmployeeId}`,
       formData
     );
   }

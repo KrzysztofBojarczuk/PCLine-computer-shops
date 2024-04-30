@@ -77,7 +77,7 @@ namespace PCLine_computer_shops.Controllers
             return valueofProductsForShop;
         }
 
-        [HttpGet("Get")]
+        [HttpGet()]
         public async Task<IActionResult> GetAllProducts([FromQuery] string searchTerm = "")
         {
             var products = await _productRepository.GetAllProductsAsync(searchTerm);
@@ -92,7 +92,7 @@ namespace PCLine_computer_shops.Controllers
             return Ok(productsMapped);
         }
 
-        [HttpGet("Get/{shopId}")]
+        [HttpGet("{shopId}")]
         public async Task<IActionResult> GetAllProductsForShop(int shopId, [FromQuery] string searchTerm = "")
         {
             var products = await _productRepository.GetAllProductsForShopByIdAsync(shopId, searchTerm);
@@ -107,7 +107,7 @@ namespace PCLine_computer_shops.Controllers
             return Ok(productsMapped);
         }
 
-        [HttpGet("Get/{shopId}/GetProduct/{productId}")]
+        [HttpGet("{shopId}/GetProduct/{productId}")]
         public async Task<IActionResult> ProductByIdGet(int shopId, int productId)
         {
             var product = await _productRepository.GetProductByIdAsync(shopId, productId);
@@ -122,7 +122,7 @@ namespace PCLine_computer_shops.Controllers
             return Ok(productMapped);
         }
 
-        [HttpPost("Post/{shopId}")]
+        [HttpPost("{shopId}")]
         public async Task<IActionResult> CreateProductForShop(int shopId, [FromBody] ProductCreateDto newProduct)
         {
             var productCreate = _mapper.Map<Product>(newProduct);
@@ -139,7 +139,7 @@ namespace PCLine_computer_shops.Controllers
             return CreatedAtAction(nameof(ProductByIdGet), new { shopId = shopId, productId = productMapped.ProductId }, productMapped);
         }
 
-        [HttpPut("Put/{shopId}/{productId}")]
+        [HttpPut("{shopId}/{productId}")]
         public async Task<IActionResult> UpdateProduct(int shopId, int productId, [FromBody] ProductCreateDto productUpdate)
         {
             var toUpdateProduct = _mapper.Map<Product>(productUpdate);
@@ -153,7 +153,7 @@ namespace PCLine_computer_shops.Controllers
             return NoContent();
         }
 
-        [HttpDelete("Delete/{shopId}/product/{productId}")]
+        [HttpDelete("{shopId}/product/{productId}")]
         public async Task<IActionResult> DeleteProduct(int shopId, int productId)
         {
             var deleteProduct = await _productRepository.DeleteProductAsync(shopId, productId);

@@ -22,7 +22,7 @@ namespace PCLine_computer_shops.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("Get")]
+        [HttpGet()]
         public async Task<IActionResult> GetAllTaskEmployee(string searchTerm = "")
         {
             var taskEmployee = await _taskEmployeeRepository.GetAllTaskEmployeesAsync(searchTerm);
@@ -32,7 +32,7 @@ namespace PCLine_computer_shops.Controllers
             return Ok(taskEmployeeGet);
         }
 
-        [HttpGet("Get/{taskEmployeeId}")]
+        [HttpGet("{taskEmployeeId}")]
         public async Task<IActionResult> TaskEmployeeById(int taskEmployeeId)
         {
             var taskEmployee = await _taskEmployeeRepository.GetTaskEmployeeByIdAsync(taskEmployeeId);
@@ -47,7 +47,7 @@ namespace PCLine_computer_shops.Controllers
             return Ok(taskEmployeeMapped);
         }
 
-        [HttpPost("Post")]
+        [HttpPost()]
         public async Task<IActionResult> CreateTaskEmployee([FromForm] TaskEmployeeCreateDto taskEmployee, List<IFormFile> files)
         {
             var taskEmployeeCreate = _mapper.Map<TaskEmployee>(taskEmployee);
@@ -77,7 +77,7 @@ namespace PCLine_computer_shops.Controllers
             return CreatedAtAction(nameof(TaskEmployeeById), new { taskEmployeeId = taskEmployeeCreate.TaskId }, taskEmployeeMapped);
         }
 
-        [HttpPut("Put/{taskEmployeeId}")]
+        [HttpPut("{taskEmployeeId}")]
         public async Task<IActionResult> UpdateTaskEmployee([FromBody] TaskEmployeeCreateDto taskEmployeeUpdate, int taskEmployeeId)
         {
             var toUpdateTaskEmployee = _mapper.Map<TaskEmployee>(taskEmployeeUpdate);
@@ -89,7 +89,7 @@ namespace PCLine_computer_shops.Controllers
             return NoContent();
         }
 
-        [HttpDelete("Delete/{taskEmployeeId}")]
+        [HttpDelete("{taskEmployeeId}")]
         public async Task<IActionResult> DeleteTaskEmployee(int taskEmployeeId)
         {
             var deletetaskEmployeeId = await _taskEmployeeRepository.DeleteTaskEmployeeAsync(taskEmployeeId);
@@ -117,7 +117,7 @@ namespace PCLine_computer_shops.Controllers
             return Ok(taskFilesMapped);
         }
 
-        [HttpDelete("Delete/TaskFile/{taskEmployeeId}/{taskFileId}")]
+        [HttpDelete("TaskFile/{taskEmployeeId}/{taskFileId}")]
         public async Task<IActionResult> DeleteTaskFiles(int taskEmployeeId, int taskFileId)
         {
             var deleteTaskFiles = await _taskEmployeeRepository.DeleteTaskFilesAsync(taskEmployeeId, taskFileId);

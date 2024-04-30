@@ -52,7 +52,7 @@ namespace PCLine_computer_shops.Controllers
             return numberOfEmployees;
         }
 
-        [HttpGet("Get")]
+        [HttpGet()]
         public async Task<IActionResult> GetAllEmployees([FromQuery] List<EmployeePosition> enumEmployeePosition, string searchTerm = "")
         {
             var employees = await _employeeRepository.GetAllEmployeesAsync(searchTerm, enumEmployeePosition);
@@ -67,7 +67,7 @@ namespace PCLine_computer_shops.Controllers
             return Ok(employeesMapped);
         }
 
-        [HttpGet("Get/{shopId}")]
+        [HttpGet("{shopId}")]
         public async Task<IActionResult> GetAllEmployeeForShpById(int shopId)
         {
             var shop = await _employeeRepository.GetAllEmployeesForShopByIdAsync(shopId);
@@ -82,7 +82,7 @@ namespace PCLine_computer_shops.Controllers
             return Ok(employesMapped);
         }
 
-        [HttpGet("Get/{shopId}/GetEmployee/{employeeId}")]
+        [HttpGet("{shopId}/GetEmployee/{employeeId}")]
         public async Task<IActionResult> GetEmployeeById(int shopId, int employeeId)
         {
             var employee = await _employeeRepository.GetEmployeeByIdAsync(shopId, employeeId);
@@ -97,7 +97,7 @@ namespace PCLine_computer_shops.Controllers
             return Ok(employeeMapped);
         }
 
-        [HttpPost("Post/{shopId}")]
+        [HttpPost("{shopId}")]
         public async Task<IActionResult> CreateEmployee(int shopId, [FromBody] EmployeeCreateDto newEmployee)
         {
             var employeeCreate = _mapper.Map<Employee>(newEmployee);
@@ -114,7 +114,7 @@ namespace PCLine_computer_shops.Controllers
             return CreatedAtAction(nameof(GetEmployeeById), new { shopId = shopId, employeeId = employeeMapped.EmployeeId }, employeeMapped);
         }
 
-        [HttpPut("Put/{shopId}/{employeeId}")]
+        [HttpPut("{shopId}/{employeeId}")]
         public async Task<IActionResult> UpdateEmployee(int shopId, int employeeId, [FromBody] EmployeeCreateDto employeeUpdate)
         {
             var toUpdateEmployee = _mapper.Map<Employee>(employeeUpdate);
@@ -128,7 +128,7 @@ namespace PCLine_computer_shops.Controllers
             return NoContent();
         }
 
-        [HttpDelete("Delete/{shopId}/employee/{employeeId}")]
+        [HttpDelete("{shopId}/employee/{employeeId}")]
         public async Task<IActionResult> DeleteEmployee(int shopId, int employeeId)
         {
             var deleteEmployee = await _employeeRepository.DeleteEmployeeAsync(shopId, employeeId);

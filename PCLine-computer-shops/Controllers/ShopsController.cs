@@ -34,7 +34,7 @@ namespace PCLine_computer_shops.Controllers
         }
 
 
-        [HttpGet("Get")]
+        [HttpGet()]
         public async Task<IActionResult> GetAllShops(int pageNumber, int pageSize, string searchTerm = "", [FromQuery] List<Country> enumCountry = null)
         {
             var shops = await _shopRepository.GetAllShopsAsync(pageNumber, pageSize, searchTerm, enumCountry);
@@ -44,7 +44,7 @@ namespace PCLine_computer_shops.Controllers
             return Ok(shopsMapped);
         }
 
-        [HttpPost("Post")]
+        [HttpPost()]
         public async Task<IActionResult> CreateShop([FromBody] ShopCreateDto shop)
         {
             var shopCreate = _mapper.Map<Shop>(shop);
@@ -56,7 +56,7 @@ namespace PCLine_computer_shops.Controllers
             return CreatedAtAction(nameof(ShopByIdGet), new { shopId = shopCreate.ShopId }, shopMapped);
         }
 
-        [HttpGet("Get/{shopId}")]
+        [HttpGet("{shopId}")]
         public async Task<IActionResult> ShopByIdGet(int shopId)
         {
             var shop = await _shopRepository.GetShopByIdAsync(shopId);
@@ -71,7 +71,7 @@ namespace PCLine_computer_shops.Controllers
             return Ok(shopMapped);
         }
 
-        [HttpPut("Put/{shopId}")]
+        [HttpPut("{shopId}")]
         public async Task<IActionResult> UpdateShop([FromBody] ShopCreateDto shopUpdate, int shopId)
         {
             var toUpdateShop = _mapper.Map<Shop>(shopUpdate);
@@ -82,7 +82,7 @@ namespace PCLine_computer_shops.Controllers
             return NoContent();
         }
 
-        [HttpDelete("Delete/{shopId}")]
+        [HttpDelete("{shopId}")]
         public async Task<IActionResult> DeleteShop(int shopId)
         {
             var deleteShop = await _shopRepository.DeleteShopAsync(shopId);

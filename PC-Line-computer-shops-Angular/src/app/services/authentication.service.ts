@@ -8,7 +8,7 @@ import { User } from '../models/user';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  private apiUrl = 'https://localhost:7068/api/';
+  private apiUrl = 'https://localhost:7068/api/Authenticate/';
   private token: string = '';
   private isLoggedIn: boolean = false;
 
@@ -31,13 +31,10 @@ export class AuthenticationService {
   }
 
   registerUserService(registerUser: RegisterUser): Observable<RegisterUser> {
-    return this.http.post<RegisterUser>(
-      this.apiUrl + 'Authenticate/register',
-      registerUser
-    );
+    return this.http.post<RegisterUser>(this.apiUrl + 'register', registerUser);
   }
 
   loginUserService(loginUser: User): Observable<User> {
-    return this.http.post<User>(this.apiUrl + 'Authenticate/login', loginUser);
+    return this.http.post<User>(this.apiUrl + 'login', loginUser);
   }
 }

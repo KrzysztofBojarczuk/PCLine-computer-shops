@@ -12,18 +12,16 @@ import { HttpHeaders } from '@angular/common/http';
 export class ProductService {
   productAdded = new EventEmitter<any>();
 
-  private apiUrl = 'https://localhost:7068/api/';
+  private apiUrl = 'https://localhost:7068/api/Product/';
 
   constructor(private http: HttpClient) {}
 
   getNumberOfProductsService(): Observable<number> {
-    return this.http.get<number>(this.apiUrl + 'Product/GetNumberOfProducts');
+    return this.http.get<number>(this.apiUrl + 'GetNumberOfProducts');
   }
 
   getProductsService(searchTerm?: string): Observable<Product[]> {
-    return this.http.get<Product[]>(
-      `${this.apiUrl}Product/Get?searchTerm=${searchTerm}`
-    );
+    return this.http.get<Product[]>(`${this.apiUrl}?searchTerm=${searchTerm}`);
   }
 
   getProductsByIdService(
@@ -31,7 +29,7 @@ export class ProductService {
     searchTerm?: string
   ): Observable<Product[]> {
     return this.http.get<Product[]>(
-      `${this.apiUrl}Product/Get/${shopId}?searchTerm=${searchTerm}`
+      `${this.apiUrl}${shopId}?searchTerm=${searchTerm}`
     );
   }
 
@@ -39,10 +37,7 @@ export class ProductService {
     shopId: number,
     product: ProductCreate
   ): Observable<ProductCreate> {
-    return this.http.post<ProductCreate>(
-      `${this.apiUrl}Product/Post/${shopId}`,
-      product
-    );
+    return this.http.post<ProductCreate>(`${this.apiUrl}${shopId}`, product);
   }
   updateProductService(
     shopId: number,
@@ -50,14 +45,14 @@ export class ProductService {
     updatedProduct: ProductCreate
   ): Observable<ProductCreate> {
     return this.http.put<ProductCreate>(
-      `${this.apiUrl}Product/Put/${shopId}/${productId}`,
+      `${this.apiUrl}${shopId}/${productId}`,
       updatedProduct
     );
   }
 
   deleteProductService(shopId: number, productId: number): Observable<void> {
     return this.http.delete<void>(
-      `${this.apiUrl}Product/Delete/${shopId}/product/${productId}`
+      `${this.apiUrl}${shopId}/product/${productId}`
     );
   }
 }
