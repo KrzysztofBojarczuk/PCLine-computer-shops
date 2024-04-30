@@ -25,7 +25,7 @@ namespace PCLine_computer_shops.Controllers
             _shopRepository = shopRepository;
         }
 
-        [HttpGet("Get/{shopId}")]
+        [HttpGet("{shopId}")]
         public async Task<IActionResult> GetAddres(int shopId)
         {
             var address = await _addressRepository.GetAddressForShopByIdAsync(shopId);
@@ -41,7 +41,7 @@ namespace PCLine_computer_shops.Controllers
         }
 
 
-        [HttpPost("Post/{shopId}")]
+        [HttpPost("{shopId}")]
         public async Task<IActionResult> AddAddressToShop(int shopId, [FromBody] AddressCreateDto addressDto)
         {
             var shop = await _shopRepository.GetShopByIdAsync(shopId);
@@ -63,7 +63,7 @@ namespace PCLine_computer_shops.Controllers
             return Ok();
         }
 
-        [HttpDelete("Delete/{shopId}")]
+        [HttpDelete("{shopId}")]
         public async Task<IActionResult> DeleteAddressToShop(int shopId)
         {
             var deleteAddress = await _addressRepository.DeleteAddressForShopAsync(shopId);

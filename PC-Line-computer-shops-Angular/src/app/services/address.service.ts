@@ -21,7 +21,7 @@ export class AddressService {
     address: AddressCreate
   ): Observable<AddressCreate> {
     return this.http.post<AddressCreate>(
-      `${this.apiUrl}Address/Post/${shopId}`,
+      `${this.apiUrl}Address/${shopId}`,
       address
     );
   }

@@ -136,7 +136,7 @@ namespace PCLine_computer_shops.Controllers
             return Ok(users);
         }
 
-        [HttpDelete("delete/{userId}")]
+        [HttpDelete("{userId}")]
         public async Task<IActionResult> DeleteUser(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);

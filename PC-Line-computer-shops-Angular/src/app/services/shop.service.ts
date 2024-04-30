@@ -8,9 +8,9 @@ import { ShopCreate } from '../models/shop-create';
   providedIn: 'root',
 })
 export class ShopService {
-  private apiUrl = 'https://localhost:7068/api/';
+  private apiUrl = 'https://localhost:7068/api/Shops/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getShopsService(
     pageNumber?: number,
@@ -19,23 +19,24 @@ export class ShopService {
     selectedCountries?: number[]
   ): Observable<Shop[]> {
     return this.http.get<Shop[]>(
-      `${this.apiUrl
-      }Shops/Get?pageNumber=${pageNumber}&pageSize=${pageSize}&searchTerm=${searchTerm}&${selectedCountries
+      `${
+        this.apiUrl
+      }?pageNumber=${pageNumber}&pageSize=${pageSize}&searchTerm=${searchTerm}&${selectedCountries
         ?.map((country) => `enumCountry=${country}`)
         .join('&')}`
     );
   }
 
   getShopForProduct(): Observable<Shop[]> {
-    return this.http.get<Shop[]>(`${this.apiUrl}Shops/GetAllShopsForProduct`);
+    return this.http.get<Shop[]>(`${this.apiUrl}GetAllShopsForProduct`);
   }
 
   postShopService(shop: ShopCreate): Observable<ShopCreate> {
-    return this.http.post<ShopCreate>(this.apiUrl + 'Shops/Post', shop);
+    return this.http.post<ShopCreate>(this.apiUrl, shop);
   }
 
   deleteShopService(shopId: number): Observable<number> {
-    return this.http.delete<number>(`${this.apiUrl}Shops/Delete/${shopId}`);
+    return this.http.delete<number>(`${this.apiUrl}${shopId}`);
   }
 
   updateShopService(
@@ -46,7 +47,7 @@ export class ShopService {
     const timezoneOffset = startDate.getTimezoneOffset();
     startDate.setMinutes(startDate.getMinutes() - timezoneOffset);
     const formattedStartDate = startDate.toISOString();
-    return this.http.put<ShopCreate>(`${this.apiUrl}Shops/Put/${shopId}`, {
+    return this.http.put<ShopCreate>(`${this.apiUrl}${shopId}`, {
       ...updatedShop,
       startDate: formattedStartDate,
     });
