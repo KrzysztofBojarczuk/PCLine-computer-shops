@@ -78,7 +78,7 @@ namespace PCLine_computer_shops.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAllProducts([FromQuery] string searchTerm = "")
+        public async Task<IActionResult> GetAllProducts([FromQuery] string searchTerm = null)
         {
             var products = await _productRepository.GetAllProductsAsync(searchTerm);
 
@@ -93,7 +93,7 @@ namespace PCLine_computer_shops.Controllers
         }
 
         [HttpGet("{shopId}")]
-        public async Task<IActionResult> GetAllProductsForShop(int shopId, [FromQuery] string searchTerm = "")
+        public async Task<IActionResult> GetAllProductsForShop(int shopId, [FromQuery] string searchTerm = null)
         {
             var products = await _productRepository.GetAllProductsForShopByIdAsync(shopId, searchTerm);
 

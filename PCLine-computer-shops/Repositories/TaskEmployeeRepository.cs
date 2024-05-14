@@ -20,7 +20,7 @@ namespace PCLine_computer_shops.Repositories
 
             if (!searchTerm.IsNullOrEmpty())
             {
-                query = query.Where(h => h.Title.ToLower().Contains(searchTerm) || h.Description.ToLower().Contains(searchTerm) || h.NameEmployee.ToLower().Contains(searchTerm)).ToList();
+                query = query.Where(h => h.Title.ToLower().Contains(searchTerm.ToLower()) || h.Description.ToLower().Contains(searchTerm.ToLower()) || h.NameEmployee.ToLower().Contains(searchTerm.ToLower())).ToList();
             }
 
             if (query == null)

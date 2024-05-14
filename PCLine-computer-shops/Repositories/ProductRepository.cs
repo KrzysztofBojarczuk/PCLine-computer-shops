@@ -60,7 +60,7 @@ namespace PCLine_computer_shops.Repositories
 
             if (!searchTerm.IsNullOrEmpty())
             {
-                query = query.Where(h => h.ProductId.ToString().Contains(searchTerm) || h.Name.ToLower().Contains(searchTerm)).ToList();
+                query = query.Where(h => h.ProductId.ToString().Contains(searchTerm) || h.Name.ToLower().Contains(searchTerm.ToLower())).ToList();
             }
 
             if (query == null)
@@ -98,6 +98,7 @@ namespace PCLine_computer_shops.Repositories
             }
 
             shop.Products.Add(product);
+
             await _context.SaveChangesAsync();
 
             return product;
@@ -118,6 +119,7 @@ namespace PCLine_computer_shops.Repositories
         public async Task<Product> UpdateProductAsync(int shopId, Product updateProduct)
         {
             _context.Products.Update(updateProduct);
+
             await _context.SaveChangesAsync();
            
             return updateProduct;
@@ -133,6 +135,7 @@ namespace PCLine_computer_shops.Repositories
             }
 
             _context.Products.Remove(product);
+
             await _context.SaveChangesAsync();
            
             return product;

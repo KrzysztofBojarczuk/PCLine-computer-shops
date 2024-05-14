@@ -35,7 +35,7 @@ namespace PCLine_computer_shops.Controllers
 
 
         [HttpGet()]
-        public async Task<IActionResult> GetAllShops(int pageNumber, int pageSize, string searchTerm = "", [FromQuery] List<Country> enumCountry = null)
+        public async Task<IActionResult> GetAllShops(int pageNumber, int pageSize, string searchTerm = null, [FromQuery] List<Country> enumCountry = null)
         {
             var shops = await _shopRepository.GetAllShopsAsync(pageNumber, pageSize, searchTerm, enumCountry);
 
