@@ -38,7 +38,7 @@ namespace PCLine_computer_shops.Repositories
 
             if (!searchTerm.IsNullOrEmpty())
             {
-                query = query.Where(h => h.EmployeeId.ToString().Contains(searchTerm) || h.FirstName.ToLower().Contains(searchTerm) || h.LastName.ToLower().Contains(searchTerm)).ToList();
+                query = query.Where(h => h.EmployeeId.ToString().Contains(searchTerm.ToLower()) || h.FirstName.ToLower().Contains(searchTerm.ToLower()) || h.LastName.ToLower().Contains(searchTerm.ToLower())).ToList();
             }
 
             if (query == null)
@@ -51,7 +51,7 @@ namespace PCLine_computer_shops.Repositories
                 enumEmployeePosition = new List<EmployeePosition>();
             }
 
-            if(enumEmployeePosition.Any())
+            if(!enumEmployeePosition.IsNullOrEmpty())
             {
                 query = query.Where(h => enumEmployeePosition.Contains(h.EmployeePosition)).ToList();
             }

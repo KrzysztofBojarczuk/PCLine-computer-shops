@@ -23,7 +23,7 @@ namespace PCLine_computer_shops.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAllTaskEmployee(string searchTerm = "")
+        public async Task<IActionResult> GetAllTaskEmployee(string searchTerm = null)
         {
             var taskEmployee = await _taskEmployeeRepository.GetAllTaskEmployeesAsync(searchTerm);
 

@@ -24,7 +24,7 @@ namespace PCLine_computer_shops.Repositories
 
             if (!searchTerm.IsNullOrEmpty())
             {
-                query = query.Where(h => h.ShopId.ToString().Contains(searchTerm) || h.Name.ToLower().Contains(searchTerm)); 
+                query = query.Where(h => h.ShopId.ToString().Contains(searchTerm.ToLower()) || h.Name.ToLower().Contains(searchTerm.ToLower())); 
             }
 
             if (enumCountry != null && enumCountry.Any())
