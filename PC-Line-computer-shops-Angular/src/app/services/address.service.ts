@@ -13,7 +13,7 @@ export class AddressService {
   constructor(private http: HttpClient) {}
 
   getAdrresForShopService(shopId: number): Observable<Address> {
-    return this.http.get<Address>(`${this.apiUrl}Address/Get/${shopId}`);
+    return this.http.get<Address>(`${this.apiUrl}Address/${shopId}`);
   }
 
   postAddressForShopService(

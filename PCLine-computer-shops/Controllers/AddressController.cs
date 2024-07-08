@@ -9,7 +9,7 @@ using PCLine_computer_shops.Repositories;
 
 namespace PCLine_computer_shops.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AddressController : ControllerBase

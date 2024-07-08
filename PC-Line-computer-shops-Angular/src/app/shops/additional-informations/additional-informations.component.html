@@ -1,2 +1,15 @@
-<p>additional-informations works!</p>
-<h1>{{ address?.street }}</h1>
+<mat-card class="example-card" appearance="outlined">
+  <mat-card-content>
+    <p>City: {{ address?.city }}</p>
+    <p>
+      Street:
+      {{ address?.street }}
+    </p>
+    <p>Number of house: {{ address?.number }}</p>
+    <p>Zip code: {{ address?.zipCode }}</p>
+  </mat-card-content>
+  <mat-card-actions class="d-flex justify-content-end p-2">
+    <button mat-raised-button style="margin: 8px">Update</button>
+    <button mat-raised-button>Delete</button>
+  </mat-card-actions>
+</mat-card>
