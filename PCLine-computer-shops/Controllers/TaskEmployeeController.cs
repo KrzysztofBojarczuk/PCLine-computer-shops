@@ -8,9 +8,9 @@ using PCLine_computer_shops.Models;
 
 namespace PCLine_computer_shops.Controllers
 {
-    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class TaskEmployeeController : ControllerBase
     {
         private readonly ITaskEmployeeRepository _taskEmployeeRepository;

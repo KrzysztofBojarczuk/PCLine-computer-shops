@@ -9,9 +9,9 @@ using PCLine_computer_shops.Models;
 
 namespace PCLine_computer_shops.Controllers
 {
-    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ShopsController : ControllerBase
     {
         private readonly IShopRepository _shopRepository;

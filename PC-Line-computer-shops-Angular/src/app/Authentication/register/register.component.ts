@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterUser } from 'src/app/models/register';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +14,7 @@ export class RegisterComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authenticationService: AuthenticationService,
+    private authenticationService: AuthService,
     private router: Router
   ) {
     this.registerForm = this.fb.group({
@@ -34,6 +34,6 @@ export class RegisterComponent {
   }
 
   onSubmit(registerUser: RegisterUser) {
-    this.authenticationService.registerUserService(registerUser).subscribe();
+    this.authenticationService.registerUser(registerUser).subscribe();
   }
 }
