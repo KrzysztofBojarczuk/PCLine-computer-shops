@@ -11,7 +11,7 @@ namespace PCLine_computer_shops.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ShopsController : ControllerBase
     {
         private readonly IShopRepository _shopRepository;
