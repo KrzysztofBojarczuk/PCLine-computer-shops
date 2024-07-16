@@ -9,9 +9,9 @@ using PCLine_computer_shops.Repositories;
 
 namespace PCLine_computer_shops.Controllers
 {
-    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class AddressController : ControllerBase
     {
         private readonly IAddressRepository _addressRepository;
