@@ -45,22 +45,6 @@ namespace PCLine_computer_shops.Data
                 .HasForeignKey(h => h.TaskId)
                 .IsRequired();
 
-            List<IdentityRole> roles = new List<IdentityRole>
-            {
-                new IdentityRole
-                {
-                    Name = "Admin",
-                    NormalizedName = "ADMIN"
-                },
-                new IdentityRole
-                {
-                    Name = "User",
-                    NormalizedName = "USER"
-                },
-            };
-
-            modelBuilder.Entity<IdentityRole>().HasData(roles);
-
             base.OnModelCreating(modelBuilder);
         }
     }
