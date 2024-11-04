@@ -11,26 +11,30 @@ import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'shops', component: ShopTableComponent, canActivate: [authGuard] },
+  {
+    path: 'shops',
+    component: ShopTableComponent,
+    //canActivate: [authGuard]
+  },
   {
     path: 'products',
     component: ProductTableComponent,
-    canActivate: [authGuard],
+    //canActivate: [authGuard],
   },
   {
     path: 'employees',
     component: EmployeeListComponent,
-    canActivate: [authGuard],
+    //canActivate: [authGuard],
   },
   {
     path: 'additional-informations/:shopId',
     component: AdditionalInformationsComponent,
-    canActivate: [authGuard],
+    //canActivate: [authGuard],
   },
   {
     path: 'taskemployees',
     component: TaskemployeesBoardComponent,
-    canActivate: [authGuard],
+    //canActivate: [authGuard],
   },
   { path: 'login', component: LoginComponent },
   {
